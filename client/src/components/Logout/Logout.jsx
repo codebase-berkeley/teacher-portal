@@ -4,7 +4,7 @@ import './Logout.css';
 function Logout() {
   return (
     <button type="submit" className="logout">
-      Logout
+      LOGOUT
     </button>
   );
 }
