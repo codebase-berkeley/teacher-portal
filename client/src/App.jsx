@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import Logout from './components/Logout/Logout';
+import Survey from './components/Survey/Survey'
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="logout-container">
-          <Logout />
-        </div>
-      </div>
+      <Survey />
     );
   }
 }

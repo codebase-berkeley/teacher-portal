@@ -1,0 +1,14 @@
+.back {
+    position: relative;
+    left: 250px;
+    top: 108px;
+    width: 304px;
+    height: 20px;
+    Font-Family: Open Sans;
+    Font-Style: Regular;
+    Font-Size: 18px;
+    Line-Height: 30px;
+    Align: Left;
+    Fill: Solid;
+    color: #009FB7;
+  }
