@@ -5,7 +5,7 @@ class Unitbox extends Component {
   render() {
     return (
       <body>
-        <div className="Unit-dashboard">
+        <div className="Unit-boxes">
           <p>{this.props.unitName}</p>
         </div>
       </body>

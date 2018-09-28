@@ -1,0 +1,11 @@
+.Unit-boxes {
+  margin: 15px 100px;
+  font-size: 16px;
+  background-color: #e5e5e5;
+  border-radius: 2px;
+  border: none;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  text-indent: 5%;
+}
