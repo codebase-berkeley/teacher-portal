@@ -1,0 +1,17 @@
+.welcome {
+  position: relative;
+  text-align: left;
+  left: 100px;
+  border: none;
+}
+
+input {
+  margin: 10px 0px;
+  width: 20%;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+body {
+  background-image: url('blue-2.jpg');
+}
