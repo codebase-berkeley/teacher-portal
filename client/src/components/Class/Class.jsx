@@ -7,7 +7,7 @@ class Class extends Component {
     return (
       <div className="Page-layout">
         <div className="Return">
-          <h4>Return to Classes</h4>
+          <h4> &#8592; Return to Classes </h4>
         </div>
         <div className="Unit-header">
           <h2>My Units</h2>
