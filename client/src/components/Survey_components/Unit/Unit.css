@@ -1,13 +1,9 @@
 .unit {
   position: relative;
-
-  width: 466px;
-  height: 57px;
   font-family: Open Sans;
   font-style: Regular;
   font-size: 36px;
-  line-height: 49px;
-  align: Left;
+  margin-bottom: 60px;
   fill: Solid;
   color: #323232;
 }

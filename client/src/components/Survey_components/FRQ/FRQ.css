@@ -8,12 +8,17 @@
   color: #545151;
 }
 
+.question {
+  line-height: 80px;
+}
+
 .answer {
   width: 811px;
   height: 266px;
   font-size: 25px;
   resize: none;
   outline: none;
+  margin-bottom: 20px;
 }
 
 ::placeholder {

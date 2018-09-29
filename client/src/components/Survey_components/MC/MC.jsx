@@ -19,7 +19,9 @@ class MC extends React.Component {
   render() {
     return (
       <div className="mc">
-        {this.props.question}
+        <div className="question">
+          {this.props.question}
+        </div>
         {displayAnswers(this.props.answers)}
       </div>
     );
