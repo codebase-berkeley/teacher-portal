@@ -9,6 +9,45 @@ import FRQ from '../Survey_components/FRQ/FRQ';
 import MC from '../Survey_components/MC/MC';
 import Star from '../Survey_components/Star/Star';
 
+function displayQuestions(blocks) {
+  const aList = [];
+  for (let i = 0; i < blocks.length; i += 1) {
+    const b = blocks[i];
+    if (b[0] === 'unit') {
+      aList.push(
+        <div className="unit-container">
+          <Unit name={b[1]} />
+        </div>
+      );
+    } else if (b[0] === 'section') {
+      aList.push(
+        <div className="section-container">
+          <Section name={b[1]} />
+        </div>
+      );
+    } else if (b[0] === 'frq') {
+      aList.push(
+        <div className="frq-container">
+          <FRQ question={b[1]} />
+        </div>
+      );
+    } else if (b[0] === 'mc') {
+      aList.push(
+        <div className="mc-container">
+          <MC question={b[1]} answers={b[2]} />
+        </div>
+      );
+    } else if (b[0] === 'star') {
+      aList.push(
+        <div className="star-container">
+          <Star question={b[1]} />
+        </div>
+      );
+    }
+  }
+  return aList;
+}
+
 class Survey extends Component {
   render() {
     return (
@@ -19,48 +58,7 @@ class Survey extends Component {
         <div className="logout-container">
           <Logout />
         </div>
-        <div className="unit-container">
-          <Unit name="Macbeth" />
-        </div>
-        <div className="section-container">
-          <Section name="Student Engagement" />
-        </div>
-
-        <div className="star-container">
-          <Star question="How interesting did you find this unit?" />
-        </div>
-
-        <div className="frq-container">
-          <FRQ question="What parts stand out to you as memorable and interesting?" />
-        </div>
-
-        <div className="frq-container">
-          <FRQ question="What parts of the unit did you find less interesting?" />
-        </div>
-
-        <div className="section-container">
-          <Section name="Unit Relevance" />
-        </div>
-
-        <div className="star-container">
-          <Star question="On a scale of 1 to 5, would you recommend we continue using this unit?" />
-        </div>
-
-        <div className="mc-container">
-          <MC
-            question="Which of the following reasons was the reason you enjoyed this unit?"
-            answers={[
-              "Riveting textual engagement",
-              "Fascinating character dialogue",
-              "Good",
-              "Kinky"
-            ]}
-          />
-        </div>
-
-        <div className="frq-container">
-          <FRQ question="What aspects of the unit may need some work?" />
-        </div>
+        {displayQuestions(this.props.questions)}
       </div>
     );
   }

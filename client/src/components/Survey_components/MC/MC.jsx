@@ -2,8 +2,8 @@ import React from 'react';
 import './MC.css';
 
 function displayAnswers(answers) {
-  let aList = [];
-  for (let i = 0; i < answers.length; i++) {
+  const aList = [];
+  for (let i = 0; i < answers.length; i += 1) {
     aList.push(
       <label className="container">
         <input type="radio" name="mc" />
@@ -19,9 +19,7 @@ class MC extends React.Component {
   render() {
     return (
       <div className="mc">
-        <div className="question">
-          {this.props.question}
-        </div>
+        <div className="question">{this.props.question}</div>
         {displayAnswers(this.props.answers)}
       </div>
     );
