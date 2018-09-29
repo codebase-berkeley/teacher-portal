@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logout from './components/Logout/Logout';
+// import Logout from './components/Logout/Logout';
 import Survey from './components/Survey/Survey';
 import './App.css';
 

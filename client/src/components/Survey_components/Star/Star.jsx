@@ -3,9 +3,10 @@ import './Star.css';
 
 class Star extends React.Component {
   render() {
+    const { question } = this.props;
     return (
       <div className="star">
-        {this.props.question}
+        { question }
         <br />
         *****
       </div>
