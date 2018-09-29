@@ -13,7 +13,7 @@ class Survey extends Component {
   render() {
     return (
       <div className="App">
-        <div className="back">
+        <div className="back-container">
           <Back />
         </div>
         <div className="logout-container">
@@ -22,31 +22,31 @@ class Survey extends Component {
         <div className="unit-container">
           <Unit name="Macbeth" />
         </div>
-        <div className="engage">
+        <div className="section-container">
           <Section name="Student Engagement" />
         </div>
 
-        <div className="Star">
+        <div className="star-container">
           <Star question="HOW NTEIRNEIONFGOIN DID YOU NOFIN DINFTHISO unit" />
         </div>
 
-        <div className="FRQ">
+        <div className="frq-container">
           <FRQ question="What parts stand out to you as memorable and interesting?" />
         </div>
 
-        <div className="FRQ">
+        <div className="frq-container">
           <FRQ question="What parts of the unit did you find less interesting??" />
         </div>
 
-        <div className="engage">
+        <div className="section-container">
           <Section name="Unit Relevance" />
         </div>
 
-        <div className="Star">
+        <div className="star-container">
           <Star question="on a scale of 1-5" />
         </div>
 
-        <div className="MC">
+        <div className="mc-container">
           <MC
             question="huh"
             a="Riveting textual engagement"
@@ -56,7 +56,7 @@ class Survey extends Component {
           />
         </div>
 
-        <div className="FRQ">
+        <div className="frq-container">
           <FRQ question="What aspects of the unit may need some work?" />
         </div>
       </div>
