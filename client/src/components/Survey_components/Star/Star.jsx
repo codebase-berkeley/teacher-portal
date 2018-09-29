@@ -2,14 +2,14 @@ import React from 'react';
 import './Star.css';
 
 class Star extends React.Component {
-  render(){
+  render() {
     return (
-      <div className="Star">
-        {this.props.question} 
+      <div className="star">
+        {this.props.question}
         <br />
         *****
       </div>
-      );
+    );
   }
 }
 

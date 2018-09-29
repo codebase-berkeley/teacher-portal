@@ -2,13 +2,13 @@ import React from 'react';
 import './FRQ.css';
 
 class FRQ extends React.Component {
-  render(){
+  render() {
     return (
-      <div className="FRQ">
+      <div className="frq">
         {this.props.question}
-        <input type="text" placeholder="Type your answer here..."/>
+        <textarea className="answer" placeholder="Type your answer here..." />
       </div>
-      );
+    );
   }
 }
 

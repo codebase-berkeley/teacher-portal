@@ -1,0 +1,20 @@
+.frq {
+  position: relative;
+  left: 203px;
+  top: 689px;
+  width: 839px;
+  height: 101px;
+  font-family: Open Sans;
+  font-style: Regular;
+  font-size: 30px;
+  line-height: 41px;
+  align: Left;
+  fill: Solid;
+  color: #545151;
+}
+
+.answer {
+  width: 811px;
+  height: 266px;
+  resize: none;
+}
