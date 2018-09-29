@@ -5,10 +5,11 @@ function displayAnswers(answers) {
   let aList = [];
   for (let i = 0; i < answers.length; i += 1) {
     aList.push(
-      <div className="c">
+      <label className="container">
         <input type="radio" name="mc" />
+        <span className="checkmark" />
         {answers[i]}
-      </div>
+      </label>
     );
   }
   return aList;
@@ -19,11 +20,7 @@ class MC extends React.Component {
     return (
       <div className="mc">
         {this.props.question}
-        {
-          displayAnswers(
-            this.props.answers
-          )
-        }
+        {displayAnswers(this.props.answers)}
       </div>
     );
   }
