@@ -1,13 +1,9 @@
 .star {
   position: relative;
-
-  width: 764px;
-  height: 48px;
   font-family: Open Sans;
   font-style: Regular;
   font-size: 30px;
   line-height: 41px;
-  align: Left;
   fill: Solid;
   color: #545151;
 }
