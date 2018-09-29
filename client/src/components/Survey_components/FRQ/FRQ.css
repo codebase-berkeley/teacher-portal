@@ -1,13 +1,9 @@
 .frq {
   position: relative;
-
-  width: 839px;
-  height: 101px;
   font-family: Open Sans;
   font-style: regular;
   font-size: 30px;
   line-height: 41px;
-  align: Left;
   fill: Solid;
   color: #545151;
 }
