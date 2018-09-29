@@ -11,7 +11,9 @@
 .answer {
   width: 811px;
   height: 266px;
+  font-size: 25px;
   resize: none;
+  outline: none;
 }
 
 ::placeholder {
