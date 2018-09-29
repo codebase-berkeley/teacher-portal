@@ -13,13 +13,14 @@
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  line-height: 22px;
 }
 
 /* Hide the browser's default radio button */
@@ -69,4 +70,8 @@
   height: 8px;
   border-radius: 50%;
   background: white;
+}
+
+.question {
+  margin-bottom: 20px;
 }

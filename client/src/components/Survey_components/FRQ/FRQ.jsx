@@ -5,7 +5,9 @@ class FRQ extends React.Component {
   render() {
     return (
       <div className="frq">
-        {this.props.question}
+        <div className="question">
+          {this.props.question}
+        </div>
         <textarea className="answer" placeholder="Type your answer here..." />
       </div>
     );

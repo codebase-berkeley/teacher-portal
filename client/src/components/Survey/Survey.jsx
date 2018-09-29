@@ -27,7 +27,7 @@ class Survey extends Component {
         </div>
 
         <div className="star-container">
-          <Star question="How interesting did you find this unit" />
+          <Star question="How interesting did you find this unit?" />
         </div>
 
         <div className="frq-container">
@@ -35,7 +35,7 @@ class Survey extends Component {
         </div>
 
         <div className="frq-container">
-          <FRQ question="What parts of the unit did you find less interesting??" />
+          <FRQ question="What parts of the unit did you find less interesting?" />
         </div>
 
         <div className="section-container">
@@ -43,7 +43,7 @@ class Survey extends Component {
         </div>
 
         <div className="star-container">
-          <Star question="on a scale of 1-5" />
+          <Star question="On a scale of 1 to 5, would you recommend we continue using this unit?" />
         </div>
 
         <div className="mc-container">

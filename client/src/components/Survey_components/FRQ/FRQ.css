@@ -8,6 +8,10 @@
   color: #545151;
 }
 
+.question {
+  line-height: 80px;
+}
+
 .answer {
   width: 811px;
   height: 266px;
@@ -17,6 +21,7 @@
   outline: none;
   border-radius: 5px;
   border: 1px solid #c0c0c0;
+  margin-bottom: 20px;
 }
 
 ::placeholder {
