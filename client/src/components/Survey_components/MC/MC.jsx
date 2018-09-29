@@ -3,7 +3,7 @@ import './MC.css';
 
 function displayAnswers(answers) {
   let aList = [];
-  for (let i = 0; i < answers.length; i++) {
+  for (let i = 0; i < answers.length; i += 1) {
     aList.push(
       <label className="container">
         <input type="radio" name="mc" />

@@ -3,6 +3,7 @@ import './Star.css';
 
 className Star extends React.Component {
   render() {
+    const { question } = this.props;
     return (
       <div classNameName="star">
         {this.props.question}
