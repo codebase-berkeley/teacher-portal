@@ -1,15 +1,29 @@
 import React from 'react';
 import './MC.css';
 
+function displayAnswers(answers) {
+  let aList = [];
+  for (let i = 0; i < answers.length; i++) {
+    aList.push(
+      <div className="c">
+        <input type="radio" name="mc" />
+        {answers[i]}
+      </div>
+    );
+  }
+  return aList;
+}
+
 class MC extends React.Component {
   render() {
     return (
       <div className="mc">
         {this.props.question}
-        <input className="c" type="radio" name="mc" /> {this.props.a}
-        <input className="c" type="radio" name="mc" /> {this.props.b}
-        <input className="c" type="radio" name="mc" /> {this.props.c}
-        <input className="c" type="radio" name="mc" /> {this.props.d}
+        {
+          displayAnswers(
+            this.props.answers
+          )
+        }
       </div>
     );
   }

@@ -48,11 +48,13 @@ class Survey extends Component {
 
         <div className="mc-container">
           <MC
-            question="huh"
-            a="Riveting textual engagement"
-            b="Fascinating character dialogue"
-            c="GOod"
-            d="Kinky"
+            question="Which of the following reasons was the reason you enjoyed this unit?"
+            answers={[
+              "Riveting textual engagement",
+              "Fascinating character dialogue",
+              "Good",
+              "Kinky"
+            ]}
           />
         </div>
 
