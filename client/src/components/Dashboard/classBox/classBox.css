@@ -1,0 +1,36 @@
+.classbox {
+  width: 265px;
+  height: 229px;
+  position: relative;
+  left: 150px;
+  top: 100px;
+  padding: 0px;
+  font-size: 18px;
+  background-color: #efefef;
+  border-radius: 2px;
+  border: none;
+  font-family: 'Open Sans';
+  margin: 30px;
+}
+
+p {
+  padding: 10px 35px;
+  text-align: left;
+  font-size: 15px;
+  color: #767676;
+}
+
+h2 {
+  padding: 10px 35px;
+  text-align: left;
+  font-size: 20px;
+}
+
+.topBar {
+  position: relative;
+  left: 0px;
+  padding: 0px;
+  width: 265px;
+  height: 16px;
+  background-color: #fed766;
+}
