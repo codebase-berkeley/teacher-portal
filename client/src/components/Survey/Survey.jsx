@@ -27,7 +27,7 @@ class Survey extends Component {
         </div>
 
         <div className="star-container">
-          <Star question="HOW NTEIRNEIONFGOIN DID YOU NOFIN DINFTHISO unit" />
+          <Star question="How interesting did you find this unit" />
         </div>
 
         <div className="frq-container">

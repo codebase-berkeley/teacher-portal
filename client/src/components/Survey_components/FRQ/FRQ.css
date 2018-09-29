@@ -17,3 +17,7 @@
   height: 266px;
   resize: none;
 }
+
+::placeholder {
+  font-size: 25px;
+}

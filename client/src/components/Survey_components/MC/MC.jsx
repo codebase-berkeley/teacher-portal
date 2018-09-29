@@ -6,15 +6,10 @@ class MC extends React.Component {
     return (
       <div className="mc">
         {this.props.question}
-        <br />
-        <input type="radio" name="mc" /> {this.props.a}
-        <br />
-        <input type="radio" name="mc" /> {this.props.b}
-        <br />
-        <input type="radio" name="mc" /> {this.props.c}
-        <br />
-        <input type="radio" name="mc" /> {this.props.d}
-        <br />
+        <input className="c" type="radio" name="mc" /> {this.props.a}
+        <input className="c" type="radio" name="mc" /> {this.props.b}
+        <input className="c" type="radio" name="mc" /> {this.props.c}
+        <input className="c" type="radio" name="mc" /> {this.props.d}
       </div>
     );
   }
