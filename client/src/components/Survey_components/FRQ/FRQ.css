@@ -12,6 +12,7 @@
   width: 811px;
   height: 266px;
   font-size: 25px;
+  font-family: Open Sans;
   resize: none;
   outline: none;
   border-radius: 5px;
@@ -19,5 +20,6 @@
 }
 
 ::placeholder {
+  font-family: Open Sans;
   font-size: 25px;
 }
