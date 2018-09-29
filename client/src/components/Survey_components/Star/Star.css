@@ -12,8 +12,6 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Sans);
 .ratingControl {
   position: relative;
-  width: 375px;
-  height: 65px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
