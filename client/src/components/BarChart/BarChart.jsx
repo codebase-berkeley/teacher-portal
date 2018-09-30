@@ -9,8 +9,8 @@ export default class BarChart extends Component {
         <Histogram
           xLabels={labels}
           yValues={data}
-          width='400'
-          height='200'
+          width='1080'
+          height='400'
           options={options}
         />
       </div>
