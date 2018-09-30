@@ -1,0 +1,10 @@
+.cell-responses {
+  font-family: 'Open Sans';
+  font-size: 20px;
+  color: #545151;
+}
+
+.container {
+  height: 550px;
+  overflow: auto;
+}
