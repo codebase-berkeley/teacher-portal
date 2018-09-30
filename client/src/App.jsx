@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
-import Survey from './components/Survey/Survey';
-import SurveyTest from './components/Survey/SurveyTest';
+import BarChart from './components/BarChart/BarChart';
 import './App.css';
+
+const LABELS = ['5', '4.5', '4', '3.5', '3', '2.5', '2', '1.5', '1', '0.5', '0'];
+
+const DATA = [3, 14, 12, 32, 42, 50, 90, 100, 300, 230, 900];
+
+const OPTIONS = { fillColor: 'blue', strokeColor: 'blue' };
 
 class App extends Component {
   render() {
     return (
-      <Survey
-        questions={[
-          ['unit', 'Macbeth'],
-          ['section', 'Student Engagement'],
-          ['star', 'How interesting did you find this unit?'],
-          [
-            'mc',
-            'Which of the following reasons was the reason you enjoyed this unit?',
-            [
-              'Riveting textual engagement',
-              'Fascinating character dialogue',
-              'Good',
-              'Kinky'
-            ]
-          ],
-          ['frq', 'What aspects of the unit may need some work?']
-        ]}
-      />
+      <BarChart data={DATA} labels={LABELS} options={OPTIONS} />
     );
   }
 }
