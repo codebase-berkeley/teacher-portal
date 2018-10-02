@@ -12,8 +12,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "npm run lint",
+    "eject": "react-scripts eject",
+    "lint": "eslint . && stylelint \"**/*.css\""
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -28,6 +29,7 @@
     "prettier-eslint": "^8.8.2",
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.6.2",
-    "stylelint": "^9.6.0"
+    "stylelint": "^9.6.0",
+    "stylelint-config-standard": "^18.2.0"
   }
 }
