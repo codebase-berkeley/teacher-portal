@@ -1,0 +1,9 @@
+.unit {
+  position: relative;
+  font-family: Open Sans, sans-serif;
+  font-style: Regular;
+  font-size: 36px;
+  margin-bottom: 60px;
+  fill: Solid;
+  color: #323232;
+}

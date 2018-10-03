@@ -1,0 +1,10 @@
+.section {
+  position: relative;
+  font-family: Open Sans, sans-serif;
+  font-style: regular;
+  font-weight: bold;
+  font-size: 30px;
+  fill: Solid;
+  color: #545151;
+  margin-bottom: 20px;
+}
