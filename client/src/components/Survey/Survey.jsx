@@ -53,7 +53,7 @@ class Survey extends Component {
   render() {
     const { questions } = this.props;
     return (
-      <div className="App">
+      <section className="Survey">
         <div className="back-container">
           <Back />
         </div>
@@ -61,7 +61,7 @@ class Survey extends Component {
           <Logout />
         </div>
         {displayQuestions(questions)}
-      </div>
+      </section>
     );
   }
 }
