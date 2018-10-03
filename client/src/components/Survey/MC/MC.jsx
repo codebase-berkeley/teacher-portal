@@ -1,5 +1,6 @@
 import React from 'react';
 import './MC.css';
+import PropTypes from 'prop-types';
 
 function displayAnswers(answers) {
   const aList = [];
@@ -17,13 +18,24 @@ function displayAnswers(answers) {
 
 class MC extends React.Component {
   render() {
+    const { question, answers } = this.props;
     return (
       <div className="mc">
-        <div className="question">{this.props.question}</div>
-        {displayAnswers(this.props.answers)}
+        <div className="question">{question}</div>
+        {displayAnswers(answers)}
       </div>
     );
   }
 }
+
+MC.propTypes = {
+  question: PropTypes.string,
+  answers: PropTypes.arrayOf(String)
+};
+
+MC.defaultProps = {
+  question: null,
+  answers: null
+};
 
 export default MC;
