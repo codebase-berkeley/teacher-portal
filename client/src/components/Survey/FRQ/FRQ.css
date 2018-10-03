@@ -1,6 +1,6 @@
 .frq {
   position: relative;
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   font-style: regular;
   font-size: 30px;
   line-height: 41px;
@@ -16,7 +16,7 @@
   width: 811px;
   height: 266px;
   font-size: 25px;
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   resize: none;
   outline: none;
   border-radius: 5px;
@@ -25,6 +25,6 @@
 }
 
 ::placeholder {
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   font-size: 25px;
 }

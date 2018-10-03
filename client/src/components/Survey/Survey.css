@@ -4,7 +4,7 @@
 }
 
 .frq-container {
-  margin: 67px;
+  margin-top: 67px;
 }
 
 .mc-container {
@@ -14,6 +14,7 @@
 .Survey {
   max-width: 1200px;
   margin: 20px auto;
+  text-align: left;
 }
 
 .Survey::before {

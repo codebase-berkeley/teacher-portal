@@ -1,6 +1,6 @@
 .mc {
   position: relative;
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   font-style: Regular;
   font-size: 30px;
   line-height: 41px;
@@ -51,19 +51,19 @@
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
+.checkmark::after {
   content: '';
   position: absolute;
   display: none;
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.checkmark::after ~ .container input:checked {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.container .checkmark:after {
+.container .checkmark::after {
   top: 9px;
   left: 9px;
   width: 8px;
