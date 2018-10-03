@@ -29,13 +29,8 @@ class MC extends React.Component {
 }
 
 MC.propTypes = {
-  question: PropTypes.string,
-  answers: PropTypes.arrayOf(String)
-};
-
-MC.defaultProps = {
-  question: null,
-  answers: null
+  question: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(String).isRequired
 };
 
 export default MC;

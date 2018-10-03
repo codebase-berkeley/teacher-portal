@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import './Logout/Logout.css';
 import './Survey.css';
 import PropTypes from 'prop-types';
 import Back from './Back/Back';
-import Logout from './Logout/Logout';
 import Unit from './Unit/Unit';
 import Section from './Section/Section';
 import FRQ from './FRQ/FRQ';
@@ -57,9 +55,6 @@ class Survey extends Component {
         <div className="back-container">
           <Back />
         </div>
-        <div className="logout-container">
-          <Logout />
-        </div>
         {displayQuestions(questions)}
       </section>
     );
@@ -67,11 +62,7 @@ class Survey extends Component {
 }
 
 Survey.propTypes = {
-  questions: PropTypes.arrayOf(Array)
-};
-
-Survey.defaultProps = {
-  questions: null
+  questions: PropTypes.arrayOf(Array).isRequired
 };
 
 export default Survey;

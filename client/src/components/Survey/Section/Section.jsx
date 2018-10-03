@@ -10,11 +10,7 @@ class Section extends React.Component {
 }
 
 Section.propTypes = {
-  name: PropTypes.string
-};
-
-Section.defaultProps = {
-  name: null
+  name: PropTypes.string.isRequired
 };
 
 export default Section;

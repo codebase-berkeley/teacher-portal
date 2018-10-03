@@ -91,11 +91,7 @@ class Star extends React.Component {
 }
 
 Star.propTypes = {
-  question: PropTypes.string
-};
-
-Star.defaultProps = {
-  question: null
+  question: PropTypes.string.isRequired
 };
 
 export default Star;
