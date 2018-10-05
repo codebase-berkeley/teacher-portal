@@ -16,13 +16,10 @@ let array = [
 // returns an array of components
 // param responses = array of text responses
 function displayResponses(responses) {
-  let i;
   let componentArray = [];
-  let color;
 
-  for (i = 0; i < responses.length; i++) {
-    if (i % 2 === 0) color = 'grey';
-    else color = 'dark-grey';
+  for (let i = 0; i < responses.length; i++) {
+    let color = i % 2 == 0 ? 'grey' : 'dark-grey';
 
     componentArray.push(
       <div className={color}>
