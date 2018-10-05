@@ -6,8 +6,8 @@ class ClassBox extends Component {
     return (
       <div className="classbox">
         <div className="topBar" />
-        <h2>{this.props.title}</h2>
-        <p>{this.props.teacher}</p>
+        <p className="title-p">{this.props.title}</p>
+        <p className="teacher-p">{this.props.teacher}</p>
       </div>
     );
   }

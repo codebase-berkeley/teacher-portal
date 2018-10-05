@@ -13,14 +13,14 @@
   margin: 30px;
 }
 
-p {
+.teacher-p {
   padding: 10px 35px;
   text-align: left;
   font-size: 15px;
   color: #767676;
 }
 
-h2 {
+.title-p {
   padding: 10px 35px;
   text-align: left;
   font-size: 20px;
