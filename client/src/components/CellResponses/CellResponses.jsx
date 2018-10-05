@@ -19,7 +19,7 @@ function displayResponses(responses) {
   let componentArray = [];
 
   for (let i = 0; i < responses.length; i++) {
-    let color = i % 2 == 0 ? 'grey' : 'dark-grey';
+    let color = i % 2 === 0 ? 'grey' : 'dark-grey';
 
     componentArray.push(
       <div className={color}>
