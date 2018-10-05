@@ -1,0 +1,14 @@
+.links {
+  text-decoration: none;
+  color: black;
+  margin: 12px 100px;
+  font-size: 16px;
+  background-color: #e5e5e5;
+  border-radius: 2px;
+  border: none;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding: 18px;
+  padding-left: 30px;
+}
