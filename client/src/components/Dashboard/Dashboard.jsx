@@ -4,18 +4,21 @@ import AddClassBox from './addClassBox/addClassBox';
 import './Dashboard.css';
 
 let classes = [
-  'one weird ass class name here',
-  'another weird ass class name here',
-  'one last weird ass class name here'
+  'One Weird Ass Class Name Here',
+  'Another Weird Ass Class Name Here',
+  'One Last Weird Ass Class Name Here',
+  'JUST KIDDING ANUTHA ONE YEET',
+  'ANUTHA ONE ANUTHA ONE ANUTHA ONE ANUTHA ONE'
 ];
 
-let teachers = ['Teacher 1', 'Teacher 2', 'Teacher 3'];
+let teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
+let colors = ['yellow', 'aqua', 'dark-teal'];
 
 class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard-container">
-        <p className="myClasses">My Classes</p>
+        <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           <AddClassBox />
           {displayClassBoxes(classes, teachers)}
@@ -28,7 +31,10 @@ class Dashboard extends Component {
 function displayClassBoxes(classes, teachers) {
   let boxArray = [];
   for (let i = 0; i < classes.length; i += 1) {
-    boxArray.push(<ClassBox title={classes[i]} teacher={teachers[i]} />);
+    let color = colors[2 - Math.floor(Math.random() * 3)];
+    boxArray.push(
+      <ClassBox title={classes[i]} teacher={teachers[i]} color={color} />
+    );
   }
   return boxArray;
 }

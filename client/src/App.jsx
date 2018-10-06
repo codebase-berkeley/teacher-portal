@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Logout from './components/Logout/Logout';
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
         <div className="logout-container">
           <Logout />
         </div>
+        <Dashboard />
       </div>
     );
   }

@@ -6,9 +6,9 @@ class AddClassBox extends Component {
   render() {
     return (
       <div className="classbox">
-        <div className="topBarGrey" />
-        <img src={plus} className="plusImage" alt="plus" />
-        <p className="addNew">Add new class</p>
+        <div className="grey-top" />
+        <img src={plus} className="plus-img" alt="plus" />
+        <p className="add-new">Add new class</p>
       </div>
     );
   }

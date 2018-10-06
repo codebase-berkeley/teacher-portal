@@ -1,7 +1,18 @@
-.myClasses {
+.dashboard-container {
+  padding: 0 50px;
+}
+
+.my-classes {
   color: #000000;
   font-size: 36px;
   font-family: 'Open Sans';
-  left: 207px;
-  top: 129px;
+  position: relative;
+  left: 30px;
+  top: 0;
+}
+
+.boxes-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
