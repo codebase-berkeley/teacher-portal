@@ -5,7 +5,7 @@
 .my-classes {
   color: #000;
   font-size: 36px;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
   position: relative;
   left: 30px;
   top: 0;

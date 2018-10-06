@@ -1,15 +1,12 @@
 .classbox {
   width: 265px;
   height: 229px;
-  /* position: relative;
-  left: 150px;
-  top: 100px;  */
-  padding: 0px;
+  padding: 0;
   font-size: 18px;
   background-color: #efefef;
   border-radius: 2px;
   border: none;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
   margin: 20px;
 }
 
@@ -29,8 +26,8 @@
 
 .top-bar {
   position: relative;
-  left: 0px;
-  padding: 0px;
+  left: 0;
+  padding: 0;
   width: 265px;
   height: 16px;
   background-color: #fed766;

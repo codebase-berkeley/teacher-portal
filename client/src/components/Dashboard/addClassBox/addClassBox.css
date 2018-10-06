@@ -6,8 +6,8 @@
 
 .grey-top {
   position: relative;
-  left: 0px;
-  padding: 0px;
+  left: 0;
+  padding: 0;
   width: 265px;
   height: 16px;
   background-color: #c4c4c4;
@@ -16,7 +16,7 @@
 .plus-img {
   position: relative;
   padding-top: 17%;
-  padding-bottom: 0px;
+  padding-bottom: 0;
   left: 35%;
   width: 30%;
   height: auto;
