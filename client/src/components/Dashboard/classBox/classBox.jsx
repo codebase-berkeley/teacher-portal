@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './classBox.css';
+import './ClassBox.css';
 
 class ClassBox extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './addClassBox.css';
+import './AddClassBox.css';
 import plus from './plusImage.png';
 
 class AddClassBox extends Component {

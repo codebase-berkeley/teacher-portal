@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ClassBox from './classBox/classBox';
-import AddClassBox from './addClassBox/addClassBox';
+import ClassBox from './ClassBox/ClassBox';
+import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
 let classes = [
