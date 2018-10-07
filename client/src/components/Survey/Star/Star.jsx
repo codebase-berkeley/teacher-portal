@@ -1,12 +1,13 @@
 import React from 'react';
 import './Star.css';
+import PropTypes from 'prop-types';
 
 class Star extends React.Component {
   render() {
     const { question } = this.props;
     return (
       <div className="star">
-        {this.props.question}
+        {question}
 
         <div className="container">
           <div className="demo">
@@ -88,5 +89,9 @@ class Star extends React.Component {
     );
   }
 }
+
+Star.propTypes = {
+  question: PropTypes.string.isRequired
+};
 
 export default Star;

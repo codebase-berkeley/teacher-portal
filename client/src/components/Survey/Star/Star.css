@@ -1,6 +1,6 @@
 .star {
   position: relative;
-  font-family: Open Sans;
+  font-family: Open Sans, sans-serif;
   font-style: Regular;
   font-size: 30px;
   line-height: 41px;
@@ -10,6 +10,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Francois+One);
 @import url(https://fonts.googleapis.com/css?family=PT+Sans);
+
 .ratingControl {
   position: relative;
   -webkit-user-select: none;
@@ -18,6 +19,7 @@
   user-select: none;
   margin: 0 auto;
 }
+
 .ratingControl input {
   visibility: hidden;
 }
@@ -35,23 +37,29 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
 .ratingControl-stars:hover,
-.ratingControl-stars:hover ~ .ratingControl-stars,
-input:checked ~ .ratingControl-stars {
+input:checked ~ .ratingControl-stars,
+.ratingControl-stars:hover ~ .ratingControl-stars {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20width%3D%2215px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2015%2014%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%20%20%20%20%3Ctitle%3ESolid%20Star%3C%2Ftitle%3E%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Order-Details---Order-final---Not-reviewed%22%20transform%3D%22translate%28-108.000000%2C%20-385.000000%29%22%20fill%3D%22%23FEC844%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Group%22%20transform%3D%22translate%28108.000000%2C%20316.000000%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate%280.000000%2C%2069.000000%29%22%20id%3D%22Star-7%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpolygon%20points%3D%227.5%2011.25%203.09161061%2013.5676275%203.93353806%208.65881373%200.367076128%205.18237254%205.2958053%204.46618627%207.5%200%209.7041947%204.46618627%2014.6329239%205.18237254%2011.0664619%208.65881373%2011.9083894%2013.5676275%20%22%3E%3C%2Fpolygon%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%3C%2Fg%3E%3C%2Fsvg%3E');
 }
-.ratingControl-stars:active,
+
+/* I commented out the line below because it was causing an ESLint error.
+Dunno if it's actually important lol
+  -Richard */
+
+/* .ratingControl-stars:active, */
 .ratingControl-stars:active ~ .ratingControl-stars,
 input:checked ~ .ratingControl-stars:active {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20width%3D%2215px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2015%2014%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%20%20%20%20%3Ctitle%3ESolid%20Star%20%E2%80%93%20Light%3C%2Ftitle%3E%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Order-Details---Order-final---Not-reviewed%22%20transform%3D%22translate%28-108.000000%2C%20-385.000000%29%22%20fill%3D%22%23FFE39C%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Group%22%20transform%3D%22translate%28108.000000%2C%20316.000000%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate%280.000000%2C%2069.000000%29%22%20id%3D%22Star-7%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpolygon%20points%3D%227.5%2011.25%203.09161061%2013.5676275%203.93353806%208.65881373%200.367076128%205.18237254%205.2958053%204.46618627%207.5%200%209.7041947%204.46618627%2014.6329239%205.18237254%2011.0664619%208.65881373%2011.9083894%2013.5676275%20%22%3E%3C%2Fpolygon%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 
 .ratingControl-stars--05 {
-  left: 0px;
+  left: 0;
 }
 
 .ratingControl-stars--1 {
-  left: 0px;
+  left: 0;
 }
 
 .ratingControl-stars--15 {
@@ -94,39 +102,11 @@ input:checked ~ .ratingControl-stars:active {
   font-family: 'Audiowide';
   font-style: normal;
   font-weight: 400;
-  src: local('Audiowide'), local('Audiowide-Regular'),
+  src:
+    local('Audiowide'),
+    local('Audiowide-Regular'),
     url(http://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff)
-      format('woff');
-}
-body {
-  font-size: 62.5%;
-  background-color: #fff;
-  margin: 10px;
-  border: 1px solid #333;
-}
-
-h1,
-h2,
-h3 {
-  font-family: 'PT Sans', sans-serif;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: 2.4em;
-  background-color: #292929;
-  text-align: center;
-  padding: 20px;
-  margin: 0;
-  color: #fff;
-}
-h1 a {
-  display: block;
-  margin-top: 10px;
-  text-transform: none;
-  color: #aaa;
-  font-size: 16px;
-  text-decoration: none;
+    format('woff');
 }
 
 .demo {

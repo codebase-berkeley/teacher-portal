@@ -1,0 +1,15 @@
+.welcome {
+  position: relative;
+  text-align: left;
+  left: 100px;
+  border: none;
+  margin-top: 100px;
+}
+
+.login-box {
+  margin: 10px 0;
+  width: 20%;
+  display: block;
+  padding: 10px 10px;
+  border-radius: 10px;
+}

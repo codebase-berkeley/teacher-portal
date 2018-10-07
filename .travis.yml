@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+env:
+  - TEST_DIR=client
+before_install:
+  - cd $TEST_DIR
+cache:
+  directories:
+    - "node_modules"
