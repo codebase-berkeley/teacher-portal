@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import './Survey.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Back from './Back/Back';
 import Unit from './Unit/Unit';
 import Section from './Section/Section';
 import FRQ from './FRQ/FRQ';
 import MC from './MC/MC';
 import Star from './Star/Star';
+
+const questions = [
+  ['unit', 'Macbeth'],
+  ['section', 'Student Engagement'],
+  ['star', 'How interesting did you find this unit?'],
+  [
+    'mc',
+    'Which of the following reasons was the reason you enjoyed this unit?',
+    [
+      'Riveting textual engagement',
+      'Fascinating character dialogue',
+      'Good',
+      'Kinky'
+    ]
+  ],
+  ['frq', 'What aspects of the unit may need some work?']
+];
 
 function displayQuestions(blocks) {
   const aList = [];
@@ -49,7 +66,7 @@ function displayQuestions(blocks) {
 
 class Survey extends Component {
   render() {
-    const { questions } = this.props;
+    // const { questions } = this.props;
     return (
       <section className="Survey">
         <div className="back-container">
@@ -61,8 +78,8 @@ class Survey extends Component {
   }
 }
 
-Survey.propTypes = {
-  questions: PropTypes.arrayOf(Array).isRequired
-};
+// Survey.propTypes = {
+//   questions: PropTypes.arrayOf(Array).isRequired
+// };
 
 export default Survey;
