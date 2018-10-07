@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import Logout from './components/Logout/Logout';
-import Survey from './components/Survey/Survey';
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 
 const answers = [
@@ -26,8 +27,12 @@ class App extends Component {
       <div className="App">
         <div className="logout-container">
           <Logout />
-          <Survey questions={answers} />
         </div>
+        <Router>
+          <Switch>
+            <Dashboard />
+          </Switch>
+        </Router>
       </div>
     );
   }
