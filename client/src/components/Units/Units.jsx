@@ -7,9 +7,6 @@ class Units extends Component {
   render() {
     return (
       <div className="Page-layout">
-        {/* <a className="Return" href="#">
-          &#8592; Return to Classes
-        </a> */}
         <NavLink to="/classes" className="Return">
           &#8592; Return to Classes
         </NavLink>

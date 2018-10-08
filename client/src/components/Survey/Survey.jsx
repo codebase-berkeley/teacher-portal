@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Survey.css';
-// import PropTypes from 'prop-types';
 import Back from './Back/Back';
 import Unit from './Unit/Unit';
 import Section from './Section/Section';
@@ -66,7 +65,6 @@ function displayQuestions(blocks) {
 
 class Survey extends Component {
   render() {
-    // const { questions } = this.props;
     return (
       <section className="Survey">
         <div className="back-container">
@@ -77,9 +75,5 @@ class Survey extends Component {
     );
   }
 }
-
-// Survey.propTypes = {
-//   questions: PropTypes.arrayOf(Array).isRequired
-// };
 
 export default Survey;
