@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
+let unitBoxes = [];
+let unitNames = [
+  'House on Mango Street',
+  'Macbeth',
+  "Harry Potter and Sahana's Eyebrow",
+  "Harry Potter and the Gas Smell in Abhi's Apartment",
+  "Harry Potter and Lang's Third Nipple"
+];
+let unitNavs = [];
+function create(unitNames) {
+  for (let i = 0; i < unitNames.length; i++) {
+    unitBoxes.push(<Unitbox unitName={unitNames[i]} />);
+  }
+}
+function wrap(unitBoxes) {
+  for (let i = 0; i < unitBoxes.length; i++) {
+    unitNavs.push(<NavLink to="/survey">{unitBoxes[i]}</NavLink>);
+  }
+}
+
+create(unitNames);
+wrap(unitBoxes);
 class Units extends Component {
   render() {
     return (
@@ -10,13 +33,7 @@ class Units extends Component {
           &#8592; Return to Classes
         </a>
         <h2 className="Unit-header">My Units</h2>
-        <div className="Unit-titles">
-          <Unitbox unitName="House on Mango Street" />
-          <Unitbox unitName="Macbeth" />
-          <Unitbox unitName="Harry Potter and Sahana's Eyebrow" />
-          <Unitbox unitName="Harry Potter and the Gas Smell in Abhi's Apartment" />
-          <Unitbox unitName="Harry Potter and Lang's Third Nipple" />
-        </div>
+        <div>{unitNavs}</div>
       </div>
     );
   }
