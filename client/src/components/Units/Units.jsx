@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
@@ -6,9 +7,9 @@ class Units extends Component {
   render() {
     return (
       <div className="Page-layout">
-        <a className="Return" href="#">
+        <NavLink to="/classes" className="Return">
           &#8592; Return to Classes
-        </a>
+        </NavLink>
         <h2 className="Unit-header">My Units</h2>
         <div className="Unit-titles">
           <Unitbox unitName="House on Mango Street" />
