@@ -4,7 +4,6 @@ import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
 import Units from './components/Units/Units';
-import Histogram from './components/Histogram/Histogram';
 import './App.css';
 
 class App extends Component {
@@ -19,7 +18,6 @@ class App extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/units" component={Units} />
             <Route exact path="/survey" component={Survey} />
-            <Route exact path="/histogram" component={Histogram} />
           </Switch>
         </Router>
       </div>
