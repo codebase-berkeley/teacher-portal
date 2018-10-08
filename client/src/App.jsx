@@ -4,10 +4,7 @@ import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
 import Units from './components/Units/Units';
-
 import './App.css';
-import Units from './components/Units/Units';
-import Survey from './components/Survey/Survey';
 
 class App extends Component {
   render() {
