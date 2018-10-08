@@ -8,6 +8,9 @@
   border: none;
   font-family: 'Open Sans', sans-serif;
   margin: 20px;
+  display: block;
+  text-decoration: none;
+  color: black;
 }
 
 .title-p {
