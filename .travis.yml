@@ -10,6 +10,9 @@ before_install:
 cache:
   directories:
     - "$TEST_DIR/node_modules"
+scripts:
+  - npm test
+  - npm run build
 before_depoly:
   - cd build
 deploy:
