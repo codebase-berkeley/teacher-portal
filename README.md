@@ -1,4 +1,4 @@
-# Teacher Portal
+# Teacher Portal [![Build Status](https://travis-ci.com/codebase-berkeley/teacher-portal.svg?branch=master)](https://travis-ci.com/codebase-berkeley/teacher-portal)
 
 A portal for teachers to get feedback from students on curriculum.
 
