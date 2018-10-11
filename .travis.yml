@@ -11,12 +11,12 @@ cache:
   directories:
     - "$TEST_DIR/node_modules"
 scripts:
-  - npm test
   - npm run build
 before_depoly:
   - cd build
 deploy:
   provider: gae
-  keyfile: gae-secret.json
+  keyfile: ../gae-secret.json
   project: black-caster-218806
   skip_cleanup: true
+  on: googleAppEngine
