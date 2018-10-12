@@ -29,7 +29,7 @@ class Units extends Component {
   render() {
     return (
       <div className="Page-layout">
-        <NavLink to="/classes" className="Return">
+        <NavLink to="/" className="Return">
           &#8592; Return to Classes
         </NavLink>
         <h2 className="Unit-header">My Units</h2>
