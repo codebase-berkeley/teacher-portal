@@ -12,11 +12,12 @@ class Star extends React.Component {
         <div className="container">
           <div className="demo">
             <div className="ratingControl">
-              <input type="radio" id="rating-5" name="rating" value="5" />
               <label
                 className="ratingControl-stars ratingControl-stars--5"
                 htmlFor="rating-5"
               >
+                            <input type="radio" id="rating-5" name="rating" value="5" />
+
                 5
               </label>
               <input type="radio" id="rating-45" name="rating" value="4.5" />
