@@ -1,10 +1,22 @@
 language: node_js
 node_js:
-  - "node"
+  - node
 env:
   - TEST_DIR=client
 before_install:
+  - openssl aes-256-cbc -K $encrypted_af7354f19a85_key -iv $encrypted_af7354f19a85_iv
+    -in gae-secret.json.enc -out gae-secret.json -d
   - cd $TEST_DIR
 cache:
   directories:
-    - "node_modules"
+    - "$TEST_DIR/node_modules"
+scripts:
+  - npm test
+  - npm run build
+before_depoly:
+  - cd build
+deploy:
+  provider: gae
+  keyfile: gae-secret.json
+  project: black-caster-218806
+  skip_cleanup: true
