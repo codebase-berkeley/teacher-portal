@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 
 function displayAnswers(answers) {
   const aList = [];
+  let name = 'mc';
+  let num = '';
   for (let i = 0; i < answers.length; i += 1) {
+    num = toString(i);
+    name += num;
     aList.push(
-      <label className="container">
-        <input type="radio" name="mc" />
+      <label htmlFor={name} className="container">
+        <input id={name} type="radio" name="mc" />
         <span className="checkmark" />
         {answers[i]}
       </label>
