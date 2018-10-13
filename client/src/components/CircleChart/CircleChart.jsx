@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { PieChart } from 'react-chartkick';
+import ReactChartkick, { PieChart } from 'react-chartkick';
 import Chart from 'chart.js';
 import './CircleChart.css';
+
+ReactChartkick.addAdapter(Chart);
 
 class CircleChart extends Component {
   render() {
