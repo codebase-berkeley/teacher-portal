@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CellResponses.css';
 import Cell from './Cell/Cell';
 
-let array = [
+const array = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 
   'Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy textLorem Ipsum is simply dummy textLorem Ipsum is simply dummy text',
@@ -16,10 +16,10 @@ let array = [
 // returns an array of components
 // param responses = array of text responses
 function displayResponses(responses) {
-  let componentArray = [];
+  const componentArray = [];
 
-  for (let i = 0; i < responses.length; i++) {
-    let color = i % 2 === 0 ? 'grey' : 'dark-grey';
+  for (let i = 0; i < responses.length; i += 1) {
+    const color = i % 2 === 0 ? 'grey' : 'dark-grey';
 
     componentArray.push(
       <div className={color}>
