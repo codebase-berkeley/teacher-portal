@@ -3,7 +3,7 @@ import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
-let classes = [
+const classes = [
   'One Weird Ass Class Name Here',
   'Another Weird Ass Class Name Here',
   'One Last Weird Ass Class Name Here',
@@ -11,8 +11,21 @@ let classes = [
   'ANUTHA ONE ANUTHA ONE ANUTHA ONE ANUTHA ONE'
 ];
 
-let teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
-let colors = ['yellow', 'aqua', 'dark-teal'];
+const teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
+const colors = ['yellow', 'aqua', 'dark-teal'];
+const topBar = 'top-bar';
+
+function displayClassBoxes(classesArr, teachersArr) {
+  const boxArray = [];
+  for (let i = 0; i < classesArr.length; i += 1) {
+    const color = colors[2 - Math.floor(Math.random() * 3)];
+    const str = `${color} ${topBar}`;
+    boxArray.push(
+      <ClassBox title={classesArr[i]} teacher={teachersArr[i]} color={str} />
+    );
+  }
+  return boxArray;
+}
 
 class Dashboard extends Component {
   render() {
@@ -26,17 +39,6 @@ class Dashboard extends Component {
       </div>
     );
   }
-}
-
-function displayClassBoxes(classes, teachers) {
-  let boxArray = [];
-  for (let i = 0; i < classes.length; i += 1) {
-    let color = colors[2 - Math.floor(Math.random() * 3)];
-    boxArray.push(
-      <ClassBox title={classes[i]} teacher={teachers[i]} color={color} />
-    );
-  }
-  return boxArray;
 }
 
 export default Dashboard;

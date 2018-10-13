@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Cell.css';
 
 class Cell extends Component {
+  static propTypes = {
+    response: PropTypes.string.isRequired
+  };
+
   render() {
-    return <div className="cell">{this.props.response}</div>;
+    const { response } = this.props;
+    return <div className="cell">{response}</div>;
   }
 }
 
