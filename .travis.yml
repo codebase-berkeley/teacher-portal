@@ -20,4 +20,3 @@ deploy:
   keyfile: ../gae-secret.json
   project: black-caster-218806
   skip_cleanup: true
-  on: googleAppEngine
