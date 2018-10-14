@@ -1,44 +1,54 @@
 import React, { Component } from 'react';
-import ClassBox from './ClassBox/ClassBox';
-import AddClassBox from './AddClassBox/AddClassBox';
+import LessonBox from './LessonBox/LessonBox';
+import AddLessonBox from './AddLessonBox/AddLessonBox';
 import './Lessons.css';
 
-const classes = [
-  'One Weird Ass Class Name Here',
-  'Another Weird Ass Class Name Here',
-  'One Last Weird Ass Class Name Here',
-  'JUST KIDDING ANUTHA ONE YEET',
-  'ANUTHA ONE ANUTHA ONE ANUTHA ONE ANUTHA ONE'
-];
-
-const teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
-const colors = ['yellow', 'aqua', 'dark-teal'];
 const topBar = 'top-bar';
 
-function displayClassBoxes(classesArr, teachersArr) {
+function displayLessonBoxes(lessonsArr, colorsArr) {
   const boxArray = [];
-  for (let i = 0; i < classesArr.length; i += 1) {
-    const color = colors[2 - Math.floor(Math.random() * 3)];
+  for (let i = 0; i < lessonsArr.length; i += 1) {
+    const color = colorsArr[2 - Math.floor(Math.random() * 3)];
     const str = `${color} ${topBar}`;
-    boxArray.push(
-      <ClassBox title={classesArr[i]} teacher={teachersArr[i]} color={str} />
-    );
+    boxArray.push(<LessonBox title={lessonsArr[i]} color={str} />);
   }
   return boxArray;
 }
 
-class Dashboard extends Component {
+class Lessons extends Component {
+  constructor() {
+    super();
+    this.lessonNames = [];
+    this.colors = [];
+  }
+
+  componentDidMount() {
+    fetch('https//portal.bch.ee/lessons/:unitID')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Request Failed');
+      })
+      .then(jsonResponse => {
+        for (let i = 0; i < jsonResponse.length; i += 1) {
+          this.lessonNames.push(jsonResponse[i].name);
+          this.colors.push(jsonResponse[i].color);
+        }
+      });
+  }
+
   render() {
     return (
-      <div className="dashboard-container">
-        <p className="my-classes">My Classes</p>
-        <div className="boxes-container">
-          <AddClassBox />
-          {displayClassBoxes(classes, teachers)}
+      <div className="lessons-container">
+        <p className="my-lessons">My Lessons</p>
+        <div className="box-container">
+          <AddLessonBox />
+          {displayLessonBoxes(this.lessonNames, this.colors)}
         </div>
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default Lessons;
