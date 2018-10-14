@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class Star extends React.Component {
   render() {
     const { question } = this.props;
-    const { id5 } = 'rating-5';
     return (
       <div className="star">
         {question}
@@ -13,10 +12,10 @@ class Star extends React.Component {
         <div className="container">
           <div className="demo">
             <div className="ratingControl">
-              <input type="radio" id={id5} name="rating" value="5" />
+              <input type="radio" id="rating-5" name="rating" value="5" />
               <label
                 className="ratingControl-stars ratingControl-stars--5"
-                htmlFor={id5}
+                htmlFor="rating-5"
               >
                 5.0
               </label>
