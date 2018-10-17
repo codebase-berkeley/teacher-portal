@@ -39,5 +39,6 @@
   },
   "resolutions": {
     "eslint": "^5.6.1"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
