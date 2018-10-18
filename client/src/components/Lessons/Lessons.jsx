@@ -5,25 +5,26 @@ import './Lessons.css';
 
 const topBar = 'top-bar';
 
-function displayLessonBoxes(lessonsArr, colorsArr) {
-  const boxArray = [];
-  for (let i = 0; i < lessonsArr.length; i += 1) {
-    const color = colorsArr[2 - Math.floor(Math.random() * 3)];
-    const str = `${color} ${topBar}`;
-    boxArray.push(<LessonBox title={lessonsArr[i]} color={str} />);
-  }
-  return boxArray;
-}
+// function displayLessonBoxes(lessonsArr, colorsArr) {
+//   const boxArray = [];
+//   for (let i = 0; i < lessonsArr.length; i += 1) {
+//     const color = colorsArr[2 - Math.floor(Math.random() * 3)];
+//     const str = `${color} ${topBar}`;
+//     boxArray.push(<LessonBox title={lessonsArr[i]} color={str} />);
+//   }
+//   return boxArray;
+// }
 
 class Lessons extends Component {
   constructor() {
     super();
     this.lessonNames = [];
     this.colors = [];
+    this.boxArray = [];
   }
 
   componentDidMount() {
-    fetch('https//portal.bch.ee/lessons/:unitID')
+    fetch('https://untitled-hsryadifzuic.runkit.sh/api/lessons/1') // 'https//portal.bch.ee/lessons/:unitID'
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -35,8 +36,26 @@ class Lessons extends Component {
           this.lessonNames.push(jsonResponse[i].name);
           this.colors.push(jsonResponse[i].color);
         }
+        for (let i = 0; i < this.lessonNames.length; i += 1) {
+          const color = this.colors[2 - Math.floor(Math.random() * 3)];
+          const str = `${color} ${topBar}`;
+          this.boxArray.push(
+            <LessonBox title={this.lessonNames[i]} color={str} />
+          );
+        }
       });
   }
+
+  // displayLessonBoxes() {
+  //   const boxArray = [];
+  //   for (let i = 0; i < this.lessonNames.length; i += 1) {
+  //     const color = this.colors[2 - Math.floor(Math.random() * 3)];
+  //     const str = `${color} ${topBar}`;
+  //     boxArray.push(<LessonBox title={this.lessonNames[i]} color={str} />);
+  //   }
+  //   console.log(boxArray);
+  //   return boxArray;
+  // }
 
   render() {
     return (
@@ -44,7 +63,7 @@ class Lessons extends Component {
         <p className="my-lessons">My Lessons</p>
         <div className="box-container">
           <AddLessonBox />
-          {displayLessonBoxes(this.lessonNames, this.colors)}
+          {this.boxArray}
         </div>
       </div>
     );

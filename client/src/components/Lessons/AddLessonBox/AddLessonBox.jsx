@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './AddLessonBox.css';
-import plus from './plusImage.png';
+import plus from './plsImage.png';
 
 class AddLessonBox extends Component {
   render() {
