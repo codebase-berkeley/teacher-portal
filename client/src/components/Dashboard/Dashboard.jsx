@@ -24,6 +24,7 @@ function displayClassBoxes(classesArr, teachersArr) {
       <ClassBox title={classesArr[i]} teacher={teachersArr[i]} color={str} />
     );
   }
+  console.log(boxArray);
   return boxArray;
 }
 
