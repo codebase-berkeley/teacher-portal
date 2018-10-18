@@ -23,15 +23,16 @@ class Lessons extends Component {
   }
 
   render() {
-    const color = colors[2 - Math.floor(Math.random() * 3)];
-    const str = `${color} ${topBar}`;
     return (
       <div className="lessons-container">
         <p className="my-lessons">My Lessons</p>
         <div className="box-container">
           <AddLessonBox />
           {this.state.lessons.map(lessons => (
-            <LessonBox title={lessons.name} color={str} />
+            <LessonBox
+              title={lessons.name}
+              color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+            />
           ))}
         </div>
       </div>
