@@ -8,7 +8,7 @@ class AddLessonBox extends Component {
       <div className="lessonbox">
         <div className="grey-top" />
         <img src={plus} className="plus-img" alt="plus" />
-        <p className="add-new">Add new class</p>
+        <p className="add-new">Add new lesson</p>
       </div>
     );
   }
