@@ -3,30 +3,41 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-const unitBoxes = [];
-const unitNames = [
-  'House on Mango Street',
-  'Macbeth',
-  "Harry Potter and Sahana's Eyebrow",
-  "Harry Potter and the Gas Smell in Abhi's Apartment",
-  "Harry Potter and Lang's Third Nipple"
-];
-function create() {
+let unitBoxes = [];
+
+function create(unitNames) {
+  unitBoxes = [];
   for (let i = 0; i < unitNames.length; i += 1) {
-    unitBoxes.push(<Unitbox unitName={unitNames[i]} />);
+    unitBoxes.push(<Unitbox unitName={unitNames[i].name} />);
   }
+  return unitBoxes;
 }
 
-create();
 class Units extends Component {
+  constructor() {
+    super();
+    this.state = {
+      unitList: []
+    };
+  }
+
+  async componentWillMount() {
+    const units = await fetch('/api/units/1');
+    const unitsJSON = await units.json();
+    this.setState({
+      unitList: unitsJSON
+    });
+  }
+
   render() {
+    const { unitList } = this.state;
     return (
       <div className="Page-layout">
         <NavLink to="/" className="Return">
           &#8592; Return to Classes
         </NavLink>
         <h2 className="Unit-header">My Units</h2>
-        <div>{unitBoxes}</div>
+        <div>{create(unitList)}</div>
       </div>
     );
   }
