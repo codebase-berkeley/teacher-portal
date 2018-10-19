@@ -12,7 +12,7 @@ class Unitbox extends Component {
     const { unitName } = this.props;
     return (
       <div>
-        <NavLink to="/survey" className="link">
+        <NavLink to="/lessons" className="link">
           <div>{unitName}</div>
         </NavLink>
       </div>

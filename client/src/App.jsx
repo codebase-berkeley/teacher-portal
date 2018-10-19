@@ -4,8 +4,8 @@ import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
 import Units from './components/Units/Units';
+import Lessons from './components/Lessons/Lessons';
 import LessonReflection from './components/LessonReflection/LessonReflection';
-
 import './App.css';
 
 class App extends Component {
@@ -21,6 +21,7 @@ class App extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/units" component={Units} />
             <Route exact path="/survey" component={Survey} />
+            <Route exact path="/lessons" component={Lessons} />
             <Route exact path="/lessons" component={LessonReflection} />
           </Switch>
         </Router>
