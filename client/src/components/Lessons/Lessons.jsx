@@ -10,7 +10,7 @@ class Lessons extends Component {
   state = { lessons: [] };
 
   componentDidMount() {
-    fetch('http://localhost:8080/api/lessons/3') // 'https://untitled-hsryadifzuic.runkit.sh/api/lessons/3'
+    fetch('/api/lessons/3')
       .then(response => {
         if (response.ok) {
           return response.json();
