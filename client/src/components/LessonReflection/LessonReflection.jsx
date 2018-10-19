@@ -5,16 +5,18 @@ import './LessonReflection.css';
 import lesson from './lesson.pdf';
 
 class LessonReflection extends Component {
+  state = { teachNotes: {} };
+
   componentDidMount() {
-    fetch('http://localhost:8080/api/teacherNotes/1')
+    fetch('/api/teacherNotes/1')
       .then(response => {
         if (response.ok) {
           return response.json();
         }
         throw new Error('Request Failed');
       })
-      .then(TeachNotes => {
-        this.setState({ TeachNotes });
+      .then(notes => {
+        this.setState({ teachNotes: notes });
       });
   }
 
@@ -23,6 +25,8 @@ class LessonReflection extends Component {
   };
 
   render() {
+    const s = this.state;
+    const n = s.teachNotes;
     return (
       <div>
         <p className="my-classes">My Lesson</p>
@@ -31,7 +35,7 @@ class LessonReflection extends Component {
         </div>
         <div className="editor-container">
           <Editor
-            initialValue={this.state.TeachNotes[0].notes}
+            initialValue={n.notes}
             init={{
               width: '600',
               plugins: 'link image code',

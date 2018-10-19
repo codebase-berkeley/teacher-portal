@@ -3,13 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "babel-eslint": "^10.0.1",
-=======
     "@tinymce/tinymce-react": "^2.3.0",
->>>>>>> implemented hardcoded pdf file and text editor
+    "babel-eslint": "^10.0.1",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",
+    "create-react-app": "^2.0.4",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
