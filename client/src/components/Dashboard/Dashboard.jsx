@@ -3,38 +3,49 @@ import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
-const classes = [
-  'One Weird Ass Class Name Here',
-  'Another Weird Ass Class Name Here',
-  'One Last Weird Ass Class Name Here',
-  'JUST KIDDING ANUTHA ONE YEET',
-  'ANUTHA ONE ANUTHA ONE ANUTHA ONE ANUTHA ONE'
-];
-
-const teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
-const colors = ['yellow', 'aqua', 'dark-teal'];
 const topBar = 'top-bar';
 
-function displayClassBoxes(classesArr, teachersArr) {
+function displayClassBoxes(classList) {
   const boxArray = [];
-  for (let i = 0; i < classesArr.length; i += 1) {
-    const color = colors[2 - Math.floor(Math.random() * 3)];
-    const str = `${color} ${topBar}`;
+  for (let i = 0; i < classList.length; i += 1) {
+    const str = `${classList[i].color} ${topBar}`;
     boxArray.push(
-      <ClassBox title={classesArr[i]} teacher={teachersArr[i]} color={str} />
+      <ClassBox
+        title={classList[i].name}
+        id={classList[i].id}
+        key={classList[i].id}
+        teacher={classList[i].teacher}
+        color={str}
+      />
     );
   }
   return boxArray;
 }
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      classList: []
+    };
+  }
+
+  async componentWillMount() {
+    const classes = await fetch('/api/classes');
+    const classesJSON = await classes.json();
+    this.setState({
+      classList: classesJSON
+    });
+  }
+
   render() {
+    const { classList } = this.state;
     return (
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           <AddClassBox />
-          {displayClassBoxes(classes, teachers)}
+          {displayClassBoxes(classList)}
         </div>
       </div>
     );
