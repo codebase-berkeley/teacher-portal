@@ -24,12 +24,12 @@ class Units extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch('/api/units/2')
-      .then(response => response.json())
-      .then(response => {
-        this.setState({ unitList: response });
-      });
+  async componentWillMount() {
+    const res = await fetch('/api/units/1');
+    const json = await res.json();
+    this.setState({
+      unitList: json
+    });
   }
 
   render() {

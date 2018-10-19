@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/classes', function(req, res, next) {
   res.send([
-    { id: 1, name: 'ENGLISH 101', teacher: 'Party Shah' },
-    { id: 2, name: 'English 201', teacher: 'Bboy Chee' },
-    { id: 3, name: 'English 301', teacher: 'Trev4ev' }
+    { id: 1, name: 'ENGLISH 101', teacher: 'Party Shah', color: 'yellow' },
+    { id: 2, name: 'English 201', teacher: 'Bboy Chee', color: 'aqua' },
+    { id: 3, name: 'English 301', teacher: 'Trev4ev', color: 'dark-teal' }
   ]);
 });
 
