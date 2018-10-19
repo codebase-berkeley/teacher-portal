@@ -17,7 +17,7 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      unitList: [{ name: 'lmao' }]
+      unitList: []
     };
   }
 

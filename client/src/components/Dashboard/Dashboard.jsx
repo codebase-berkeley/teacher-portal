@@ -13,6 +13,7 @@ function displayClassBoxes(classList) {
       <ClassBox
         title={classList[i].name}
         id={classList[i].id}
+        key={classList[i].id}
         teacher={classList[i].teacher}
         color={str}
       />

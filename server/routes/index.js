@@ -6,11 +6,11 @@ router.get('/', (req, res) => {
   res.send('Welcome to the Teacher Portal API!');
 });
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
   res.send({ key: 4 });
 });
 
-router.get('/classes', function(req, res, next) {
+router.get('/classes', (req, res) => {
   res.send([
     { id: 1, name: 'ENGLISH 101', teacher: 'Party Shah', color: 'yellow' },
     { id: 2, name: 'English 201', teacher: 'Bboy Chee', color: 'aqua' },
@@ -18,7 +18,7 @@ router.get('/classes', function(req, res, next) {
   ]);
 });
 
-router.get('/units/1', function(req, res, next) {
+router.get('/units/1', (req, res) => {
   res.send([
     { id: 1, name: 'HOUSE on Mango Street' },
     { id: 2, name: 'Macbeth' },
@@ -28,7 +28,7 @@ router.get('/units/1', function(req, res, next) {
   ]);
 });
 
-router.get('/units/2', function(req, res, next) {
+router.get('/units/2', (req, res) => {
   res.send([
     { id: 6, name: 'Romeo and Juliet' },
     { id: 7, name: 'Brave New World' },
@@ -37,7 +37,7 @@ router.get('/units/2', function(req, res, next) {
   ]);
 });
 
-router.get('/units/3', function(req, res, next) {
+router.get('/units/3', (req, res) => {
   res.send([
     { id: 10, name: 'Lord of the Flies' },
     { id: 11, name: 'The Stranger' },
@@ -47,7 +47,7 @@ router.get('/units/3', function(req, res, next) {
   ]);
 });
 
-router.get('/units/:classID', function(req, res, next) {
+router.get('/units/:classID', (req, res) => {
   res.send(req.params.classID);
 });
 
