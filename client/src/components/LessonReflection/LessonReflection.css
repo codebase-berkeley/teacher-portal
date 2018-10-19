@@ -1,0 +1,17 @@
+.editor-container {
+  height: 1000px;
+  float: right;
+}
+
+.lesson-container {
+  float: left;
+}
+
+#mceu_23 {
+  height: 100vh;
+}
+
+.lesson {
+  width: 500px;
+  height: 100vh;
+}
