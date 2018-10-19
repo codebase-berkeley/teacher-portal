@@ -3,9 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-// const url = window.location.href;
-// const id = url[url.length - 1];
-// const path = `/api/units/${id}`;
 let unitBoxes = [];
 
 function create(unitNames) {
@@ -25,10 +22,10 @@ class Units extends Component {
   }
 
   async componentWillMount() {
-    const res = await fetch('/api/units/1');
-    const json = await res.json();
+    const units = await fetch('/api/units/1');
+    const unitsJSON = await units.json();
     this.setState({
-      unitList: json
+      unitList: unitsJSON
     });
   }
 

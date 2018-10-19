@@ -13,6 +13,7 @@ class ClassBox extends Component {
   render() {
     const { color, title, teacher } = this.props;
     const route = `/units/`;
+
     return (
       <NavLink className="classbox" to={route}>
         <div className={color} />

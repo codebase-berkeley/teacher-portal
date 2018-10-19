@@ -3,13 +3,11 @@ import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
-// const colors = ['yellow', 'aqua', 'dark-teal'];
 const topBar = 'top-bar';
 
 function displayClassBoxes(classList) {
   const boxArray = [];
   for (let i = 0; i < classList.length; i += 1) {
-    // const color = colors[2 - Math.floor(Math.random() * 3)];
     const str = `${classList[i].color} ${topBar}`;
     boxArray.push(
       <ClassBox
@@ -27,15 +25,15 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      classList: ['hello']
+      classList: []
     };
   }
 
   async componentWillMount() {
-    const res = await fetch('/api/classes');
-    const json = await res.json();
+    const classes = await fetch('/api/classes');
+    const classesJSON = await classes.json();
     this.setState({
-      classList: json
+      classList: classesJSON
     });
   }
 
