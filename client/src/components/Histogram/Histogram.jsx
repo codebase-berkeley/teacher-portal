@@ -1,31 +1,57 @@
 import React, { Component } from 'react';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
 import Chart from 'chart.js';
+import './Histogram.css';
 
 ReactChartkick.addAdapter(Chart);
 
-const info = [
-  ['0.5', 230],
-  ['1', 300],
-  ['1.5', 100],
-  ['2', 90],
-  ['2.5', 50],
-  ['3', 42],
-  ['3.5', 32],
-  ['4', 12],
-  ['4.5', 14],
-  ['5', 3]
-];
-
-const xlabel = 'Stars';
-
-const ylabel = 'Number of Votes';
-
 export default class Histogram extends Component {
+  constructor() {
+    super();
+    this.state = {
+      columnCharts: []
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://untitled-9hux7l8j3nji.runkit.sh/api/studentSummary')
+      .then(
+        response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Request Failed!');
+        },
+        networkError => console.log(networkError.message)
+      )
+      .then(jsonResponse => {
+        const questions = ['q1', 'q2', 'q3', 'q4'];
+        const titles = ['Question 1', 'Question 2', 'Question 3', 'Question 4'];
+        const charts = [];
+        const xlabel = 'Years';
+        const ylabel = 'Number of Votes';
+        for (let i = 0; i < questions.length; i += 1) {
+          const arr = [];
+          for (let j = 0; j < jsonResponse.length; j += 1) {
+            arr.push([jsonResponse[j].year, jsonResponse[j][questions[i]]]);
+          }
+          charts.push(
+            <div>
+              <h2 className="questionTitle">{titles[i]}</h2>
+              <ColumnChart data={arr} xtitle={xlabel} ytitle={ylabel} />
+            </div>
+          );
+        }
+        this.setState({ columnCharts: charts });
+      });
+  }
+
   render() {
+    const { columnCharts } = this.state;
     return (
       <div className="histogram">
-        <ColumnChart data={info} xtitle={xlabel} ytitle={ylabel} />
+        <h1 className="title">Student Summary</h1>
+        {columnCharts}
       </div>
     );
   }
