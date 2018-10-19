@@ -3,11 +3,10 @@ import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
-const teachers = ['Teacher', 'Teacher', 'Teacher', 'Teacher', 'Teacher'];
 const colors = ['yellow', 'aqua', 'dark-teal'];
 const topBar = 'top-bar';
 
-function displayClassBoxes(teachersArr, classList) {
+function displayClassBoxes(classList) {
   const boxArray = [];
   for (let i = 0; i < classList.length; i += 1) {
     const color = colors[2 - Math.floor(Math.random() * 3)];
@@ -33,7 +32,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    fetch('https://untitled-066tu6l1dpyf.runkit.sh/api/classes')
+    fetch('/api/classes')
       .then(response => response.json())
       .then(response => {
         this.setState({ classList: response });
@@ -41,12 +40,13 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { classList } = this.state;
     return (
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           <AddClassBox />
-          {displayClassBoxes(teachers, this.state.classList)}
+          {displayClassBoxes(classList)}
         </div>
       </div>
     );

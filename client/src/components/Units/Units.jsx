@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-const url = window.location.href;
-const id = url[url.length - 1];
-const path = `https://untitled-066tu6l1dpyf.runkit.sh/api/units/${id}`;
+// const url = window.location.href;
+// const id = url[url.length - 1];
+// const path = `/api/units/${id}`;
 let unitBoxes = [];
 
 function create(unitNames) {
@@ -13,18 +13,19 @@ function create(unitNames) {
   for (let i = 0; i < unitNames.length; i += 1) {
     unitBoxes.push(<Unitbox unitName={unitNames[i].name} />);
   }
+  return unitBoxes;
 }
 
 class Units extends Component {
   constructor() {
     super();
     this.state = {
-      unitList: []
+      unitList: [{ name: 'lmao' }]
     };
   }
 
   componentDidMount() {
-    fetch(path)
+    fetch('/api/units/2')
       .then(response => response.json())
       .then(response => {
         this.setState({ unitList: response });
@@ -32,14 +33,14 @@ class Units extends Component {
   }
 
   render() {
+    const { unitList } = this.state;
     return (
       <div className="Page-layout">
         <NavLink to="/" className="Return">
           &#8592; Return to Classes
         </NavLink>
         <h2 className="Unit-header">My Units</h2>
-        {create(this.state.unitList)}
-        <div>{unitBoxes}</div>
+        <div>{create(unitList)}</div>
       </div>
     );
   }
