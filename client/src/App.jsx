@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Logout from './components/Logout/Logout';
-// import Dashboard from './components/Dashboard/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
 import Units from './components/Units/Units';
 import LessonReflection from './components/LessonReflection/LessonReflection';
@@ -18,7 +18,7 @@ class App extends Component {
 
         <Router>
           <Switch>
-            <Route exact path="/" component={LessonReflection} />
+            <Route exact path="/" component={Dashboard} />
             <Route exact path="/units" component={Units} />
             <Route exact path="/survey" component={Survey} />
             <Route exact path="/lessons" component={LessonReflection} />
