@@ -20,10 +20,6 @@ class LessonReflection extends Component {
       });
   }
 
-  handleEditorChange = e => {
-    console.log('Content was updated:', e.target.getContent());
-  };
-
   render() {
     const s = this.state;
     const n = s.teachNotes;
