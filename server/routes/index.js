@@ -5,7 +5,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send('Welcome to the Teacher Portal API!');
 });
-// Allow cross origin requests
 
 router.get('/lessons/:unitID', (req, res) => {
   res.send([
