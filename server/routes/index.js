@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.get('/classes', (req, res) => {
   res.send([
-    { id: 1, name: 'ENGLISH 101', teacher: 'Party Shah', color: 'yellow' },
-    { id: 2, name: 'English 201', teacher: 'Bboy Chee', color: 'aqua' },
-    { id: 3, name: 'English 301', teacher: 'Trev4ev', color: 'dark-teal' }
+    { id: 1, name: 'ENGLISH 101', teacher: 'Parth Shah', color: 'yellow' },
+    { id: 2, name: 'ENGLISH 201', teacher: 'Bradley Chee', color: 'aqua' },
+    { id: 3, name: 'ENGLISH 301', teacher: 'Trevor Aquino', color: 'dark-teal' }
   ]);
 });
 
