@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
@@ -21,17 +22,19 @@ class LessonReflection extends Component {
   }
 
   render() {
-    const s = this.state;
-    const n = s.teachNotes;
+    const { teachNotes } = this.state;
     return (
       <div>
+        <NavLink to="/lessons" className="Return">
+          &#8592; Return to Lessons
+        </NavLink>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
           <embed className="lesson" src={lesson} type="application/pdf" />
         </div>
         <div className="editor-container">
           <Editor
-            initialValue={n.notes}
+            initialValue={teachNotes.notes}
             init={{
               width: '600',
               plugins: 'link image code',
