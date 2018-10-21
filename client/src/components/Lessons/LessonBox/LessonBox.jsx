@@ -12,7 +12,7 @@ class LessonBox extends Component {
   render() {
     const { title, color } = this.props;
     return (
-      <NavLink className="lessonbox" to="/units">
+      <NavLink className="lessonbox" to="/reflections">
         <div className={color} />
         <p className="title-p">{title}</p>
       </NavLink>

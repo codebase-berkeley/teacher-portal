@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
 import './Lessons.css';
@@ -28,6 +29,9 @@ class Lessons extends Component {
     return (
       <div className="lessons-container">
         <p className="my-lessons">My Lessons</p>
+        <NavLink to="/studentsummary" className="student-summary-button">
+          Student Summary
+        </NavLink>
         <div className="box-container">
           <AddLessonBox />
           {l.map(less => (

@@ -11,6 +11,14 @@
   top: 0;
 }
 
+.student-summary-button {
+  position: block;
+  border: none;
+  color: rgb(0, 159, 183);
+  text-decoration: none;
+  margin-left: 750px;
+}
+
 .box-container {
   width: 100%;
   display: flex;
