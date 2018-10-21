@@ -22,8 +22,7 @@ class LessonReflection extends Component {
   }
 
   render() {
-    const s = this.state;
-    const n = s.teachNotes;
+    const { teachNotes } = this.state;
     return (
       <div>
         <NavLink to="/lessons" className="Return">
@@ -35,7 +34,7 @@ class LessonReflection extends Component {
         </div>
         <div className="editor-container">
           <Editor
-            initialValue={n.notes}
+            initialValue={teachNotes.notes}
             init={{
               width: '600',
               plugins: 'link image code',
