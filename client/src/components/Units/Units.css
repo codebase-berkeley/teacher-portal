@@ -1,8 +1,9 @@
 .Page-layout {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
-.Return {
+.ReturnArrow {
+  font-family: 'Open Sans', sans-serif;
   position: block;
   border: none;
   color: rgb(0, 159, 183);
@@ -11,6 +12,9 @@
 }
 
 .Unit-header {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
+  font-size: 36px;
   position: relative;
   left: 100px;
   border: none;

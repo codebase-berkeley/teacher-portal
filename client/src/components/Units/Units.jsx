@@ -33,7 +33,7 @@ class Units extends Component {
     const { unitList } = this.state;
     return (
       <div className="Page-layout">
-        <NavLink to="/" className="Return">
+        <NavLink to="/" className="ReturnArrow">
           &#8592; Return to Classes
         </NavLink>
         <h2 className="Unit-header">My Units</h2>

@@ -14,7 +14,7 @@ export default class Histogram extends Component {
   }
 
   componentDidMount() {
-    fetch('https://untitled-9hux7l8j3nji.runkit.sh/api/studentSummary')
+    fetch('/api/studentSummary')
       .then(
         response => {
           if (response.ok) {

@@ -2,7 +2,7 @@
   position: relative;
   font-family: Open Sans, sans-serif;
   font-style: regular;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 41px;
   fill: Solid;
   color: #545151;
@@ -15,7 +15,7 @@
 .answer {
   width: 811px;
   height: 266px;
-  font-size: 25px;
+  font-size: 20px;
   font-family: Open Sans, sans-serif;
   resize: none;
   outline: none;
@@ -26,5 +26,5 @@
 
 ::placeholder {
   font-family: Open Sans, sans-serif;
-  font-size: 25px;
+  font-size: 20px;
 }

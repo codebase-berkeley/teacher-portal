@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Survey.css';
-import Back from './Back/Back';
 import Unit from './Unit/Unit';
 import Section from './Section/Section';
 import FRQ from './FRQ/FRQ';
@@ -66,12 +66,14 @@ function displayQuestions(blocks) {
 class Survey extends Component {
   render() {
     return (
-      <section className="Survey">
+      <div className="Survey">
         <div className="back-container">
-          <Back />
+          <NavLink to="/" className="Return">
+            &#8592; Return to Classes
+          </NavLink>
         </div>
-        {displayQuestions(questions)}
-      </section>
+        <div className="Questions">{displayQuestions(questions)}</div>
+      </div>
     );
   }
 }
