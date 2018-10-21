@@ -31,7 +31,11 @@ router.get('/lessons/:unitID', (req, res) => {
 });
 
 router.get('/teacherNotes/:lessonID', (req, res) => {
-  res.send({ pdf: '/lesson.pdf', notes: 'blah, blah' });
+  res.send({
+    pdf: '/lesson.pdf',
+    notes:
+      'In differential calculus, related rates problems involve finding a rate at which a quantity changes by relating that quantity to other quantities whose rates of change are known. The rate of change is usually with respect to time.'
+  });
 });
 
 router.get('/studentSummary', (req, res) => {

@@ -32,6 +32,9 @@ class Lessons extends Component {
           &#8592; Return to Units
         </NavLink>
         <p className="my-lessons">My Lessons</p>
+        <NavLink to="/studentsummary" className="student-summary-button">
+          Student Summary
+        </NavLink>
         <div className="box-container">
           <AddLessonBox />
           {l.map(less => (
