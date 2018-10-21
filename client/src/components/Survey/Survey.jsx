@@ -18,7 +18,7 @@ const questions = [
       'Riveting textual engagement',
       'Fascinating character dialogue',
       'Good',
-      'Kinky'
+      'Fun read'
     ]
   ],
   ['frq', 'What aspects of the unit may need some work?']
