@@ -14,16 +14,13 @@ export default class Histogram extends Component {
   }
 
   componentDidMount() {
-    fetch('https://untitled-9hux7l8j3nji.runkit.sh/api/studentSummary')
-      .then(
-        response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Request Failed!');
-        },
-        networkError => console.log(networkError.message)
-      )
+    fetch('/api/studentSummary')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Request Failed!');
+      })
       .then(jsonResponse => {
         const questions = ['q1', 'q2', 'q3', 'q4'];
         const titles = ['Question 1', 'Question 2', 'Question 3', 'Question 4'];

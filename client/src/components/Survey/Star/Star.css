@@ -2,7 +2,7 @@
   position: relative;
   font-family: Open Sans, sans-serif;
   font-style: Regular;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 41px;
   fill: Solid;
   color: #545151;
@@ -105,8 +105,8 @@ input:checked ~ .ratingControl-stars:active {
   src:
     local('Audiowide'),
     local('Audiowide-Regular'),
-    url(http://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff)
-    format('woff');
+    url(https://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff)
+      format('woff');
 }
 
 .demo {
