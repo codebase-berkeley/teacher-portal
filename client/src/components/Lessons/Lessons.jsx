@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
 import './Lessons.css';
@@ -27,6 +28,9 @@ class Lessons extends Component {
     const l = s.lessons;
     return (
       <div className="lessons-container">
+        <NavLink to="/units" className="Return">
+          &#8592; Return to Units
+        </NavLink>
         <p className="my-lessons">My Lessons</p>
         <div className="box-container">
           <AddLessonBox />
