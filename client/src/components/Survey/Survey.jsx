@@ -66,14 +66,14 @@ function displayQuestions(blocks) {
 class Survey extends Component {
   render() {
     return (
-      <div className="Survey">
+      <section className="Survey">
         <div className="back-container">
           <NavLink to="/" className="Return">
             &#8592; Return to Classes
           </NavLink>
         </div>
         <div className="Questions">{displayQuestions(questions)}</div>
-      </div>
+      </section>
     );
   }
 }
