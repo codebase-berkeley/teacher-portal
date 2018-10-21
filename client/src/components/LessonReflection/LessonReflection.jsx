@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
@@ -25,6 +26,9 @@ class LessonReflection extends Component {
     const n = s.teachNotes;
     return (
       <div>
+        <NavLink to="/lessons" className="Return">
+          &#8592; Return to Lessons
+        </NavLink>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
           <embed className="lesson" src={lesson} type="application/pdf" />
