@@ -41,10 +41,5 @@
   "resolutions": {
     "eslint": "^5.6.1"
   },
-  "proxy": {
-    "api": {
-      "target": "http://localhost:8080",
-      "secure": false
-    }
-  }
+  "proxy": "http://localhost:8080"
 }
