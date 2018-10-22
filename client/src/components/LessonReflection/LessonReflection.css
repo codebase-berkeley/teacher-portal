@@ -7,11 +7,19 @@
   float: left;
 }
 
-#mceu_23 {
-  height: 100vh;
-}
-
 .lesson {
   width: 580px;
   height: 100vh;
+}
+
+#mceu_34 {
+  font-size: 0;
+}
+
+.mce-notification-inner {
+  display: none !important;
+}
+
+.mce-widget.mce-notification.mce-notification-warning.mce-has-close.mce-in {
+  display: none;
 }

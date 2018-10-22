@@ -26,7 +26,7 @@ export default class Histogram extends Component {
         const titles = ['Question 1', 'Question 2', 'Question 3', 'Question 4'];
         const charts = [];
         const xlabel = 'Years';
-        const ylabel = 'Number of Votes';
+        const ylabel = 'Average Star Rating';
         for (let i = 0; i < questions.length; i += 1) {
           const arr = [];
           for (let j = 0; j < jsonResponse.length; j += 1) {
