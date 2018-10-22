@@ -20,3 +20,21 @@
   border: none;
   margin: 40px 0;
 }
+
+.add-unit {
+  display: block;
+  text-decoration: none;
+  text-align: left;
+  color: black;
+  margin: 12px 140px 12px 100px;
+  font-size: 16px;
+  background-color: #fed766;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 2px;
+  border: none;
+  box-sizing: border-box;
+  width: 15%;
+  float: left;
+  padding: 18px;
+  padding-left: 30px;
+}

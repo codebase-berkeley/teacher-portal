@@ -37,6 +37,9 @@ class Units extends Component {
           &#8592; Return to Classes
         </NavLink>
         <h2 className="Unit-header">My Units</h2>
+        <button type="submit" className="add-unit">
+          + Add New Unit
+        </button>
         <div>{create(unitList)}</div>
       </div>
     );
