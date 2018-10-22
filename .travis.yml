@@ -19,5 +19,5 @@ deploy:
   app: teacher-portal
   on:
     repo: codebase-berkeley/teacher-portal
-    condition: env(TEST_DIR)=server
+    condition: $TEST_DIR=server
     branch: heroku
