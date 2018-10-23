@@ -5,14 +5,16 @@ import './Unitbox.css';
 
 class Unitbox extends Component {
   static propTypes = {
-    unitName: PropTypes.string.isRequired
+    unitName: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    buttonType: PropTypes.string.isRequired
   };
 
   render() {
-    const { unitName } = this.props;
+    const { unitName, path, buttonType } = this.props;
     return (
-      <div>
-        <NavLink to="/lessons" className="link">
+      <div className="bars">
+        <NavLink to={path} className={buttonType}>
           <div>{unitName}</div>
         </NavLink>
       </div>

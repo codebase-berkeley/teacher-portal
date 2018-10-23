@@ -12,14 +12,8 @@ router.get('/classes', (req, res) => {
       teacher: 'Samantha Hopper',
       color: 'dark-teal'
     },
-    {
-      id: 4,
-      name: 'ENGLISH 401',
-      teacher: 'Samantha Hopper',
-      color: 'dark-teal'
-    },
-    { id: 5, name: 'DRAMA', teacher: 'Samantha Hopper', color: 'dark-teal' },
-    { id: 6, name: 'AVID', teacher: 'Samantha Hopper', color: 'dark-teal' }
+    { id: 4, name: 'DRAMA', teacher: 'Samantha Hopper', color: 'dark-teal' },
+    { id: 5, name: 'AVID', teacher: 'Samantha Hopper', color: 'dark-teal' }
   ]);
 });
 

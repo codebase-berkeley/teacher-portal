@@ -8,7 +8,7 @@
   border: none;
   color: rgb(0, 159, 183);
   text-decoration: none;
-  margin-left: 100px;
+  margin-left: 7%;
 }
 
 .Unit-header {
@@ -16,7 +16,7 @@
   font-weight: lighter;
   font-size: 36px;
   position: relative;
-  left: 100px;
   border: none;
   margin: 40px 0;
+  margin-left: 7%;
 }

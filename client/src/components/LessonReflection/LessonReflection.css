@@ -15,3 +15,11 @@
 #mceu_34 {
   font-size: 0;
 }
+
+.mce-notification-inner {
+  display: none !important;
+}
+
+.mce-widget.mce-notification.mce-notification-warning.mce-has-close.mce-in {
+  display: none;
+}

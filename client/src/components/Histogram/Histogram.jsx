@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
+import { NavLink } from 'react-router-dom';
 import Chart from 'chart.js';
 import './Histogram.css';
 
@@ -26,7 +27,7 @@ export default class Histogram extends Component {
         const titles = ['Question 1', 'Question 2', 'Question 3', 'Question 4'];
         const charts = [];
         const xlabel = 'Years';
-        const ylabel = 'Number of Votes';
+        const ylabel = 'Average Star Rating';
         for (let i = 0; i < questions.length; i += 1) {
           const arr = [];
           for (let j = 0; j < jsonResponse.length; j += 1) {
@@ -47,6 +48,9 @@ export default class Histogram extends Component {
     const { columnCharts } = this.state;
     return (
       <div className="histogram">
+        <NavLink to="/lessons" className="Return">
+          &#8592; Return to Lessons
+        </NavLink>
         <h1 className="title">Student Summary</h1>
         {columnCharts}
       </div>
