@@ -13,10 +13,9 @@ const auth = require('./auth');
 const app = express();
 
 app.use(fileUpload());
-app.use(express.static(path.join(__dirname, '/../client/build')));
+app.use(express.static(path.join(__dirname, '/build')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/static')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,13 +36,8 @@ app.use(cookieParser());
 app.use('/api', indexRouter);
 app.use('/auth', authRouter);
 
-app.get('/static/:filename', (req, res) => {
-  const { filename } = req.params;
-  res.sendFile(path.join(`${__dirname}/static/${filename}`));
-});
-
 app.get('*', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/../client/build/index.html`));
+  res.sendFile(path.join(`${__dirname}/build/index.html`));
 });
 
 module.exports = app;

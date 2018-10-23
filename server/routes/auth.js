@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.get('/logout', (req, res) => {
   req.logout();
   req.session = null;
-  res.redirect('http://localhost:3000/login');
+  res.redirect('http://portal.bch.ee/login');
 });
 
 router.get('/google/teacherStatus/:isTeacher', (req, res, next) => {
@@ -40,7 +40,7 @@ router.get(
   }),
   (req, res) => {
     req.session.token = req.user.token;
-    res.redirect('http://localhost:3000/');
+    res.redirect('http://portal.bch.ee');
   }
 );
 

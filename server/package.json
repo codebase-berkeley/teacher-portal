@@ -8,8 +8,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "eslint .",
-    "build": "cd ../client && npm run build",
-    "heroku-postbuild": "cd ../client && npm install --only=dev && npm install && npm run build"
+    "build": "cd ../client && npm run build"
   },
   "dependencies": {
     "aws-sdk": "^2.364.0",

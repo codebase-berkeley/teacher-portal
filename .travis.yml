@@ -20,4 +20,4 @@ deploy:
   on:
     repo: codebase-berkeley/teacher-portal
     condition: $TEST_DIR = server
-    branch: heroku
+    branch: herokuDeploy
