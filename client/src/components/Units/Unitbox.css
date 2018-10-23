@@ -5,13 +5,12 @@
   font-family: 'Open Sans', sans-serif;
   border: none;
   box-sizing: border-box;
-  padding-left: 30px;
 }
 
 .link {
   text-decoration: none;
   color: black;
-  margin: 2% 100% 0 2%;
+  margin: 2% 100% 0 7%;
   font-size: 16px;
   background-color: #e5e5e5;
   width: 50%;
@@ -23,7 +22,7 @@
 .add {
   text-decoration: none;
   color: black;
-  margin: 2% 100% 0 2%;
+  margin: 2% 100% 0 7%;
   font-size: 16px;
   background-color: #fed766;
   width: 125px;
