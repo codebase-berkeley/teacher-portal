@@ -37,9 +37,10 @@ class LessonReflection extends Component {
             initialValue={teachNotes.notes}
             init={{
               width: '600',
-              plugins: 'link image code',
+              height: '100vh',
+              plugins: 'link image code textcolor colorpicker autosave',
               toolbar:
-                'undo redo | bold italic | alignleft aligncenter alignright | code'
+                'undo redo | fontsizeselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | image'
             }}
             onChange={this.handleEditorChange}
           />
