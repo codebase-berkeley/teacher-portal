@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
+import { NavLink } from 'react-router-dom';
 import Chart from 'chart.js';
 import './Histogram.css';
 
@@ -47,6 +48,9 @@ export default class Histogram extends Component {
     const { columnCharts } = this.state;
     return (
       <div className="histogram">
+        <NavLink to="/lessons" className="Return">
+          &#8592; Return to Lessons
+        </NavLink>
         <h1 className="title">Student Summary</h1>
         {columnCharts}
       </div>
