@@ -3,21 +3,22 @@ node_js:
   - node
 env:
   - TEST_DIR=client
+  - TEST_DIR=server
 before_install:
-  - openssl aes-256-cbc -K $encrypted_af7354f19a85_key -iv $encrypted_af7354f19a85_iv
-    -in gae-secret.json.enc -out gae-secret.json -d
   - cd $TEST_DIR
 cache:
   directories:
     - "$TEST_DIR/node_modules"
   yarn: true
-scripts:
-  - yarn test
-  - yarn build
 before_depoly:
-  - cd build
+  - npm run build
 deploy:
-  provider: gae
-  keyfile: ../gae-secret.json
-  project: black-caster-218806
+  provider: heroku
+  api_key:
+    secure: QlLmexlP0ACYMr+r1HH1jh0TV41XEUk2BY7oc346yezLMGq9ze3gmsEUVViAiS/kp/axVves4mxxgYumU56ldkVdpv4QTx305Xf3jLU1yfsHO3Tvq2Pn4QPfVxsEewt5GEmO4xz5dO8Ax4YXk+B7w8uSYPqsoXE47nU6tqMZStiwFaP1jTag6L64A44aHnmR4Db0S6H9w9+pP9OXq6D5XmvWbtRQHreC7GoWWu2RujGdtReQ54c5opKbVa4wFr4HAnXO8Jo/4vH+WifPYJThdnL6ohIqbsiAh8X7hukI3FHjRaWUYr3xm96bCOVjvpsYScLLhXAp56IBb5vlcYHiy6suRBsMbd52t0Yyzn6DSuGOLyaVmfKcw8q4RlcxbRIjT+8mBKifEdZQZwF8JHoM7+w1mUkyi2N+oNB1G0BJvsVPZ6xc2gVHI8GqlrMR1fL3wtvxrfcBPgqpO3+3e+mucilQLeSkqvDR/qQyckZgcqu13gp10vPgaJp1igSeHROyt01pz8+rqcw5Of2APGer7prNPPKCmeNDJUugR2czYLUlCi/Fh+euvC0HWISoaPxqg3q+2WtNQoE83XCenuRsGc2YW8eJR+q7e8X+w4MTRhzPbhUxxxiOcfJVidBMw+sO2qr+YVcp06xGU1uf1CHchB376aIQtnSnH1VI+xV7jMc=
+  app: teacher-portal
   skip_cleanup: true
+  on:
+    repo: codebase-berkeley/teacher-portal
+    condition: $TEST_DIR = server
+    branch: heroku

@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "eslint ."
+    "test": "eslint .",
+    "build": "cd ../client && npm run build",
+    "heroku-postbuild": "cd ../client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "^1.4.3",
