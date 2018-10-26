@@ -1,6 +1,17 @@
-const express = require('express');
+const Router = require('express-promise-router');
 
-const router = express.Router();
+const db = require('../db/index');
+
+const router = new Router();
+
+router.get('/users', async (req, res) => {
+  try {
+    const query = await db.query('SELECT * FROM users');
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
 
 router.get('/classes', (req, res) => {
   res.send([
