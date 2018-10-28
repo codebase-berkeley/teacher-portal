@@ -4,7 +4,6 @@ const db = require('../db/index');
 
 const router = new Router();
 
-
 router.get('/users', async (req, res) => {
   try {
     const query = await db.query('SELECT * FROM users');
@@ -57,11 +56,57 @@ router.get('/teacherNotes/:lessonID', (req, res) => {
   });
 });
 
-router.get('/studentSummary', (req, res) => {
-  res.send([
-    { year: 2016, q1: 3, q2: 4, q3: 0, q4: 2 },
-    { year: 2017, q1: 3, q2: 4, q3: 0, q4: 2 }
-  ]);
+// router.get('/studentSummary', (req, res) => {
+//   res.send([
+//     { year: 2016, q1: 3, q2: 4, q3: 0, q4: 2 },
+//     { year: 2017, q1: 3, q2: 4, q3: 0, q4: 2 }
+//   ]);
+// });
+
+router.get('/studentSummary', async (req, res) => {
+  try {
+    // {"id":1,"question":1,"response":2,"yr":2016}
+    const query = await db.query('SELECT * FROM responses');
+
+    const data = [];
+    const years = [];
+
+    query.rows.forEach(row => {
+      if (!years.includes(row.yr)) {
+        years.push(row.yr);
+      }
+    });
+
+    years.forEach(yr => {
+      const query2 = db.query(`SELECT * FROM responses WHERE yr=${yr}`);
+
+      const q = [[0], [0], [0], [0]];
+
+      query2.rows.forEach(row => {
+        const i = row.question - 1;
+        q[i].push(row.response);
+      });
+
+      const averagedQ = [
+        [q[0].reduce((a, b) => a + b, 0) / q[0].length],
+        [q[1].reduce((a, b) => a + b, 0) / q[0].length],
+        [q[2].reduce((a, b) => a + b, 0) / q[0].length],
+        [q[3].reduce((a, b) => a + b, 0) / q[0].length]
+      ];
+
+      data.push({
+        year: yr,
+        q1: averagedQ[0],
+        q2: averagedQ[1],
+        q3: averagedQ[2],
+        q4: averagedQ[3]
+      });
+    });
+
+    res.send(data);
+  } catch (error) {
+    console.log(error.stack);
+  }
 });
 
 module.exports = router;
