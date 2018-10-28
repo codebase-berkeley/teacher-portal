@@ -39,7 +39,7 @@ class Lessons extends Component {
           <AddLessonBox />
           {l.map(less => (
             <LessonBox
-              title={less.name}
+              title={less.lesson_name}
               color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
             />
           ))}
