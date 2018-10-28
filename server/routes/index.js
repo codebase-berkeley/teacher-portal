@@ -4,7 +4,6 @@ const db = require('../db/index');
 
 const router = new Router();
 
-
 router.get('/users', async (req, res) => {
   try {
     const query = await db.query('SELECT * FROM users');
