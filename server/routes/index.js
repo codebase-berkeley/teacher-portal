@@ -70,28 +70,36 @@ router.get('/studentSummary', async (req, res) => {
 
     const data = [];
     const years = [];
+    const rows = query.rows;
 
-    query.rows.forEach(row => {
+    rows.forEach(row => {
       if (!years.includes(row.yr)) {
         years.push(row.yr);
       }
     });
 
+    console.log(years);
+
     years.forEach(yr => {
-      const query2 = db.query(`SELECT * FROM responses WHERE yr=${yr}`);
+      const rowsYear = [];
+      rows.forEach(row => {
+        if (row.yr === yr) {
+          rowsYear.push(row);
+        }
+      });
 
       const q = [[0], [0], [0], [0]];
 
-      query2.rows.forEach(row => {
+      rowsYear.forEach(row => {
         const i = row.question - 1;
         q[i].push(row.response);
       });
 
       const averagedQ = [
-        [q[0].reduce((a, b) => a + b, 0) / q[0].length],
-        [q[1].reduce((a, b) => a + b, 0) / q[0].length],
-        [q[2].reduce((a, b) => a + b, 0) / q[0].length],
-        [q[3].reduce((a, b) => a + b, 0) / q[0].length]
+        q[0].reduce((a, b) => a + b, 0) / q[0].length,
+        q[1].reduce((a, b) => a + b, 0) / q[0].length,
+        q[2].reduce((a, b) => a + b, 0) / q[0].length,
+        q[3].reduce((a, b) => a + b, 0) / q[0].length
       ];
 
       data.push({
