@@ -4,7 +4,6 @@ const db = require('../db/index');
 
 const router = new Router();
 
-
 router.get('/users', async (req, res) => {
   try {
     const query = await db.query('SELECT * FROM users');
@@ -14,29 +13,22 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/classes', (req, res) => {
-  res.send([
-    { id: 1, name: 'ENGLISH 101', teacher: 'Samantha Hopper', color: 'yellow' },
-    { id: 2, name: 'ENGLISH 201', teacher: 'Samantha Hopper', color: 'aqua' },
-    {
-      id: 3,
-      name: 'ENGLISH 301',
-      teacher: 'Samantha Hopper',
-      color: 'dark-teal'
-    },
-    { id: 4, name: 'DRAMA', teacher: 'Samantha Hopper', color: 'dark-teal' },
-    { id: 5, name: 'AVID', teacher: 'Samantha Hopper', color: 'dark-teal' }
-  ]);
+router.get('/classes', async (req, res) => {
+  try {
+    const query = await db.query('SELECT * FROM classes');
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
 });
 
-router.get('/units/:classID', (req, res) => {
-  res.send([
-    { id: 1, name: 'House on Mango Street' },
-    { id: 2, name: 'Macbeth' },
-    { id: 3, name: 'Harry Potter' },
-    { id: 4, name: 'Jane Eyre' },
-    { id: 5, name: '1984' }
-  ]);
+router.get('/units/:classID', async (req, res) => {
+  try {
+    const query = await db.query('SELECT * FROM units');
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
 });
 
 router.get('/lessons/:unitID', (req, res) => {

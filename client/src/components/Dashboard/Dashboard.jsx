@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
+import AddClassModal from '../Modals/AddClassModal';
 import './Dashboard.css';
 
 const topBar = 'top-bar';
@@ -43,6 +44,9 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
+        <div className="modal">
+          <AddClassModal />
+        </div>
         <div className="boxes-container">
           <AddClassBox />
           {displayClassBoxes(classList)}
