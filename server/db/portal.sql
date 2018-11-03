@@ -13,20 +13,22 @@ CREATE TABLE users (
   is_teacher BOOLEAN
 );
 
+
+
 CREATE TABLE classes (
   id SERIAL PRIMARY KEY,
-  user VARCHAR, --REFERENCES users(id),
+  userID INTEGER,
   class_name VARCHAR
 );
 
-INSERT INTO classes(user, class_name)
+INSERT INTO classes(userID, class_name)
   VALUES (1, 'English 102');
 
-INSERT INTO classes(user, class_name)
+INSERT INTO classes(userID, class_name)
   VALUES (2, 'English 202');
 
-INSERT INTO classes(user, class_name)
-  VALUES (1, 'Math 302');
+INSERT INTO classes(userID, class_name)
+  VALUES (1, 'English 302');
 
 CREATE TABLE units (
   id SERIAL PRIMARY KEY,

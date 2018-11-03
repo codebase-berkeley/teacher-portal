@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
-import AddClassModal from '../Modals/AddClassModal';
 import './Dashboard.css';
 
 const topBar = 'top-bar';
@@ -12,10 +11,10 @@ function displayClassBoxes(classList) {
     const str = `${classList[i].color} ${topBar}`;
     boxArray.push(
       <ClassBox
-        title={classList[i].name}
+        title={classList[i].class_name}
         id={classList[i].id}
         key={classList[i].id}
-        teacher={classList[i].teacher}
+        // teacher={classList[i].teacher}
         color={str}
       />
     );
@@ -44,9 +43,6 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
-        <div className="modal">
-          <AddClassModal />
-        </div>
         <div className="boxes-container">
           <AddClassBox />
           {displayClassBoxes(classList)}

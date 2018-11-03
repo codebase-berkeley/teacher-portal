@@ -12,7 +12,11 @@ function create(unitNames) {
   );
   for (let i = 0; i < unitNames.length; i += 1) {
     unitBoxes.push(
-      <Unitbox unitName={unitNames[i].name} path="/lessons" buttonType="link" />
+      <Unitbox
+        unitName={unitNames[i].unit_name}
+        path="/lessons"
+        buttonType="link"
+      />
     );
   }
   return unitBoxes;
