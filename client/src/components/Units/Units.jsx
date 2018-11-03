@@ -84,7 +84,7 @@ class Units extends Component {
             <form>
               Unit Name <br />
               <input className="inputText" type="text" />
-              <input className="cancel ok" type="submit" value="OK" />
+              <input className="cancel" type="submit" value="OK" />
             </form>
             <button
               type="submit"
