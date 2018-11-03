@@ -16,7 +16,6 @@ class App extends Component {
         <div className="logout-container">
           <Logout />
         </div>
-
         <Router>
           <Switch>
             <Route exact path="/" component={Dashboard} />
