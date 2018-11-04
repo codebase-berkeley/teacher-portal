@@ -39,6 +39,8 @@ class Lessons extends Component {
   }
 
   handleCloseModal() {
+    console.log('in handle close modal');
+    console.log('setting showModal to false');
     this.setState({ showModal: false });
   }
 
@@ -70,7 +72,7 @@ class Lessons extends Component {
             />
           ))}
         </div>
-        <Modal isOpen={showModal}>
+        <Modal isOpen={showModal} className="Modal" overlayClassName="Overlay">
           <AddLessonModal handleCloseModal={this.handleCloseModal} />
         </Modal>
       </div>

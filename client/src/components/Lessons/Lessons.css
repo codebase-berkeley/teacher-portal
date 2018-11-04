@@ -25,3 +25,26 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+button:focus {
+  outline: 0;
+}
+
+.lessonbox:focus {
+  outline: 0;
+}
+
+.Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Modal:focus {
+  outline: none;
+}
+
+.Overlay {
+  background-color: black;
+}
