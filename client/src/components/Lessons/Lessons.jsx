@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import Modal from 'react-modal';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
 import AddLessonModal from './AddLessonModal/AddLessonModal';
@@ -10,7 +10,16 @@ const topBar = 'top-bar';
 const colors = ['yellow', 'aqua', 'dark-teal'];
 
 class Lessons extends Component {
-  state = { lessons: [] };
+  constructor() {
+    super();
+    this.state = {
+      lessons: [],
+      showModal: false
+    };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
 
   componentDidMount() {
     fetch('/api/lessons/3')
@@ -25,9 +34,21 @@ class Lessons extends Component {
       });
   }
 
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
+  handleKeyDown() {
+    console.log(this);
+    // this is literally just for eslint
+  }
+
   render() {
-    const s = this.state;
-    const l = s.lessons;
+    const { lessons, showModal } = this.state;
     return (
       <div className="lessons-container">
         <NavLink to="/units" className="Return">
@@ -38,15 +59,20 @@ class Lessons extends Component {
           Student Summary
         </NavLink>
         <div className="box-container">
-          <AddLessonBox />
-          {l.map(less => (
+          <AddLessonBox
+            onClick={this.handleOpenModal}
+            onKeyDown={this.handleKeyDown}
+          />
+          {lessons.map(less => (
             <LessonBox
               title={less.name}
               color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
             />
           ))}
         </div>
-        <AddLessonModal />
+        <Modal isOpen={showModal}>
+          <AddLessonModal handleCloseModal={this.handleCloseModal} />
+        </Modal>
       </div>
     );
   }

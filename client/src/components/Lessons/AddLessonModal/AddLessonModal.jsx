@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
 import plus from '../AddLessonBox/plsImage.png';
 import './AddLessonModal.css';
 
@@ -15,6 +16,7 @@ const customStyles = {
 
 class AddLessonModal extends Component {
   render() {
+    const { handleCloseModal } = this.props;
     return (
       <div className="lesson-modal">
         <div className="top-bar top-modal" />
@@ -29,13 +31,29 @@ class AddLessonModal extends Component {
             </div>
           </ReactDropzone>
           <div className="modal_buttons">
-            <div className="m_button">Cancel</div>
-            <div className="m_button">OK</div>
+            <button
+              type="button"
+              className="m_button"
+              onClick={handleCloseModal}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="m_button"
+              onClick={handleCloseModal}
+            >
+              OK
+            </button>
           </div>
         </div>
       </div>
     );
   }
 }
+
+AddLessonModal.propTypes = {
+  handleCloseModal: PropTypes.func.isRequired
+};
 
 export default AddLessonModal;
