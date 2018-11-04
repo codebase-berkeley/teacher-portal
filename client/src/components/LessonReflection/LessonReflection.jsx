@@ -24,7 +24,7 @@ class LessonReflection extends Component {
   }
 
   onDrop = files => {
-    // POST to a test endpoint for demo purposes
+    // POST to a test endpoint for   demo purposes
     const req = request.post('https://httpbin.org/post');
 
     files.forEach(file => {

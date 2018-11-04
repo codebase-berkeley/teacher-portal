@@ -1,0 +1,61 @@
+.lesson-modal {
+  width: 400px;
+  background: #fff;
+  border: 1px solid #d6d6d6;
+}
+
+.lesson_input {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  background: #eee;
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  border-radius: 3px;
+}
+
+.contents {
+  padding: 40px;
+}
+
+.top-modal {
+  width: 400px;
+  background-color: #019fb7;
+  height: 50px;
+}
+
+.bad-code {
+  margin: 0;
+}
+
+.insert_lesson {
+  text-align: center;
+  color: #737373;
+  font-size: 18px;
+  margin: 30px;
+}
+
+.lesson-img {
+  width: 20%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.modal_buttons {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.m_button {
+  background-color: #f9d778;
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  font-size: 18px;
+  margin: 0 20px;
+}

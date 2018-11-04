@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
+import AddLessonModal from './AddLessonModal/AddLessonModal';
 import './Lessons.css';
 
 const topBar = 'top-bar';
@@ -44,6 +46,7 @@ class Lessons extends Component {
             />
           ))}
         </div>
+        <AddLessonModal />
       </div>
     );
   }
