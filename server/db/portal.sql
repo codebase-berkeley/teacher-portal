@@ -15,17 +15,23 @@ CREATE TABLE users
   is_teacher BOOLEAN
 );
 
-CREATE TABLE responses
-(
-  id SERIAL PRIMARY KEY,
-  question INTEGER,
-  response FLOAT,
-  yr INTEGER
-);
-
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE questions
+(
+  id SERIAL PRIMARY KEY,
+  content VARCHAR
+);
+
+CREATE TABLE responses
+(
+  id SERIAL PRIMARY KEY,
+  question SERIAL REFERENCES questions(id),
+  response FLOAT,
+  yr INTEGER
 );
 
 INSERT INTO users
@@ -44,6 +50,26 @@ VALUES
   ('young.guo@gmail.com', 'Young', 'Guo', FALSE);
 
 -- dummy data for responses 
+
+INSERT INTO questions
+  (id, content)
+VALUES
+  (1, 'How interesting was this unit?');
+
+INSERT INTO questions
+  (id, content)
+VALUES
+  (2, 'Would you recommend to a friend?');
+
+INSERT INTO questions
+  (id, content)
+VALUES
+  (3, 'Did you learn anything?');
+
+INSERT INTO questions
+  (id, content)
+VALUES
+  (4, 'What is the purpose of life?');
 
 INSERT INTO responses
   (question, response, yr)
