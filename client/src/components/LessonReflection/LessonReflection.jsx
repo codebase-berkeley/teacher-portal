@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDropzone from 'react-dropzone';
 import request from 'superagent';
 import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
@@ -42,9 +41,6 @@ class LessonReflection extends Component {
           &#8592; Return to Lessons
         </NavLink>
         <p className="my-classes">My Lesson</p>
-        <ReactDropzone onDrop={this.onDrop}>
-          Drop your best gator GIFs here!!
-        </ReactDropzone>
         <div className="lesson-container">
           <embed className="lesson" src={lesson} type="application/pdf" />
         </div>

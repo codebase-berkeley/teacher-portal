@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
 import ReactDropzone from 'react-dropzone';
 import request from 'superagent';
@@ -23,7 +24,6 @@ class AddLessonModal extends Component {
   }
 
   onDrop = files => {
-    console.log('ONDROP');
     // POST to a test endpoint for demo purposes
     const req = request.post('https://httpbin.org/post');
     files.forEach(file => {

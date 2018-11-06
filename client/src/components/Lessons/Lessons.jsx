@@ -39,14 +39,7 @@ class Lessons extends Component {
   }
 
   handleCloseModal() {
-    console.log('in handle close modal');
-    console.log('setting showModal to false');
     this.setState({ showModal: false });
-  }
-
-  handleKeyDown() {
-    console.log(this);
-    // this is literally just for eslint
   }
 
   render() {
@@ -61,10 +54,7 @@ class Lessons extends Component {
           Student Summary
         </NavLink>
         <div className="box-container">
-          <AddLessonBox
-            onClick={this.handleOpenModal}
-            onKeyDown={this.handleKeyDown}
-          />
+          <AddLessonBox onClick={this.handleOpenModal} />
           {lessons.map(less => (
             <LessonBox
               title={less.name}
