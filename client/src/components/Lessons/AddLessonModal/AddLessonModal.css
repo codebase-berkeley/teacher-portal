@@ -1,7 +1,6 @@
 .lesson-modal {
-  width: 400px;
+  width: 500px;
   background: #fff;
-  border: 1px solid #d6d6d6;
 }
 
 .lesson_input {
@@ -19,7 +18,7 @@
 }
 
 .top-modal {
-  width: 400px;
+  width: 500px;
   background-color: #019fb7;
   height: 50px;
 }

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import plus from '../AddLessonBox/plsImage.png';
 import './AddLessonModal.css';
 
+/* styles for react drop zone */
 const customStyles = {
   background: '#eee',
   width: '100%',
