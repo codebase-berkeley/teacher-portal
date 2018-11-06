@@ -8,7 +8,6 @@ let unitBoxes = [];
 
 function create(unitNames) {
   unitBoxes = [];
-
   for (let i = 0; i < unitNames.length; i += 1) {
     unitBoxes.push(
       <Unitbox
