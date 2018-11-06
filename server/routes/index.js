@@ -56,18 +56,9 @@ router.get('/teacherNotes/:lessonID', (req, res) => {
   });
 });
 
-// router.get('/studentSummary', (req, res) => {
-//   res.send([
-//     { year: 2016, q1: 3, q2: 4, q3: 0, q4: 2 },
-//     { year: 2017, q1: 3, q2: 4, q3: 0, q4: 2 }
-//   ]);
-// });
-
 router.get('/studentSummary', async (req, res) => {
   try {
-    // {"id":1,"question":1,"response":2,"yr":2016}
     const query = await db.query('SELECT * FROM responses');
-
     const data = [];
     const years = [];
     const { rows } = query;
