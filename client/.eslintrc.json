@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "jsx-a11y/label-has-associated-control": [
@@ -17,7 +17,7 @@
         }
       }
     ],
-    "linebreak-style": ["error", "windows"],
+
     "prettier/prettier": ["error"],
     "react/prefer-stateless-function": 0
   },
