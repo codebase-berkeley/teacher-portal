@@ -70,7 +70,7 @@ router.get('/studentSummary', async (req, res) => {
 
     const data = [];
     const years = [];
-    const { rows } = query.rows;
+    const { rows } = query;
 
     rows.forEach(row => {
       if (!years.includes(row.yr)) {

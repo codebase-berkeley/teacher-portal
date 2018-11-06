@@ -23,7 +23,7 @@ CREATE TABLE units
 CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
-  content VARCHAR
+  text VARCHAR
 );
 
 CREATE TABLE responses
@@ -52,22 +52,22 @@ VALUES
 -- dummy data for responses 
 
 INSERT INTO questions
-  (id, content)
+  (id, text)
 VALUES
   (1, 'How interesting was this unit?');
 
 INSERT INTO questions
-  (id, content)
+  (id, text)
 VALUES
   (2, 'Would you recommend to a friend?');
 
 INSERT INTO questions
-  (id, content)
+  (id, text)
 VALUES
   (3, 'Did you learn anything?');
 
 INSERT INTO questions
-  (id, content)
+  (id, text)
 VALUES
   (4, 'What is the purpose of life?');
 
@@ -195,4 +195,3 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO root;
 
 GRANT ALL PRIVILEGES ON DATABASE portal TO root;
-
