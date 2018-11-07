@@ -6,7 +6,7 @@ import Item from './Item';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 
-class Modal extends Component {
+class StudentModal extends Component {
   constructor() {
     super();
 
@@ -68,8 +68,8 @@ class Modal extends Component {
     const { modalIsOpen, currItem, items } = this.state;
     return (
       <div>
-        <button type="button" onClick={this.openModal}>
-          Open Modal
+        <button className="modal-button" type="button" onClick={this.openModal}>
+          OK
         </button>
         <ReactModal
           className="box"
@@ -109,4 +109,4 @@ class Modal extends Component {
   }
 }
 
-export default Modal;
+export default StudentModal;

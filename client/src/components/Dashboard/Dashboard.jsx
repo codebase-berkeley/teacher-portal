@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ClassBox from './ClassBox/ClassBox';
 import AddClassBox from './AddClassBox/AddClassBox';
-import Modal from '../Modal/Modal';
+import StudentModal from '../Modal/StudentModal';
 import './Dashboard.css';
 
 const topBar = 'top-bar';
@@ -43,7 +43,7 @@ class Dashboard extends Component {
     const { classList } = this.state;
     return (
       <div className="dashboard-container">
-        <Modal />
+        <StudentModal className="add-students" />
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           <AddClassBox />
