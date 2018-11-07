@@ -82,7 +82,8 @@ class Units extends Component {
           >
             <div className="modalTitle">Add New Unit</div>
             <form>
-              Unit Name <br />
+              Unit Name
+              <br />
               <input className="inputText" type="text" />
               <input className="cancel" type="submit" value="OK" />
             </form>
