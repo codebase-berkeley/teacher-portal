@@ -12,6 +12,7 @@ function create(unitNames) {
     unitBoxes.push(
       <Unitbox
         unitName={unitNames[i].unit_name}
+        key={unitNames[i].id}
         path="/lessons"
         buttonType="link"
       />
