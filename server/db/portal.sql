@@ -30,6 +30,7 @@ CREATE TABLE responses
 (
   id SERIAL PRIMARY KEY,
   question SERIAL REFERENCES questions(id),
+  unit SERIAL REFERENCES units(id),
   response FLOAT,
   yr INTEGER
 );
@@ -71,122 +72,115 @@ INSERT INTO questions
 VALUES
   (4, 'What is the purpose of life?');
 
-INSERT INTO responses
-  (question, response, yr)
+INSERT INTO units
+  (id)
 VALUES
-  (1, 2, 2016);
+  (1);
+
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (1, 4, 2016);
+  (1, 1, 2, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (1, 5, 2016);
+  (1, 1, 4, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 2.5, 2016);
+  (1, 1, 5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 3.5, 2016);
+  (2, 1, 2.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2016);
+  (2, 1, 3.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 2.5, 2016);
+  (2, 1, 4.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 3.5, 2016);
+  (3, 1, 2.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2016);
+  (3, 1, 3.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (4, 5.0, 2016);
+  (3, 1, 4.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (4, 2.5, 2016);
+  (4, 1, 5.0, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (4, 3.5, 2016);
+  (4, 1, 2.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (1, 4.5, 2017);
+  (4, 1, 3.5, 2016);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (1, 4.5, 2017);
+  (1, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (1, 4.5, 2017);
+  (1, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2017);
+  (1, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2017);
+  (2, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2017);
+  (2, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (3, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (2, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (2, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2017);
+  (3, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (2, 4.5, 2017);
+  (3, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (3, 1, 4.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit,response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (4, 1, 2.0, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (3, 4.5, 2017);
+  (4, 1, 1.5, 2017);
 INSERT INTO responses
-  (question, response, yr)
+  (question, unit, response, yr)
 VALUES
-  (4, 2.0, 2017);
-INSERT INTO responses
-  (question, response, yr)
-VALUES
-  (4, 1.5, 2017);
-INSERT INTO responses
-  (question, response, yr)
-VALUES
-  (4, 3.5, 2017);
+  (4, 1, 3.5, 2017);
 
 
 

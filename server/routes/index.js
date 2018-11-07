@@ -60,14 +60,7 @@ router.get('/studentSummary', async (req, res) => {
   try {
     const mainquery = await db.query('SELECT * FROM responses;');
     const data = [];
-    // const years = [];
     const { rows } = mainquery;
-
-    // rows.forEach(row => {
-    //   if (!years.includes(row.yr)) {
-    //     years.push(row.yr);
-    //   }
-    // });
 
     const yearsquery = await db.query('SELECT DISTINCT yr FROM responses;');
     const years = yearsquery.rows.map(e => e.yr);
