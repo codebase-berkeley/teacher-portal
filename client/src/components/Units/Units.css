@@ -50,7 +50,10 @@
   font-weight: lighter;
   font-size: 16px;
   margin: 150px auto;
-  padding: 40px;
+  padding-top: 5px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 70px;
   background-color: white;
   width: 20%;
   height: 30%;
@@ -96,5 +99,19 @@
 }
 
 .modal:focus {
+  outline: none;
+}
+
+.exit {
+  user-select: none;
+  width: auto;
+  margin-left: 20vw;
+  font-size: 30px;
+  background-color: transparent;
+  text-decoration: none;
+  border: none;
+}
+
+.exit:focus {
   outline: none;
 }
