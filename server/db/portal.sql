@@ -17,8 +17,9 @@ CREATE TABLE users (
 
 CREATE TABLE classes (
   id SERIAL PRIMARY KEY,
-  userID INTEGER,
-  class_name VARCHAR
+  userID SERIAL REFERENCES users(id),
+  class_name VARCHAR,
+  teacher_name VARCHAR
 );
 
 INSERT INTO classes(userID, class_name)
@@ -32,7 +33,7 @@ INSERT INTO classes(userID, class_name)
 
 CREATE TABLE units (
   id SERIAL PRIMARY KEY,
-  classid INTEGER,
+  classid SERIAL REFERENCES classes(id),
   unit_name VARCHAR
 
 );
