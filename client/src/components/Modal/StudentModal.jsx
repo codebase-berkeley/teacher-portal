@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import './Modal.css';
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import Item from './Item';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 
-class Modal extends Component {
+class StudentModal extends Component {
+  static propTypes = {
+    closeExtra: PropTypes.func.isRequired
+  };
+
   constructor() {
     super();
-
     this.state = { modalIsOpen: false, currItem: '', items: [] };
 
     this.openModal = this.openModal.bind(this);
@@ -31,6 +35,12 @@ class Modal extends Component {
 
   closeModal() {
     this.setState({ modalIsOpen: false });
+  }
+
+  closeModalExtra() {
+    const { closeExtra } = this.props;
+    this.setState({ modalIsOpen: false });
+    closeExtra();
   }
 
   handleItem(event) {
@@ -68,7 +78,7 @@ class Modal extends Component {
     return (
       <div>
         <button className="modal-button" type="button" onClick={this.openModal}>
-          Open Modal
+          OK
         </button>
         <ReactModal
           className="modal"
@@ -98,7 +108,11 @@ class Modal extends Component {
             <button className="cancel" type="button" onClick={this.closeModal}>
               Back
             </button>
-            <button className="cancel" type="button" onClick={this.closeModal}>
+            <button
+              className="cancel"
+              type="button"
+              onClick={this.closeModalExtra}
+            >
               OK
             </button>
           </div>
@@ -108,4 +122,4 @@ class Modal extends Component {
   }
 }
 
-export default Modal;
+export default StudentModal;

@@ -15,7 +15,88 @@
   background: #f8f5f5;
   border: none;
   height: 40px;
-  left: 50%;
+  width: 310px;
+  left: 0%;
+}
+
+.modal {
+  box-shadow: 5px 5px 100px grey;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
+  font-size: 16px;
+  margin: 150px auto;
+  padding: 40px;
+  background-color: white;
+  width: 30%;
+  height: 60%;
+  border-top: 45px solid #009fb7;
+}
+
+.modalTitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 26px;
+}
+
+.cancel {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 4px;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  margin: 0% 0% 0 16%;
+  font-size: 16px;
+  background-color: #fed766;
+  width: 80px;
+  float: left;
+  padding: 10px;
+  box-shadow: none;
+  border: 0;
+}
+
+.inputText {
+  background-color: #f4f4f4;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  border: solid;
+  width: 300px;
+  height: 30px;
+  border-color: #ebe9e9;
+}
+
+.inputText:focus {
+  outline: none;
+}
+
+.display {
+  background-color: #f4f4f4;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  border: solid;
+  width: 300px;
+  height: 250px;
+  margin-top: 20px;
+  border-color: #ebe9e9;
+  overflow: scroll;
+  list-style: none;
+  padding-left: 7px;
+}
+
+.modal-button {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 4px;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  margin: 0% 0% 0 16%;
+  font-size: 16px;
+  background-color: #fed766;
+  width: 80px;
+  float: left;
+  padding: 10px;
+  box-shadow: none;
+  border: 0;
 }
 
 .modal {
