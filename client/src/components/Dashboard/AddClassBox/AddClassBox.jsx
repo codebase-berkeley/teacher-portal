@@ -52,7 +52,12 @@ class AddClassBox extends Component {
             Class Name
             <br />
             <input className="inputText" type="text" />
-            <StudentModal className="cancel" type="submit" value="OK" />
+            <StudentModal
+              className="cancel"
+              type="submit"
+              value="OK"
+              closeExtra={this.closeModal}
+            />
           </form>
           <button
             type="submit"

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Modal.css';
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import Item from './Item';
@@ -7,9 +8,12 @@ import Item from './Item';
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 
 class StudentModal extends Component {
+  static propTypes = {
+    closeExtra: PropTypes.function.isRequired
+  };
+
   constructor() {
     super();
-
     this.state = { modalIsOpen: false, currItem: '', items: [] };
 
     this.openModal = this.openModal.bind(this);
@@ -31,6 +35,12 @@ class StudentModal extends Component {
 
   closeModal() {
     this.setState({ modalIsOpen: false });
+  }
+
+  closeModalExtra() {
+    const { closeExtra } = this.props;
+    this.setState({ modalIsOpen: false });
+    closeExtra();
   }
 
   handleItem(event) {
@@ -59,7 +69,6 @@ class StudentModal extends Component {
 
   checkSubmit(e) {
     if (e && e.charCode === 13) {
-      console.log(this);
       this.addItem();
     }
   }
@@ -99,7 +108,11 @@ class StudentModal extends Component {
             <button className="cancel" type="button" onClick={this.closeModal}>
               Back
             </button>
-            <button className="cancel" type="button" onClick={this.closeModal}>
+            <button
+              className="cancel"
+              type="button"
+              onClick={this.closeModalExtra}
+            >
               OK
             </button>
           </div>
