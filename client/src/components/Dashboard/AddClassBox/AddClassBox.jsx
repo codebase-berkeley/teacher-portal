@@ -29,17 +29,8 @@ class AddClassBox extends Component {
     return (
       <div className="classbox">
         <div className="grey-top">
-          <button
-            className="add-new"
-            type="submit"
-            onClick={this.openModal}
-            unitName="+ Add New Unit"
-            buttonType="add"
-          >
-            + Add New Class
-          </button>
           <Modal
-            className="modal"
+            className="modal-class"
             isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -47,14 +38,21 @@ class AddClassBox extends Component {
           >
             <div className="modalTitle">Add New Class</div>
             <form>
-              Class Name
               <br />
-              <input className="inputText" type="text" />
-              <StudentModal className="cancel" type="submit" value="OK" />
+              <input
+                className="inputText"
+                placeholder="Add Class"
+                type="text"
+              />
+              <StudentModal
+                className="cancel-student"
+                type="submit"
+                value="OK"
+              />
             </form>
             <button
               type="submit"
-              className="cancel"
+              className="cancel-class"
               onClick={this.closeModal}
               close
             >
@@ -62,6 +60,15 @@ class AddClassBox extends Component {
             </button>
           </Modal>
         </div>
+        <button
+          className="add-new-class"
+          type="submit"
+          onClick={this.openModal}
+          unitName="+ Add New Unit"
+          buttonType="add"
+        >
+          + Add New Class
+        </button>
       </div>
     );
   }

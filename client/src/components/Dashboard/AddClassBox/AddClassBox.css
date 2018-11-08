@@ -1,28 +1,28 @@
-.add-new {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 265px;
-  height: 229px;
-  padding: 0;
-  font-size: 18px;
+.add-new-class {
+  position: relative;
+  padding: 75px;
+  z-index: 0;
   background-color: #efefef;
-  border-radius: 2px;
-  border: none;
+  font-size: 20px;
   font-family: 'Open Sans', sans-serif;
-  margin: 20px;
-  display: block;
-  text-decoration: none;
-  color: black;
+  border-radius: 2px;
+  -webkit-user-select: none;
+  border: none;
+}
+
+button:focus {
+  outline: 0;
 }
 
 .grey-top {
-  position: relative;
+  position: absolute;
+  top: 0;
   left: 0;
   padding: 0;
   width: 265px;
   height: 16px;
   background-color: #c4c4c4;
+  z-index: 0;
 }
 
 .plus-img {
@@ -32,6 +32,7 @@
   left: 35%;
   width: 30%;
   height: auto;
+  z-index: 10;
 }
 
 .email-input {
@@ -43,7 +44,7 @@
   left: 0%;
 }
 
-.modal {
+.modal-class {
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
@@ -51,24 +52,28 @@
   margin: 150px auto;
   padding: 40px;
   background-color: white;
-  width: 100px;
-  height: 100px;
+  width: 500px;
+  height: 150px;
+  text-align: center;
   border-top: 45px solid #009fb7;
 }
 
 .modalTitle {
   font-family: 'Open Sans', sans-serif;
   font-size: 26px;
+  margin-bottom: 0px;
+  text-align: center;
 }
 
-.cancel {
+.cancel-class {
   font-family: 'Open Sans', sans-serif;
   border-radius: 4px;
   border-style: solid;
   text-align: center;
   text-decoration: none;
+  position: relative;
   color: black;
-  margin: 0% 0% 0 16%;
+  margin: 20px 10px 50px 100px;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
@@ -113,7 +118,7 @@
   text-align: center;
   text-decoration: none;
   color: black;
-  margin: 0% 0% 0 16%;
+  margin: 10px 10px 10px 50px;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;

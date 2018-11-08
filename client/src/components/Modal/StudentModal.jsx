@@ -66,7 +66,7 @@ class StudentModal extends Component {
     const { modalIsOpen, currItem, items } = this.state;
     return (
       <div>
-        <button className="cancel" type="button" onClick={this.openModal}>
+        <button className="ok-student" type="button" onClick={this.openModal}>
           OK
         </button>
 
@@ -83,7 +83,7 @@ class StudentModal extends Component {
             <div className="input-container">
               <input
                 onKeyPress={this.checkSubmit}
-                className="inputText"
+                className="inputText-student"
                 placeholder="Add Student Email"
                 value={currItem}
                 onChange={this.handleItem}
@@ -95,10 +95,18 @@ class StudentModal extends Component {
                 <Item text={item} />
               ))}
             </ul>
-            <button className="cancel" type="button" onClick={this.closeModal}>
+            <button
+              className="cancel-student"
+              type="button"
+              onClick={this.closeModal}
+            >
               Back
             </button>
-            <button className="cancel" type="button" onClick={this.closeModal}>
+            <button
+              className="cancel-student"
+              type="button"
+              onClick={this.closeModal}
+            >
               OK
             </button>
           </div>
