@@ -23,7 +23,7 @@ VALUES
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
 VALUES
-  ('parth.shah@berkeley.edu', 'P', 'Shah', TRUE);
+  ('parth.shah@berkeley.edu', 'Part', 'Shah', TRUE);
 
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
@@ -62,7 +62,7 @@ VALUES
 INSERT INTO lessons
   (lesson_name, pdf, reflectionText, unit_id)
 VALUES
-  ('Hi', 'lesson.pdf', 'blah', 1);
+  ('Linear Algebra', 'lesson.pdf', 'blah', 1);
 
 INSERT INTO lessons
   (lesson_name, pdf, reflectionText, unit_id)
