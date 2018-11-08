@@ -25,3 +25,31 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+button:focus {
+  outline: 0;
+}
+
+.lessonbox:focus {
+  outline: 0;
+}
+
+.LessonModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.LessonModal:focus {
+  outline: none;
+}
+
+.LessonOverlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}

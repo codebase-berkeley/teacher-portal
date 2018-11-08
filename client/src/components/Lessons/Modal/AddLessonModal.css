@@ -1,0 +1,70 @@
+.lesson-modal {
+  width: 500px;
+  background: #fff;
+}
+
+.lesson_input {
+  background-color: #f4f4f4;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  border: solid;
+  height: 30px;
+  width: 395px;
+  border-color: #ebe9e9;
+}
+
+.lesson_input:focus {
+  outline: none;
+}
+
+.contents {
+  padding: 50px;
+}
+
+.top-modal {
+  width: 500px;
+  background-color: #019fb7;
+  height: 50px;
+}
+
+.bad-code {
+  margin: 0;
+}
+
+.insert_lesson {
+  text-align: center;
+  color: #737373;
+  font-size: 18px;
+  margin: 30px;
+}
+
+.lesson-img {
+  width: 20%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.modal_buttons {
+  margin-top: 40px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.m_button {
+  background-color: #f9d778;
+  width: 120px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  font-size: 18px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.active_drag {
+  background-color: '#EBE9E9';
+}
