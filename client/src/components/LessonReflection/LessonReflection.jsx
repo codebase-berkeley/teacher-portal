@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import request from 'superagent';
 import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
@@ -21,17 +20,6 @@ class LessonReflection extends Component {
         this.setState({ teachNotes: notes });
       });
   }
-
-  onDrop = files => {
-    // POST to a test endpoint for   demo purposes
-    const req = request.post('https://httpbin.org/post');
-
-    files.forEach(file => {
-      req.attach(file.name, file);
-    });
-
-    req.end();
-  };
 
   render() {
     const { teachNotes } = this.state;

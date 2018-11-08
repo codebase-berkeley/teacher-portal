@@ -4,13 +4,17 @@
 }
 
 .lesson_input {
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background: #eee;
-  width: 100%;
-  border: 1px solid #d6d6d6;
-  border-radius: 3px;
+  background-color: #f4f4f4;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  border: solid;
+  height: 30px;
+  width: 395px;
+  border-color: #ebe9e9;
+}
+
+.lesson_input:focus {
+  outline: none;
 }
 
 .contents {
@@ -59,4 +63,8 @@
   font-size: 18px;
   margin: 0 20px;
   cursor: pointer;
+}
+
+.active_drag {
+  background-color: '#EBE9E9';
 }

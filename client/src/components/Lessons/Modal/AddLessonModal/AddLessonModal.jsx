@@ -1,36 +1,36 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import ReactDropzone from 'react-dropzone';
-import request from 'superagent';
 import PropTypes from 'prop-types';
-import plus from '../AddLessonBox/plsImage.png';
+import plus from '../../AddLessonBox/plsImage.png';
 import './AddLessonModal.css';
 
 /* styles for react drop zone */
 const customStyles = {
-  background: '#eee',
+  background: '#f4f4f4',
   width: '100%',
   marginTop: '30px',
   paddingBottom: '10px',
   height: 'auto',
-  border: '1px solid #d6d6d6',
-  borderRadius: '3px',
+  border: '3px solid #EBE9E9',
   cursor: 'pointer'
+};
+
+const activeStyle = {
+  background: '#EBE9E9'
 };
 
 class AddLessonModal extends Component {
   constructor() {
     super();
     this.okClicked = this.okClicked.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   onDrop = files => {
-    // POST to a test endpoint for demo purposes
-    const req = request.post('https://httpbin.org/post');
     files.forEach(file => {
-      req.attach(file.name, file);
+      console.log(file.name);
     });
-    req.end();
   };
 
   okClicked() {
@@ -50,7 +50,7 @@ class AddLessonModal extends Component {
       <div className="lesson-modal">
         <div className="top-bar top-modal" />
         <form className="contents">
-          <h1 className="bad-code">Add New lesson</h1>
+          <h2 className="bad-code">Add New lesson</h2>
           <p>Lesson Name</p>
           <input
             type="text"
@@ -58,11 +58,23 @@ class AddLessonModal extends Component {
             id="input-id"
             className="lesson_input"
           />
-          <ReactDropzone style={customStyles} onDrop={this.onDrop}>
-            <div>
-              <img src={plus} className="plus-img" alt="plus" />
-              <p className="insert_lesson">Insert Lesson PDF</p>
-            </div>
+          <ReactDropzone
+            style={customStyles}
+            activeStyle={activeStyle}
+            onDrop={this.onDrop}
+            multiple={false}
+          >
+            {({ acceptedFiles }) => {
+              if (acceptedFiles.length) {
+                return <p>{acceptedFiles[0].name}</p>;
+              }
+              return (
+                <div>
+                  <img src={plus} className="plus-img" alt="plus" />
+                  <p className="insert_lesson">Insert Lesson PDF</p>
+                </div>
+              );
+            }}
           </ReactDropzone>
           <div className="modal_buttons">
             <button

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
-import AddLessonModal from './AddLessonModal/AddLessonModal';
+import AddLessonModal from './Modal/AddLessonModal/AddLessonModal';
 import './Lessons.css';
 
 const topBar = 'top-bar';
@@ -59,6 +59,7 @@ class Lessons extends Component {
             <LessonBox
               title={less.name}
               color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+              key={less.name}
             />
           ))}
         </div>
