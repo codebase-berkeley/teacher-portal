@@ -72,7 +72,7 @@ class StudentModal extends Component {
           OK
         </button>
         <ReactModal
-          className="box"
+          className="modal"
           isOpen={modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
@@ -91,15 +91,15 @@ class StudentModal extends Component {
               />
             </div>
 
-            <ul className="todo-item-list">
+            <ul className="display">
               {items.map(item => (
                 <Item text={item} />
               ))}
             </ul>
-            <button type="button" onClick={this.closeModal}>
+            <button className="cancel" type="button" onClick={this.closeModal}>
               Back
             </button>
-            <button type="button" onClick={this.closeModal}>
+            <button className="cancel" type="button" onClick={this.closeModal}>
               OK
             </button>
           </div>
