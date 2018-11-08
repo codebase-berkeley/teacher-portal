@@ -23,31 +23,32 @@ VALUES
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
 VALUES
-  ('parth.shah@berkeley.edu', 'Part', 'Shah', TRUE);
+  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
 
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
 VALUES
   ('young.guo@gmail.com', 'Young', 'Guo', FALSE);
 
+CREATE TABLE units
+(
+  id SERIAL PRIMARY KEY
+);
+
 CREATE TABLE lessons
 (
   id SERIAL PRIMARY KEY,
   lesson_name VARCHAR,
   pdf VARCHAR,
-  reflectionText VARCHAR,
-  FOREIGN KEY (unit_id) REFERENCES units (id) ON DELETE CASCADE
-);
-
-CREATE TABLE units
-(
-  id SERIAL PRIMARY KEY
+  reflectionText TEXT,
+  unit_id SERIAL REFERENCES units (id)
 );
 
 INSERT INTO units
   (id)
 VALUES
   (1);
+
 
 INSERT INTO lessons
   (lesson_name, pdf, reflectionText, unit_id)

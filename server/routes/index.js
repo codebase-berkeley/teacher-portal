@@ -38,19 +38,14 @@ router.get('/units/:classID', (req, res) => {
   ]);
 });
 
-// router.get('/lessons/:unitID', (req, res) => {
-//   res.send([
-//     { id: 1, name: 'Volumes of Rotating Solids', color: 'aqua' },
-//     { id: 2, name: 'Related Rates', color: 'aqua' },
-//     { id: 3, name: 'Trigonometry', color: 'aqua' },
-//     { id: 4, name: 'Integrals', color: 'aqua' },
-//     { id: 5, name: 'Differential Equations', color: 'aqua' }
-//   ]);
-// });
-
 router.get('/lessons/:unitID', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM lessons');
+    const uID = req.params;
+    console.log(uID);
+    const query = await db.query(
+      // `SELECT * FROM lessons where unit_id = ${uID}`
+      'SELECT * FROM lessons WHERE unit_id = 1'
+    );
     console.log(query);
     res.send(query.rows);
   } catch (error) {
