@@ -77,9 +77,10 @@ class StudentModal extends Component {
     const { modalIsOpen, currItem, items } = this.state;
     return (
       <div>
-        <button className="modal-button" type="button" onClick={this.openModal}>
+        <button className="cancel" type="button" onClick={this.openModal}>
           OK
         </button>
+
         <ReactModal
           className="modal"
           isOpen={modalIsOpen}
