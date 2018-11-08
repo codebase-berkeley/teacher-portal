@@ -40,11 +40,12 @@ router.get('/units/:classID', (req, res) => {
 
 router.get('/lessons/:unitID', async (req, res) => {
   try {
-    const uID = req.params;
-    console.log(uID);
+    const { unitID } = req.params;
+    console.log(unitID);
     const query = await db.query(
       // `SELECT * FROM lessons where unit_id = ${uID}`
-      'SELECT * FROM lessons WHERE unit_id = 1'
+      'SELECT * FROM lessons WHERE unit_id = $1',
+      [unitID]
     );
     console.log(query);
     res.send(query.rows);
