@@ -38,10 +38,12 @@ class Lessons extends Component {
         <div className="box-container">
           <AddLessonBox />
           {l.map(less => (
-            <LessonBox
-              title={less.lesson_name}
-              color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
-            />
+            <li key={less.lesson_name}>
+              <LessonBox
+                title={less.lesson_name}
+                color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+              />
+            </li>
           ))}
         </div>
       </div>
