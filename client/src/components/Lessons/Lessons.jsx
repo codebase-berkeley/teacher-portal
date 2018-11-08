@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
-import AddLessonModal from './Modal/AddLessonModal/AddLessonModal';
+import AddLessonModal from './Modal/AddLessonModal';
 import './Lessons.css';
 
 const topBar = 'top-bar';
@@ -63,7 +63,11 @@ class Lessons extends Component {
             />
           ))}
         </div>
-        <Modal isOpen={showModal} className="Modal" overlayClassName="Overlay">
+        <Modal
+          isOpen={showModal}
+          className="LessonModal"
+          overlayClassName="LessonOverlay"
+        >
           <AddLessonModal handleCloseModal={this.handleCloseModal} />
         </Modal>
       </div>
