@@ -44,7 +44,7 @@ button:focus {
   left: 0%;
 }
 
-.modal-class {
+.class-modal {
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;

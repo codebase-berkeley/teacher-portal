@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AddClassBox.css';
 import Modal from 'react-modal';
-import StudentModal from '../../Modal/StudentModal';
+import StudentModal from './Modal/StudentModal';
 
 class AddClassBox extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class AddClassBox extends Component {
       <div className="classbox">
         <div className="grey-top">
           <Modal
-            className="modal-class"
+            className="class-modal"
             isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
