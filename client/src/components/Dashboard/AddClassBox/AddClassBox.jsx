@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './AddClassBox.css';
 import Modal from 'react-modal';
 import StudentModal from '../../Modal/StudentModal';
-import plus from './plusImage.png';
 
 class AddClassBox extends Component {
   constructor() {
@@ -29,41 +28,40 @@ class AddClassBox extends Component {
     const { modalIsOpen } = this.state;
     return (
       <div className="classbox">
-        <div className="grey-top" />
-        <img src={plus} className="plus-img" alt="plus" />
-        <button
-          className="add-new"
-          type="submit"
-          onClick={this.openModal}
-          unitName="+ Add New Unit"
-          buttonType="add"
-        >
-          + Add New Class
-        </button>
-        <Modal
-          className="modal"
-          isOpen={modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-        >
-          <div className="modalTitle">Add New Class</div>
-          <form>
-            Class Name
-            <br />
-            <input className="inputText" type="text" />
-            <StudentModal className="cancel" type="submit" value="OK" />
-          </form>
+        <div className="grey-top">
           <button
+            className="add-new"
             type="submit"
-            className="cancel"
-            onClick={this.closeModal}
-            close
+            onClick={this.openModal}
+            unitName="+ Add New Unit"
+            buttonType="add"
           >
-            Cancel
+            + Add New Class
           </button>
-        </Modal>
-        ;
+          <Modal
+            className="modal"
+            isOpen={modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal"
+          >
+            <div className="modalTitle">Add New Class</div>
+            <form>
+              Class Name
+              <br />
+              <input className="inputText" type="text" />
+              <StudentModal className="cancel" type="submit" value="OK" />
+            </form>
+            <button
+              type="submit"
+              className="cancel"
+              onClick={this.closeModal}
+              close
+            >
+              Cancel
+            </button>
+          </Modal>
+        </div>
       </div>
     );
   }

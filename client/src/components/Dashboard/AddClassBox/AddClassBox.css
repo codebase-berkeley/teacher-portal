@@ -1,7 +1,19 @@
 .add-new {
-  text-align: center;
-  font-size: 20px;
-  color: #767676;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 265px;
+  height: 229px;
+  padding: 0;
+  font-size: 18px;
+  background-color: #efefef;
+  border-radius: 2px;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  margin: 20px;
+  display: block;
+  text-decoration: none;
+  color: black;
 }
 
 .grey-top {

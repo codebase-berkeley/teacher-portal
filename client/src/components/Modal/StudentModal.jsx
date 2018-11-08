@@ -77,12 +77,12 @@ class StudentModal extends Component {
           contentLabel="Example Modal"
           ariaHideApp={false}
         >
-          <h1>Add Students</h1>
+          <h1 className="modalTitle">Add Students</h1>
           <div className="todo-container">
             <div className="input-container">
               <input
                 onKeyPress={this.checkSubmit}
-                className="email-input"
+                className="inputText"
                 placeholder="Add Student Email"
                 value={currItem}
                 onChange={this.handleItem}
