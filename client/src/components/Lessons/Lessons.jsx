@@ -55,7 +55,7 @@ class Lessons extends Component {
         </NavLink>
         <div className="box-container">
           <AddLessonBox />
-          {l.map(less => (
+          {lessons.map(less => (
             <div key={less.lesson_name}>
               <LessonBox
                 title={less.lesson_name}
