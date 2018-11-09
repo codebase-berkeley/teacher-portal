@@ -93,8 +93,7 @@ class AddClassBox extends Component {
             >
               <div className="class-modalTitle">Add New Class</div>
               <form>
-                Class Name
-                <br />
+                <label htmlFor="className">Class Name</label>
                 <input className="inputText" type="text" id="classNameText" />
               </form>
               <div className="button-wrapper">
