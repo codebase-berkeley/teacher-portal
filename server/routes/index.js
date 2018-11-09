@@ -121,7 +121,7 @@ router.post('/upload', async (req, res) => {
   console.log(sampleFile.mv);
   // console.log(sampleFile);
 
-  sampleFile.mv(path.resolve(`../static/${sampleFile.name}`), err => {
+  sampleFile.mv(path.resolve(`./static/${sampleFile.name}`), err => {
     if (err) {
       return res.status(500).send(err);
     }
