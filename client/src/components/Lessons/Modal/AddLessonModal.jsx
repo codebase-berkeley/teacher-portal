@@ -57,6 +57,7 @@ class AddLessonModal extends Component {
       } else {
         const data = new FormData();
         data.append(key, currfile);
+        data.append('name', lessonName);
         fetch('/api/upload', { method: 'POST', body: data });
         handleCloseModal();
       }

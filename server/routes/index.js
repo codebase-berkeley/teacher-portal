@@ -1,13 +1,12 @@
 const Router = require('express-promise-router');
 
-const path = require('path');
 const db = require('../db/index');
 
 const router = new Router();
 
 router.get('/users', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM users');
+    const query = await db.query('SELECT * FROM users;');
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
@@ -17,7 +16,7 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
-      'SELECT * FROM classes JOIN users on classes.teacherID = users.id'
+      'SELECT * FROM classes JOIN users on classes.teacherID = users.id;'
     );
     res.send(query.rows);
   } catch (error) {
@@ -27,7 +26,7 @@ router.get('/classes', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM units WHERE classid = $1', [
+    const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       req.params.classID
     ]);
     res.send(query.rows);
@@ -39,7 +38,7 @@ router.get('/units/:classID', async (req, res) => {
 router.get('/lessons/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
-    const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1', [
+    const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1;', [
       unitID
     ]);
     res.send(query.rows);
@@ -109,8 +108,24 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
+  const { name } = req.body;
+  console.log(name);
+  const lessonPath = `./static/${sampleFile.name}`;
+  // db.query(
+  //   `INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath)
+  //   VALUES (${name}, "lmao", 1, ${lessonPath};`
+  // );
 
-  sampleFile.mv(path.resolve(`./static/${sampleFile.name}`), err => {
+  db.query(
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, 'lmao', 1, $2);",
+    [name, lessonPath]
+  );
+
+  // db.query(
+  //   `INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ('yoo2', 'lmao', 1, './static/pdf-sample.pdf');`
+  // );
+
+  sampleFile.mv(lessonPath, err => {
     if (err) {
       return res.status(500).send(err);
     }

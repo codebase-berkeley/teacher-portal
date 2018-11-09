@@ -33,9 +33,9 @@ CREATE TABLE lessons
 (
   id SERIAL PRIMARY KEY,
   lesson_name VARCHAR,
-  pdf VARCHAR,
-  reflectionText TEXT,
-  unit_id SERIAL REFERENCES units (id)
+  reflection_text TEXT,
+  unit_id SERIAL REFERENCES units(id),
+  filepath VARCHAR
 );
 
 CREATE TABLE questions
@@ -83,13 +83,13 @@ VALUES
 -- dummy data for lessons 
 
 INSERT INTO lessons
-  (lesson_name, pdf, reflectionText, unit_id)
+  (lesson_name, reflection_text, unit_id, filepath)
 VALUES
-  ('Volumes of Rotating Solids', 'lesson.pdf', 'blah', 1),
-  ('Related Rates', 'lesson.pdf', 'blah', 1),
-  ('Linear Algebra', 'lesson.pdf', 'blah', 1),
-  ('Integrals', 'lesson.pdf', 'blah', 1),
-  ('Differential Equations', 'lesson.pdf', 'blah', 1);
+  ('Volumes of Rotating Solids', 'blah', 1, './static/lesson.pdf'),
+  ('Related Rates', 'blah', 1, './static/pdf-sample.pdf'),
+  ('Linear Algebra', 'blah', 1, './static/yeeeeee.pdf'),
+  ('Integrals', 'blah', 1, './static/yoighht.pdf'),
+  ('Differential Equations', 'blah', 1, './static/lesson.pdf');
 
 -- dummy data for questions 
 
