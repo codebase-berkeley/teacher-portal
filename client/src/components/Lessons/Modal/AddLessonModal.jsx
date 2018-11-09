@@ -20,6 +20,10 @@ const activeStyle = {
   background: '#EBE9E9'
 };
 
+function onDropRejected() {
+  alert('Upload PDFs only.');
+}
+
 class AddLessonModal extends Component {
   constructor() {
     super();
@@ -61,7 +65,9 @@ class AddLessonModal extends Component {
           <ReactDropzone
             style={customStyles}
             activeStyle={activeStyle}
+            accept=".pdf"
             onDrop={this.onDrop}
+            onDropRejected={onDropRejected}
             multiple={false}
           >
             {({ acceptedFiles }) => {
@@ -72,6 +78,7 @@ class AddLessonModal extends Component {
                 <div>
                   <img src={plus} className="plus-img" alt="plus" />
                   <p className="insert_lesson">Insert Lesson PDF</p>
+                  <p className="small_lesson">* PDFs only</p>
                 </div>
               );
             }}
