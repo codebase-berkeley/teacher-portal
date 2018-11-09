@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
@@ -22,6 +23,14 @@ function create(unitNames) {
 }
 
 class Units extends Component {
+  static propTypes = {
+    match: PropTypes.string
+  };
+
+  static defaultProps = {
+    match: {}
+  };
+
   constructor() {
     super();
     this.state = {
@@ -30,6 +39,7 @@ class Units extends Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.sendData = this.sendData.bind(this);
   }
 
   async componentWillMount() {
@@ -50,6 +60,29 @@ class Units extends Component {
 
   closeModal() {
     this.setState({ modalIsOpen: false });
+  }
+
+  sendData() {
+    const { match } = this.props;
+    const { classID } = match.params;
+    console.log(classID);
+    const unitName = document.getElementById('unit_name').value;
+    console.log(unitName);
+    fetch('/api/units', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ unit_name: unitName, classid: classID })
+    }).then(
+      response => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
   }
 
   render() {
@@ -81,11 +114,11 @@ class Units extends Component {
             contentLabel="Example Modal"
           >
             <div className="modalTitle">Add New Unit</div>
-            <form>
+            <form action="/units" method="post">
               <label htmlFor="unitname" id="unitname">
                 Unit Name
               </label>
-              <input className="inputText" type="text" />
+              <input className="inputText" id="unit_name" type="text" />
             </form>
             <div className="buttonwrapper">
               <button
@@ -99,7 +132,10 @@ class Units extends Component {
               <button
                 type="submit"
                 className="cancelButton"
-                onClick={this.closeModal}
+                onClick={() => {
+                  this.sendData();
+                  this.closeModal();
+                }}
                 close
               >
                 OK
