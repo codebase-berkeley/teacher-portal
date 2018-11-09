@@ -15,35 +15,54 @@ CREATE TABLE users
   is_teacher BOOLEAN
 );
 
-CREATE TABLE units
-(
-  id SERIAL PRIMARY KEY
-);
-
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
 VALUES
-  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
-
-CREATE TABLE questions
-(
-  id SERIAL PRIMARY KEY,
-  text VARCHAR
+  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE),
+  ('young.guo@gmail.com', 'Young', 'Guo', FALSE
 );
 
-CREATE TABLE responses
+CREATE TABLE classes
 (
   id SERIAL PRIMARY KEY,
-  question SERIAL REFERENCES questions(id),
-  unit SERIAL REFERENCES units(id),
-  response FLOAT,
-  yr INTEGER
+  teacherID SERIAL REFERENCES users(id),
+  class_name VARCHAR
 );
+
+INSERT INTO classes
+  (teacherID, class_name)
+VALUES
+  (1, 'English 102');
+
+INSERT INTO classes
+  (teacherID, class_name)
+VALUES
+  (2, 'English 202');
+
+INSERT INTO classes
+  (teacherID, class_name)
+VALUES
+  (1, 'English 302');
 
 CREATE TABLE units
 (
-  id SERIAL PRIMARY KEY
+  id SERIAL PRIMARY KEY,
+  classid SERIAL REFERENCES classes(id),
+  unit_name VARCHAR
 );
+
+INSERT INTO units
+  (classid, unit_name)
+VALUES(1, 'House on Mango Street');
+
+INSERT INTO units
+  (classid, unit_name)
+VALUES(2, 'Macbeth');
+
+INSERT INTO units
+  (classid, unit_name)
+VALUES(1, 'Jane Eyre');
+
 
 CREATE TABLE lessons
 (
@@ -53,11 +72,6 @@ CREATE TABLE lessons
   reflectionText TEXT,
   unit_id SERIAL REFERENCES units (id)
 );
-
-INSERT INTO units
-  (id)
-VALUES
-  (1);
 
 
 INSERT INTO lessons
@@ -85,17 +99,22 @@ INSERT INTO lessons
 VALUES
   ('Differential Equations', 'lesson.pdf', 'blah', 1);
 
-INSERT INTO users
-  (email, first_name, last_name, is_teacher)
-VALUES
-  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
-
-INSERT INTO users
-  (email, first_name, last_name, is_teacher)
-VALUES
-  ('young.guo@gmail.com', 'Young', 'Guo', FALSE);
-
 -- dummy data for responses 
+
+CREATE TABLE questions
+(
+  id SERIAL PRIMARY KEY,
+  text VARCHAR
+);
+
+CREATE TABLE responses
+(
+  id SERIAL PRIMARY KEY,
+  question SERIAL REFERENCES questions(id),
+  unit SERIAL REFERENCES units(id),
+  response FLOAT,
+  yr INTEGER
+);
 
 INSERT INTO questions
   (id, text)
@@ -116,11 +135,6 @@ INSERT INTO questions
   (id, text)
 VALUES
   (4, 'What is the purpose of life?');
-
-INSERT INTO units
-  (id)
-VALUES
-  (1);
 
 INSERT INTO responses
   (question, unit, response, yr)
@@ -227,35 +241,7 @@ INSERT INTO responses
 VALUES
   (4, 1, 3.5, 2017);
 
-CREATE TABLE classes (
-  id SERIAL PRIMARY KEY,
-  teacherID SERIAL REFERENCES users(id),
-  class_name VARCHAR
-);
 
-INSERT INTO classes(teacherID, class_name)
-  VALUES (1, 'English 102');
-
-INSERT INTO classes(teacherID, class_name)
-  VALUES (2, 'English 202');
-
-INSERT INTO classes(teacherID, class_name)
-  VALUES (1, 'English 302');
-
-CREATE TABLE units (
-  id SERIAL PRIMARY KEY,
-  classid SERIAL REFERENCES classes(id),
-  unit_name VARCHAR
-);
-
-INSERT INTO units(classid, unit_name)
-  VALUES(1, 'House on Mango Street');
-
-INSERT INTO units(classid, unit_name)
-  VALUES(2, 'Macbeth');
-
-INSERT INTO units(classid, unit_name)
-  VALUES(1, 'Jane Eyre');
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 
