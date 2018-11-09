@@ -13,28 +13,34 @@ CREATE TABLE users (
   is_teacher BOOLEAN
 );
 
+INSERT INTO users (email, first_name, last_name, is_teacher)
+  VALUES ('bchee@berkeley.edu', 'Bradley', 'Chee', TRUE);
 
+INSERT INTO users (email, first_name, last_name, is_teacher)
+  VALUES ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
+
+INSERT INTO users (email, first_name, last_name, is_teacher)
+  VALUES ('young.guo@gmail.com', 'Young', 'Guo', FALSE);
 
 CREATE TABLE classes (
   id SERIAL PRIMARY KEY,
-  userID SERIAL REFERENCES users(id),
+  teacherID SERIAL REFERENCES users(id),
   class_name VARCHAR
 );
 
-INSERT INTO classes(userID, class_name)
+INSERT INTO classes(teacherID, class_name)
   VALUES (1, 'English 102');
 
-INSERT INTO classes(userID, class_name)
+INSERT INTO classes(teacherID, class_name)
   VALUES (2, 'English 202');
 
-INSERT INTO classes(userID, class_name)
+INSERT INTO classes(teacherID, class_name)
   VALUES (1, 'English 302');
 
 CREATE TABLE units (
   id SERIAL PRIMARY KEY,
   classid SERIAL REFERENCES classes(id),
   unit_name VARCHAR
-
 );
 
 INSERT INTO units(classid, unit_name)
@@ -44,16 +50,7 @@ INSERT INTO units(classid, unit_name)
   VALUES(2, 'Macbeth');
 
 INSERT INTO units(classid, unit_name)
-  VALUES(1, 'Jane Eyre' );
-
-INSERT INTO users (email, first_name, last_name, is_teacher)
-  VALUES ('bchee@berkeley.edu', 'Bradley', 'Chee', TRUE);
-
-INSERT INTO users (email, first_name, last_name, is_teacher)
-  VALUES ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
-
-INSERT INTO users (email, first_name, last_name, is_teacher)
-  VALUES ('young.guo@gmail.com', 'Young', 'Guo', FALSE);
+  VALUES(1, 'Jane Eyre');
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 
