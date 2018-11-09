@@ -23,12 +23,10 @@ router.get('/classes', async (req, res) => {
 });
 
 router.get('/units/:classID', async (req, res) => {
-  const { classID } = req.params.classID;
   try {
-    const query = await db.query(
-      'SELECT * FROM units WHERE classid =',
-      classID
-    );
+    const query = await db.query('SELECT * FROM units WHERE classid = $1', [
+      req.params.classID
+    ]);
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
