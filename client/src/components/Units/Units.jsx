@@ -74,7 +74,7 @@ class Units extends Component {
           </button>
           {create(unitList)}
           <Modal
-            className="modal"
+            className="newUnitModal"
             isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -93,11 +93,11 @@ class Units extends Component {
               Unit Name
               <br />
               <input className="inputText" type="text" />
-              <input className="cancel" type="submit" value="OK" />
+              <input className="cancelButton" type="submit" value="OK" />
             </form>
             <button
               type="submit"
-              className="cancel"
+              className="cancelButton"
               onClick={this.closeModal}
               close
             >

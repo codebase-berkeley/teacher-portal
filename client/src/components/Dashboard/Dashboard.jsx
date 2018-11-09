@@ -14,7 +14,7 @@ function displayClassBoxes(classList) {
         title={classList[i].class_name}
         id={classList[i].id}
         key={classList[i].id}
-        teacher={classList[i].teacher_name}
+        teacher={classList[i].first_name}
         color={str}
       />
     );
