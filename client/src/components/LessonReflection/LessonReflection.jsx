@@ -30,7 +30,6 @@ class LessonReflection extends Component {
       .then(response => response.json())
       .then(response => {
         const fr = response.filter(element => element.id === lessonID)[0];
-        console.log(fr.filepath.slice(1));
         this.setState({
           filepath: fr.filepath.slice(1)
         });
@@ -40,7 +39,6 @@ class LessonReflection extends Component {
   render() {
     const { teachNotes, filepath } = this.state;
     const pathway = `http://localhost:8080${filepath}`;
-    console.log(pathway);
     return (
       <div>
         <NavLink to="/lessons" className="Return">
