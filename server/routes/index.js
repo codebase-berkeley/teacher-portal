@@ -111,15 +111,7 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
-  // if (Object.keys(req.body).length === 0) {
-  //   return res.status(400).send('No files were uploaded.');
-  // }
-  console.log('lmao');
-  console.log(req.files);
   const { sampleFile } = req.files;
-  console.log(sampleFile.name);
-  console.log(sampleFile.mv);
-  // console.log(sampleFile);
 
   sampleFile.mv(path.resolve(`./static/${sampleFile.name}`), err => {
     if (err) {
