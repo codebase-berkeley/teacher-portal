@@ -69,7 +69,10 @@ class Lessons extends Component {
           className="LessonModal"
           overlayClassName="LessonOverlay"
         >
-          <AddLessonModal handleCloseModal={this.handleCloseModal} />
+          <AddLessonModal
+            handleOpenModal={this.handleOpenModal}
+            handleCloseModal={this.handleCloseModal}
+          />
         </Modal>
       </div>
     );
