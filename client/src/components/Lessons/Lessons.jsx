@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import Modal from 'react-modal';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
+import AddLessonModal from './Modal/AddLessonModal';
 import './Lessons.css';
 
 const topBar = 'top-bar';
 const colors = ['yellow', 'aqua', 'dark-teal'];
 
 class Lessons extends Component {
-  state = { lessons: [] };
+  constructor() {
+    super();
+    this.state = {
+      lessons: [],
+      showModal: false
+    };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
 
   componentDidMount() {
-    fetch('/api/lessons/3')
+    fetch('/api/lessons/1')
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -23,9 +34,16 @@ class Lessons extends Component {
       });
   }
 
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
+
   render() {
-    const s = this.state;
-    const l = s.lessons;
+    const { lessons, showModal } = this.state;
     return (
       <div className="lessons-container">
         <NavLink to="/units" className="Return">
@@ -36,14 +54,26 @@ class Lessons extends Component {
           Student Summary
         </NavLink>
         <div className="box-container">
-          <AddLessonBox />
-          {l.map(less => (
-            <LessonBox
-              title={less.name}
-              color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
-            />
+          <AddLessonBox onClick={this.handleOpenModal} />
+          {lessons.map(less => (
+            <div key={less.lesson_name}>
+              <LessonBox
+                title={less.lesson_name}
+                color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+              />
+            </div>
           ))}
         </div>
+        <Modal
+          isOpen={showModal}
+          className="LessonModal"
+          overlayClassName="LessonOverlay"
+        >
+          <AddLessonModal
+            handleOpenModal={this.handleOpenModal}
+            handleCloseModal={this.handleCloseModal}
+          />
+        </Modal>
       </div>
     );
   }

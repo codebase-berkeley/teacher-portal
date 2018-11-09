@@ -1,38 +1,13 @@
-.add-new-class {
+.box {
   position: relative;
-  padding: 75px;
-  z-index: 0;
-  background-color: #efefef;
-  font-size: 20px;
-  font-family: 'Open Sans', sans-serif;
-  border-radius: 2px;
-  -webkit-user-select: none;
-  border: none;
-}
-
-button:focus {
-  outline: 0;
-}
-
-.grey-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0;
-  width: 265px;
-  height: 16px;
-  background-color: #c4c4c4;
-  z-index: 0;
-}
-
-.plus-img {
-  position: relative;
-  padding-top: 17%;
-  padding-bottom: 0;
-  left: 35%;
-  width: 30%;
-  height: auto;
-  z-index: 10;
+  width: 500px;
+  height: 700px;
+  background: white;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
 }
 
 .email-input {
@@ -41,10 +16,9 @@ button:focus {
   border: none;
   height: 40px;
   width: 310px;
-  left: 0%;
 }
 
-.class-modal {
+.modal {
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
@@ -52,27 +26,24 @@ button:focus {
   margin: 150px auto;
   padding: 40px;
   background-color: white;
-  width: 500px;
-  height: 150px;
-  text-align: center;
+  width: 320px;
+  height: 500px;
   border-top: 45px solid #009fb7;
 }
 
 .modalTitle {
   font-family: 'Open Sans', sans-serif;
   font-size: 26px;
-  text-align: center;
 }
 
-.cancel-class {
+.cancel-student {
   font-family: 'Open Sans', sans-serif;
   border-radius: 4px;
   border-style: solid;
   text-align: center;
   text-decoration: none;
-  position: relative;
   color: black;
-  margin: 20px 10px 50px 100px;
+  margin: 10px 10px 50px 50px;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
@@ -82,7 +53,24 @@ button:focus {
   border: 0;
 }
 
-.inputText {
+.ok-student {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 4px;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  margin: 20px 0 50px 115px;
+  font-size: 16px;
+  background-color: #fed766;
+  width: 80px;
+  float: left;
+  padding: 10px;
+  box-shadow: none;
+  border: 0;
+}
+
+.inputText-student {
   background-color: #f4f4f4;
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
@@ -117,7 +105,7 @@ button:focus {
   text-align: center;
   text-decoration: none;
   color: black;
-  margin: 10px 10px 10px 50px;
+  margin: 0% 0% 0 16%;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
