@@ -27,13 +27,18 @@ function onDropRejected() {
 class AddLessonModal extends Component {
   constructor() {
     super();
+    this.state = {
+      currfile: null
+    };
     this.okClicked = this.okClicked.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
   onDrop = files => {
     files.forEach(file => {
-      console.log(file.name);
+      this.setState({
+        currfile: file
+      });
     });
   };
 
@@ -43,6 +48,12 @@ class AddLessonModal extends Component {
     if (!lessonName) {
       alert('Please enter a lesson name.');
     } else {
+      const { currfile } = this.state;
+      const data = new FormData();
+      console.log(currfile);
+      data.append('sampleFile', currfile);
+      console.log(data);
+      fetch('/api/upload', { method: 'POST', body: data });
       handleCloseModal();
     }
   }
@@ -69,6 +80,7 @@ class AddLessonModal extends Component {
             onDrop={this.onDrop}
             onDropRejected={onDropRejected}
             multiple={false}
+            inputProps={{ name: 'sampleFile' }}
           >
             {({ acceptedFiles }) => {
               if (acceptedFiles.length) {
