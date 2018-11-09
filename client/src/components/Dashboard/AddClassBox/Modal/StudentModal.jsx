@@ -17,6 +17,27 @@ class StudentModal extends Component {
     this.handleItem = this.handleItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.checkSubmit = this.checkSubmit.bind(this);
+    this.postStudents = this.postStudents.bind(this);
+  }
+
+  postStudents() {
+    const { items, className } = this.state;
+    console.log(items);
+    fetch('/api/students', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ class_name: className, teacherID: 1 })
+    }).then(
+      response => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
   }
 
   openModal() {
@@ -105,7 +126,10 @@ class StudentModal extends Component {
             <button
               className="cancel-student"
               type="button"
-              onClick={this.closeModal}
+              onClick={() => {
+                this.closeModal();
+                this.postStudents();
+              }}
             >
               OK
             </button>

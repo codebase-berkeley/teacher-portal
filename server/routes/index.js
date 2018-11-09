@@ -13,6 +13,15 @@ router.get('/users', async (req, res) => {
   }
 });
 
+router.get('/students', async (req, res) => {
+  try {
+    const query = await db.query('SELECT * FROM students');
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
@@ -26,19 +35,48 @@ router.get('/classes', async (req, res) => {
 
 router.post('/classes', async (req, res) => {
   try {
-    const { teacherID, class_name } = req.body;
-    console.log(req.body);
-    console.log(class_name);
-    console.log(teacherID);
-    db.query('INSERT INTO classes (teacherID, class_name) VALUES ($1, $2);', [
-      teacherID,
-      class_name
-    ]);
+    const { teacherID, class_name, emails } = req.body;
+    const query = await db.query(
+      'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
+      [teacherID, class_name]
+    );
+
+    // const query = await db.query(
+    //   'SELECT id FROM classes where classes.class_name=$1;',
+    //   [class_name]
+    // );
+    console.log(emails);
+    for (let i = 0; i < emails.length; i += 1) {
+      console.log('GETTING HERE', emails[i]);
+      db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
+        emails[i],
+        query.rows[0].id
+      ]);
+    }
+    console.log('GETTING HERE????');
     res.send(class_name);
   } catch (error) {
     console.log(error.stack);
   }
 });
+
+// router.post('/students', async (req, res) => {
+//   try {
+//     const { email, class_name } = req.body;
+//     const query = await db.query(
+//       'SELECT id FROM classes where classes.class_name=$1;',
+//       [class_name]
+//     );
+//     console.log(query);
+//     await db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
+//       email,
+//       query.rows[0].class_name
+//     ]);
+//     res.send(class_name);
+//   } catch (error) {
+//     console.log(error.stack);
+//   }
+// });
 
 router.get('/units/:classID', async (req, res) => {
   try {

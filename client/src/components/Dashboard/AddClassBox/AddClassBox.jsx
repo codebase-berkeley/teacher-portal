@@ -44,13 +44,17 @@ class AddClassBox extends Component {
   }
 
   submitInfo() {
-    const { className } = this.state;
+    const { className, items } = this.state;
     fetch('/api/classes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ class_name: className, teacherID: 1 })
+      body: JSON.stringify({
+        class_name: className,
+        teacherID: 1,
+        emails: items
+      })
     }).then(
       response => {
         if (response.ok) {
@@ -60,6 +64,24 @@ class AddClassBox extends Component {
       },
       networkError => console.log(networkError.message)
     );
+
+    // for (let i = 0; i < items.length; i += 1) {
+    //   fetch('/api/students', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ email: items[i], class_name: className })
+    //   }).then(
+    //     response => {
+    //       if (response.ok) {
+    //         return response;
+    //       }
+    //       throw new Error('Request failed!');
+    //     },
+    //     networkError => console.log(networkError.message)
+    //   );
+    // }
   }
 
   openModal() {
