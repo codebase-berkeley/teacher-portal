@@ -17,7 +17,7 @@ CREATE TABLE users (
 
 CREATE TABLE classes (
   id SERIAL PRIMARY KEY,
-  teacher_id SERIAL REFERENCES users(id),
+  userID SERIAL REFERENCES users(id),
   class_name VARCHAR
 );
 
