@@ -22,7 +22,7 @@ class Lessons extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/lessons/3')
+    fetch('/api/lessons/1')
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -54,13 +54,14 @@ class Lessons extends Component {
           Student Summary
         </NavLink>
         <div className="box-container">
-          <AddLessonBox onClick={this.handleOpenModal} />
+          <AddLessonBox />
           {lessons.map(less => (
-            <LessonBox
-              title={less.name}
-              color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
-              key={less.name}
-            />
+            <div key={less.lesson_name}>
+              <LessonBox
+                title={less.lesson_name}
+                color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+              />
+            </div>
           ))}
         </div>
         <Modal

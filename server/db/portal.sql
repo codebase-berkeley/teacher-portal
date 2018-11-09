@@ -20,6 +20,11 @@ CREATE TABLE units
   id SERIAL PRIMARY KEY
 );
 
+INSERT INTO users
+  (email, first_name, last_name, is_teacher)
+VALUES
+  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE);
+
 CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
@@ -35,10 +40,50 @@ CREATE TABLE responses
   yr INTEGER
 );
 
-INSERT INTO users
-  (email, first_name, last_name, is_teacher)
+CREATE TABLE units
+(
+  id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE lessons
+(
+  id SERIAL PRIMARY KEY,
+  lesson_name VARCHAR,
+  pdf VARCHAR,
+  reflectionText TEXT,
+  unit_id SERIAL REFERENCES units (id)
+);
+
+INSERT INTO units
+  (id)
 VALUES
-  ('bchee@berkeley.edu', 'Bradley', 'Chee', TRUE);
+  (1);
+
+
+INSERT INTO lessons
+  (lesson_name, pdf, reflectionText, unit_id)
+VALUES
+  ('Volumes of Rotating Solids', 'lesson.pdf', 'blah', 1);
+
+INSERT INTO lessons
+  (lesson_name, pdf, reflectionText, unit_id)
+VALUES
+  ('Related Rates', 'lesson.pdf', 'blah', 1);
+
+INSERT INTO lessons
+  (lesson_name, pdf, reflectionText, unit_id)
+VALUES
+  ('Linear Algebra', 'lesson.pdf', 'blah', 1);
+
+INSERT INTO lessons
+  (lesson_name, pdf, reflectionText, unit_id)
+VALUES
+  ('Integrals', 'lesson.pdf', 'blah', 1);
+
+INSERT INTO lessons
+  (lesson_name, pdf, reflectionText, unit_id)
+VALUES
+  ('Differential Equations', 'lesson.pdf', 'blah', 1);
 
 INSERT INTO users
   (email, first_name, last_name, is_teacher)
@@ -181,8 +226,6 @@ INSERT INTO responses
   (question, unit, response, yr)
 VALUES
   (4, 1, 3.5, 2017);
-
-
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 
