@@ -63,17 +63,16 @@ router.get('/teacherNotes/:lessonID', (req, res) => {
 router.get('/studentSummary/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
-    console.log(unitID);
     const mainquery = await db.query(
       `SELECT * FROM responses WHERE unit=${unitID};`
     );
     const data = [];
     const { rows } = mainquery;
 
-    const yearsquery = await db.query('SELECT DISTINCT yr FROM responses;');
+    const yearsquery = await db.query(
+      `SELECT DISTINCT yr FROM responses WHERE unit=${unitID};`
+    );
     const years = yearsquery.rows.map(e => e.yr);
-
-    console.log(years);
 
     years.forEach(yr => {
       const rowsYear = [];
