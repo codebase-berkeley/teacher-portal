@@ -52,16 +52,46 @@ button:focus {
   margin: 150px auto;
   padding: 40px;
   background-color: white;
-  width: 500px;
-  height: 150px;
-  text-align: center;
+  width: 30%;
+  height: 40%;
+  text-align: left;
   border-top: 45px solid #009fb7;
 }
 
-.modalTitle {
+.student-modal {
+  box-shadow: 5px 5px 100px grey;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
+  font-size: 16px;
+  margin: 150px auto;
+  padding: 40px;
+  background-color: white;
+  width: 30%;
+  height: 60%;
+  text-align: left;
+  border-top: 45px solid #009fb7;
+}
+
+.class-modal:focus {
+  outline: none;
+}
+
+.student-modal:focus {
+  outline: none;
+}
+
+.class-modalTitle {
   font-family: 'Open Sans', sans-serif;
   font-size: 26px;
-  text-align: center;
+  text-align: left;
+  padding-bottom: 10%;
+}
+
+.student-modalTitle {
+  margin-top: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 26px;
+  text-align: left;
 }
 
 .cancel-class {
@@ -72,7 +102,7 @@ button:focus {
   text-decoration: none;
   position: relative;
   color: black;
-  margin: 20px 10px 50px 100px;
+  margin: 15% 0 0 20%;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
@@ -82,14 +112,42 @@ button:focus {
   border: 0;
 }
 
+.cancel-student {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 4px;
+  border-style: solid;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  color: black;
+  margin: 6% 0 0 20%;
+  font-size: 16px;
+  background-color: #fed766;
+  width: 80px;
+  float: left;
+  padding: 10px;
+  box-shadow: none;
+  border: 0;
+}
+
+.button-wrapper {
+  text-align: center;
+}
+
 .inputText {
   background-color: #f4f4f4;
   font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   border: solid;
-  width: 300px;
-  height: 30px;
+  width: 90%;
+  height: 20px;
   border-color: #ebe9e9;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.inputText::placeholder {
+  font-size: 15px;
 }
 
 .inputText:focus {
@@ -97,17 +155,18 @@ button:focus {
 }
 
 .display {
+  position: relative;
   background-color: #f4f4f4;
   font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   border: solid;
-  width: 300px;
+  width: 90%;
   height: 250px;
   margin-top: 20px;
   border-color: #ebe9e9;
   overflow: scroll;
   list-style: none;
-  padding-left: 7px;
+  padding: 10px;
 }
 
 .modal-button {
