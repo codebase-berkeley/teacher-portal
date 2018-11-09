@@ -50,9 +50,7 @@ class AddLessonModal extends Component {
     } else {
       const { currfile } = this.state;
       const data = new FormData();
-      console.log(currfile);
       data.append('sampleFile', currfile);
-      console.log(data);
       fetch('/api/upload', { method: 'POST', body: data });
       handleCloseModal();
     }
