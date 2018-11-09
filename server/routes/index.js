@@ -1,5 +1,6 @@
 const Router = require('express-promise-router');
 
+const path = require('path');
 const db = require('../db/index');
 
 const router = new Router();
@@ -41,11 +42,9 @@ router.get('/units/:classID', (req, res) => {
 router.get('/lessons/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
-    console.log(unitID);
     const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1', [
       unitID
     ]);
-    console.log(query);
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
@@ -109,6 +108,27 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
+});
+
+router.post('/upload', async (req, res) => {
+  // if (Object.keys(req.body).length === 0) {
+  //   return res.status(400).send('No files were uploaded.');
+  // }
+  console.log('lmao');
+  console.log(req.files);
+  const { sampleFile } = req.files;
+  console.log(sampleFile.name);
+  console.log(sampleFile.mv);
+  // console.log(sampleFile);
+
+  sampleFile.mv(path.resolve(`../static/${sampleFile.name}`), err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.send('File uploaded!');
+    return null;
+  });
+  return null;
 });
 
 module.exports = router;
