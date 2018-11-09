@@ -85,11 +85,11 @@ VALUES
 INSERT INTO lessons
   (lesson_name, reflection_text, unit_id, filepath)
 VALUES
-  ('Volumes of Rotating Solids', 'blah', 1, './static/lesson.pdf'),
-  ('Related Rates', 'blah', 1, './static/pdf-sample.pdf'),
-  ('Linear Algebra', 'blah', 1, './static/yeeeeee.pdf'),
-  ('Integrals', 'blah', 1, './static/yoighht.pdf'),
-  ('Differential Equations', 'blah', 1, './static/lesson.pdf');
+  ('Volumes of Rotating Solids', 'one', 1, './static/lesson.pdf'),
+  ('Related Rates', 'two', 1, './static/pdf-sample.pdf'),
+  ('Linear Algebra', 'three', 1, './static/yeeeeee.pdf'),
+  ('Integrals', 'four', 1, './static/yoighht.pdf'),
+  ('Differential Equations', 'five', 1, './static/lesson.pdf');
 
 -- dummy data for questions 
 

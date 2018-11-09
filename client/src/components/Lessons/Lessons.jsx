@@ -73,6 +73,7 @@ class Lessons extends Component {
           <AddLessonModal
             handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
+            updateLessons={this.updateLessons}
           />
         </Modal>
       </div>

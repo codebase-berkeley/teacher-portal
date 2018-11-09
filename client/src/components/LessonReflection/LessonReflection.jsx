@@ -1,15 +1,22 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
-import lesson from './lesson.pdf';
+// import lesson from './lesson.pdf';
+
+const unitID = 1;
+const lessonID = 2;
 
 class LessonReflection extends Component {
-  state = { teachNotes: {} };
+  state = {
+    teachNotes: {}
+    // filepath: null
+  };
 
   componentDidMount() {
-    fetch('/api/teacherNotes/1')
+    fetch(`/api/teacherNotes/${lessonID}`)
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -19,10 +26,21 @@ class LessonReflection extends Component {
       .then(notes => {
         this.setState({ teachNotes: notes });
       });
+    fetch(`api/lessons/${unitID}`)
+      .then(response => response.json())
+      .then(response => {
+        const fr = response.filter(element => element.id === lessonID)[0];
+        console.log(fr.filepath.slice(1));
+        this.setState({
+          filepath: fr.filepath.slice(1)
+        });
+      });
   }
 
   render() {
-    const { teachNotes } = this.state;
+    const { teachNotes, filepath } = this.state;
+    const pathway = `http://localhost:8080${filepath}`;
+    console.log(pathway);
     return (
       <div>
         <NavLink to="/lessons" className="Return">
@@ -30,7 +48,7 @@ class LessonReflection extends Component {
         </NavLink>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
-          <embed className="lesson" src={lesson} type="application/pdf" />
+          <embed className="lesson" src={pathway} type="application/pdf" />
         </div>
         <div className="editor-container">
           <Editor

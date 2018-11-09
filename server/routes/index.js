@@ -47,12 +47,13 @@ router.get('/lessons/:unitID', async (req, res) => {
   }
 });
 
-router.get('/teacherNotes/:lessonID', (req, res) => {
-  res.send({
-    pdf: '/lesson.pdf',
-    notes:
-      'In differential calculus, related rates problems involve finding a rate at which a quantity changes by relating that quantity to other quantities whose rates of change are known. The rate of change is usually with respect to time.'
-  });
+router.get('/teacherNotes/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const query = await db.query('SELECT * FROM lessons WHERE id = $1;', [
+    lessonID
+  ]);
+  const { rows } = query;
+  res.send({ pdf: '/lessodn.pdf', notes: rows[0].reflection_text });
 });
 
 router.get('/studentSummary/:unitID', async (req, res) => {
