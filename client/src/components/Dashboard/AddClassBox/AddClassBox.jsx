@@ -10,7 +10,8 @@ class AddClassBox extends Component {
       modalIsOpen: false,
       currItem: '',
       items: [],
-      classModalType: true
+      classModalType: true,
+      className: ''
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -20,6 +21,8 @@ class AddClassBox extends Component {
     this.checkSubmit = this.checkSubmit.bind(this);
     this.classChangeModal = this.classChangeModal.bind(this);
     this.studentsChangeModal = this.studentsChangeModal.bind(this);
+    this.saveClass = this.saveClass.bind(this);
+    this.submitInfo = this.submitInfo.bind(this);
   }
 
   classChangeModal() {
@@ -33,6 +36,30 @@ class AddClassBox extends Component {
       classModalType: !prevState.classModalType,
       modalIsOpen: !prevState.modalIsOpen
     }));
+  }
+
+  saveClass() {
+    const x = document.getElementById('classNameText').value;
+    this.setState({ className: x });
+  }
+
+  submitInfo() {
+    const { className } = this.state;
+    fetch('/api/classes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ class_name: className, teacherID: 1 })
+    }).then(
+      response => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
   }
 
   openModal() {
@@ -78,7 +105,13 @@ class AddClassBox extends Component {
   }
 
   render() {
-    const { modalIsOpen, currItem, items, classModalType } = this.state;
+    const {
+      modalIsOpen,
+      currItem,
+      items,
+      classModalType,
+      className
+    } = this.state;
 
     if (classModalType) {
       return (
@@ -94,7 +127,12 @@ class AddClassBox extends Component {
               <div className="class-modalTitle">Add New Class</div>
               <form>
                 <label htmlFor="className">Class Name</label>
-                <input className="inputText" type="text" id="classNameText" />
+                <input
+                  className="inputText"
+                  type="text"
+                  id="classNameText"
+                  default={className}
+                />
               </form>
               <div className="button-wrapper">
                 <button
@@ -108,7 +146,10 @@ class AddClassBox extends Component {
                 <button
                   type="submit"
                   className="cancel-class"
-                  onClick={this.classChangeModal}
+                  onClick={() => {
+                    this.classChangeModal();
+                    this.saveClass();
+                  }}
                   close
                 >
                   Next
@@ -167,7 +208,10 @@ class AddClassBox extends Component {
                 <button
                   className="cancel-student"
                   type="button"
-                  onClick={this.studentsChangeModal}
+                  onClick={() => {
+                    this.studentsChangeModal();
+                    this.submitInfo();
+                  }}
                 >
                   OK
                 </button>

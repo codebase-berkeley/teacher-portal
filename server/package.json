@@ -11,6 +11,7 @@
     "heroku-postbuild": "cd ../client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",

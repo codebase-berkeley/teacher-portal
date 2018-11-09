@@ -16,7 +16,7 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
-      'SELECT * FROM classes JOIN users on classes.teacherID = users.id'
+      'SELECT * FROM classes JOIN users on classes.teacherID = users.id;'
     );
     res.send(query.rows);
   } catch (error) {
@@ -24,9 +24,25 @@ router.get('/classes', async (req, res) => {
   }
 });
 
+router.post('/classes', async (req, res) => {
+  try {
+    const { teacherID, class_name } = req.body;
+    console.log(req.body);
+    console.log(class_name);
+    console.log(teacherID);
+    db.query('INSERT INTO classes (teacherID, class_name) VALUES ($1, $2);', [
+      teacherID,
+      class_name
+    ]);
+    res.send(class_name);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.get('/units/:classID', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM units WHERE classid = $1', [
+    const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       req.params.classID
     ]);
     res.send(query.rows);
@@ -39,7 +55,7 @@ router.get('/lessons/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
     console.log(unitID);
-    const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1', [
+    const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1;', [
       unitID
     ]);
     console.log(query);
