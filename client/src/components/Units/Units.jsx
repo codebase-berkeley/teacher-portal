@@ -5,22 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-let unitBoxes = [];
-
-function create(unitNames) {
-  unitBoxes = [];
-  for (let i = 0; i < unitNames.length; i += 1) {
-    unitBoxes.push(
-      <Unitbox
-        unitName={unitNames[i].unit_name}
-        key={unitNames[i].id}
-        path="/lessons"
-        buttonType="link"
-      />
-    );
-  }
-  return unitBoxes;
-}
+// let unitBoxes = [];
 
 class Units extends Component {
   static propTypes = {
@@ -34,8 +19,10 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      unitList: []
+      unitList: [],
+      unitBoxes: []
     };
+    this.create = this.create.bind(this);
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -48,6 +35,22 @@ class Units extends Component {
     this.setState({
       unitList: unitsJSON
     });
+  }
+
+  create(unitNames) {
+    const { unitBoxes } = this.state;
+    for (let i = 0; i < unitNames.length; i += 1) {
+      unitBoxes.push(
+        <Unitbox
+          unitName={unitNames[i].unit_name}
+          key={unitNames[i].id}
+          path="/lessons"
+          buttonType="link"
+        />
+      );
+    }
+    this.setState({ unitBoxes });
+    return unitBoxes;
   }
 
   openModal() {
@@ -85,6 +88,22 @@ class Units extends Component {
     );
   }
 
+  displayNewUnit() {
+    const { match } = this.props;
+    const { classID } = match.params;
+    const { unitBoxes } = this.state;
+    this.setState({
+      unitBoxes: unitBoxes.append(
+        <Unitbox
+          unitName={document.getElementById('unit_name').value}
+          key={classID}
+          path="/lessons"
+          buttonType="link"
+        />
+      )
+    });
+  }
+
   render() {
     const { unitList } = this.state;
     const { modalIsOpen } = this.state;
@@ -105,7 +124,7 @@ class Units extends Component {
           >
             + Add New Unit
           </button>
-          {create(unitList)}
+          {this.create(unitList)}
           <Modal
             className="newUnitModal"
             isOpen={modalIsOpen}
@@ -135,6 +154,7 @@ class Units extends Component {
                 onClick={() => {
                   this.sendData();
                   this.closeModal();
+                  this.displayNewUnit();
                 }}
                 close
               >
