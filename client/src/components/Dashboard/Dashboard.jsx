@@ -11,10 +11,10 @@ function displayClassBoxes(classList) {
     const str = `${classList[i].color} ${topBar}`;
     boxArray.push(
       <ClassBox
-        title={classList[i].name}
+        title={classList[i].class_name}
         id={classList[i].id}
         key={classList[i].id}
-        teacher={classList[i].teacher}
+        teacher={`${classList[i].first_name} ${classList[i].last_name}`}
         color={str}
       />
     );
