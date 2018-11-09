@@ -60,9 +60,13 @@ router.get('/teacherNotes/:lessonID', (req, res) => {
   });
 });
 
-router.get('/studentSummary', async (req, res) => {
+router.get('/studentSummary/:unitID', async (req, res) => {
   try {
-    const mainquery = await db.query('SELECT * FROM responses;');
+    const { unitID } = req.params;
+    console.log(unitID);
+    const mainquery = await db.query(
+      `SELECT * FROM responses WHERE unit=${unitID};`
+    );
     const data = [];
     const { rows } = mainquery;
 
