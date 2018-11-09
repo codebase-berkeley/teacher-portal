@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import Chart from 'chart.js';
 import './Histogram.css';
 
+const unitID = 1;
+
 ReactChartkick.addAdapter(Chart);
 
 export default class Histogram extends Component {
@@ -15,7 +17,7 @@ export default class Histogram extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/studentSummary')
+    fetch(`/api/studentSummary/${unitID}`)
       .then(response => {
         if (response.ok) {
           return response.json();
