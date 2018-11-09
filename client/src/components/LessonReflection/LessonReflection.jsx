@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
@@ -7,15 +8,24 @@ import './LessonReflection.css';
 // import lesson from './lesson.pdf';
 
 const unitID = 1;
-const lessonID = 2;
 
 class LessonReflection extends Component {
+  static propTypes = {
+    match: PropTypes.string
+  };
+
+  static defaultProps = {
+    match: {}
+  };
+
   state = {
-    teachNotes: {}
-    // filepath: null
+    teachNotes: {},
+    filepath: null
   };
 
   componentDidMount() {
+    const { match } = this.props;
+    const { lessonID } = match.params;
     fetch(`/api/teacherNotes/${lessonID}`)
       .then(response => {
         if (response.ok) {
@@ -26,10 +36,12 @@ class LessonReflection extends Component {
       .then(notes => {
         this.setState({ teachNotes: notes });
       });
-    fetch(`api/lessons/${unitID}`)
+    fetch(`/api/lessons/${unitID}`)
       .then(response => response.json())
       .then(response => {
-        const fr = response.filter(element => element.id === lessonID)[0];
+        const fr = response.filter(
+          element => element.id === parseInt(lessonID, 10)
+        )[0];
         this.setState({
           filepath: fr.filepath.slice(1)
         });
