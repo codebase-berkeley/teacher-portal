@@ -29,11 +29,11 @@ class AddLessonModal extends Component {
 
   // unused onDrop statement, can be modified later
 
-  // onDrop = files => {
-  //   files.forEach(file => {
-  //     console.log(file.name);
-  //   });
-  // };
+  onDrop = files => {
+    files.forEach(file => {
+      console.log(file.name);
+    });
+  };
 
   okClicked() {
     const { handleCloseModal } = this.props;
