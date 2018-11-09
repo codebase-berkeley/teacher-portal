@@ -109,21 +109,12 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   const { name } = req.body;
-  console.log(name);
   const lessonPath = `./static/${sampleFile.name}`;
-  // db.query(
-  //   `INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath)
-  //   VALUES (${name}, "lmao", 1, ${lessonPath};`
-  // );
 
   db.query(
     "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, 'lmao', 1, $2);",
     [name, lessonPath]
   );
-
-  // db.query(
-  //   `INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ('yoo2', 'lmao', 1, './static/pdf-sample.pdf');`
-  // );
 
   sampleFile.mv(lessonPath, err => {
     if (err) {
