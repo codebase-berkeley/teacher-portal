@@ -54,7 +54,7 @@ class Lessons extends Component {
           Student Summary
         </NavLink>
         <div className="box-container">
-          <AddLessonBox />
+          <AddLessonBox onClick={this.handleOpenModal} />
           {lessons.map(less => (
             <div key={less.lesson_name}>
               <LessonBox
