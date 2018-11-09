@@ -80,29 +80,30 @@ class Units extends Component {
             onRequestClose={this.closeModal}
             contentLabel="Example Modal"
           >
-            <button
-              type="submit"
-              unselectable="on"
-              className="exit"
-              onClick={this.closeModal}
-            >
-              &times;
-            </button>
             <div className="modalTitle">Add New Unit</div>
             <form>
               Unit Name
               <br />
               <input className="inputText" type="text" />
-              <input className="cancelButton" type="submit" value="OK" />
             </form>
-            <button
-              type="submit"
-              className="cancelButton"
-              onClick={this.closeModal}
-              close
-            >
-              Cancel
-            </button>
+            <div className="buttonwrapper">
+              <button
+                type="submit"
+                className="cancelButton"
+                onClick={this.closeModal}
+                close
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="cancelButton"
+                onClick={this.closeModal}
+                close
+              >
+                OK
+              </button>
+            </div>
           </Modal>
         </div>
       </div>
