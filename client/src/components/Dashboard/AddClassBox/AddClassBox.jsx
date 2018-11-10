@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './AddClassBox.css';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import Item from './Modal/Item';
 
 class AddClassBox extends Component {
@@ -45,6 +46,7 @@ class AddClassBox extends Component {
 
   submitInfo() {
     const { className, items } = this.state;
+    const { reRender } = this.props;
     fetch('/api/classes', {
       method: 'POST',
       headers: {
@@ -58,30 +60,13 @@ class AddClassBox extends Component {
     }).then(
       response => {
         if (response.ok) {
+          reRender();
           return response;
         }
         throw new Error('Request failed!');
       },
       networkError => console.log(networkError.message)
     );
-
-    // for (let i = 0; i < items.length; i += 1) {
-    //   fetch('/api/students', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ email: items[i], class_name: className })
-    //   }).then(
-    //     response => {
-    //       if (response.ok) {
-    //         return response;
-    //       }
-    //       throw new Error('Request failed!');
-    //     },
-    //     networkError => console.log(networkError.message)
-    //   );
-    // }
   }
 
   openModal() {
@@ -254,4 +239,8 @@ class AddClassBox extends Component {
     );
   }
 }
+
+AddClassBox.propTypes = {
+  reRender: PropTypes.func.isRequired
+};
 export default AddClassBox;

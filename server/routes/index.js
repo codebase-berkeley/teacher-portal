@@ -40,20 +40,12 @@ router.post('/classes', async (req, res) => {
       'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
       [teacherID, class_name]
     );
-
-    // const query = await db.query(
-    //   'SELECT id FROM classes where classes.class_name=$1;',
-    //   [class_name]
-    // );
-    console.log(emails);
     for (let i = 0; i < emails.length; i += 1) {
-      console.log('GETTING HERE', emails[i]);
       db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
         emails[i],
         query.rows[0].id
       ]);
     }
-    console.log('GETTING HERE????');
     res.send(class_name);
   } catch (error) {
     console.log(error.stack);
