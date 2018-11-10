@@ -154,7 +154,23 @@ class AddClassBox extends Component {
                   type="submit"
                   className="cancel-class"
                   onClick={() => {
-                    this.classChangeModal();
+                    const check = document.getElementById('classNameText')
+                      .value;
+                    const { classList } = this.props;
+                    console.log(classList);
+                    let repeated = false;
+                    for (let i = 0; i < classList.length; i += 1) {
+                      if (classList[i].class_name === check) {
+                        console.log('repeated');
+                        repeated = true;
+                      }
+                    }
+                    console.log(repeated);
+                    if (repeated) {
+                      alert('This name has already been used!');
+                    } else {
+                      this.classChangeModal();
+                    }
                     this.saveClass();
                   }}
                   close
@@ -241,6 +257,7 @@ class AddClassBox extends Component {
 }
 
 AddClassBox.propTypes = {
-  reRender: PropTypes.func.isRequired
+  reRender: PropTypes.func.isRequired,
+  classList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 export default AddClassBox;

@@ -36,39 +36,33 @@ router.get('/classes', async (req, res) => {
 router.post('/classes', async (req, res) => {
   try {
     const { teacherID, class_name, emails } = req.body;
-    const query = await db.query(
-      'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-      [teacherID, class_name]
+    const check = await db.query(
+      'SELECT * FROM classes where class_name = $1;',
+      [class_name]
     );
-    for (let i = 0; i < emails.length; i += 1) {
-      db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
-        emails[i],
-        query.rows[0].id
-      ]);
+
+    console.log(check.rows);
+
+    if (check.rows.length !== 0) {
+      console.log('repeat');
+      res.send(false);
+    } else {
+      const query = await db.query(
+        'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
+        [teacherID, class_name]
+      );
+      for (let i = 0; i < emails.length; i += 1) {
+        db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
+          emails[i],
+          query.rows[0].id
+        ]);
+      }
+      res.send(class_name);
     }
-    res.send(class_name);
   } catch (error) {
     console.log(error.stack);
   }
 });
-
-// router.post('/students', async (req, res) => {
-//   try {
-//     const { email, class_name } = req.body;
-//     const query = await db.query(
-//       'SELECT id FROM classes where classes.class_name=$1;',
-//       [class_name]
-//     );
-//     console.log(query);
-//     await db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
-//       email,
-//       query.rows[0].class_name
-//     ]);
-//     res.send(class_name);
-//   } catch (error) {
-//     console.log(error.stack);
-//   }
-// });
 
 router.get('/units/:classID', async (req, res) => {
   try {

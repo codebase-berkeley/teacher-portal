@@ -45,7 +45,10 @@ class Dashboard extends Component {
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
-          <AddClassBox reRender={this.componentWillMount} />
+          <AddClassBox
+            reRender={this.componentWillMount}
+            classList={classList}
+          />
           {displayClassBoxes(classList)}
         </div>
       </div>
