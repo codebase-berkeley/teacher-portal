@@ -125,8 +125,18 @@ class AddClassBox extends Component {
         this.addItem();
       } else if (!valid) {
         alert('Not a valid email address.');
+        if (currItem !== '') {
+          this.setState({
+            currItem: ''
+          });
+        }
       } else if (!same) {
         alert('This email address has already been added.');
+        if (currItem !== '') {
+          this.setState({
+            currItem: ''
+          });
+        }
       }
     }
   }
@@ -236,8 +246,14 @@ class AddClassBox extends Component {
                   className="cancel-student"
                   type="button"
                   onClick={() => {
-                    this.studentsChangeModal();
-                    this.submitInfo();
+                    if (items.length > 0) {
+                      this.studentsChangeModal();
+                      this.submitInfo();
+                    } else {
+                      alert(
+                        'Please add student emails in order to create a class.'
+                      );
+                    }
                   }}
                 >
                   OK
