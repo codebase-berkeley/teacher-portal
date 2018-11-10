@@ -106,8 +106,28 @@ class AddClassBox extends Component {
   }
 
   checkSubmit(e) {
+    const { currItem, items } = this.state;
+    let same = true;
+    let valid = true;
+    for (let i = 0; i < items.length; i += 1) {
+      if (currItem === items[i]) {
+        same = false;
+      }
+    }
+    for (let j = 0; j < currItem.length; j += 1) {
+      valid = false;
+      if (currItem.substring(j, j + 1) === '@') {
+        valid = true;
+      }
+    }
     if (e && e.charCode === 13) {
-      this.addItem();
+      if (valid && same) {
+        this.addItem();
+      } else if (!valid) {
+        alert('Not a valid email address.');
+      } else if (!same) {
+        alert('This email address has already been added.');
+      }
     }
   }
 
