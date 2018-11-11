@@ -21,8 +21,7 @@ class StudentModal extends Component {
   }
 
   postStudents() {
-    const { items, className } = this.state;
-    console.log(items);
+    const { className } = this.state;
     fetch('/api/students', {
       method: 'POST',
       headers: {

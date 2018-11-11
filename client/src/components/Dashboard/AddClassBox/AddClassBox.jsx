@@ -187,15 +187,12 @@ class AddClassBox extends Component {
                     const check = document.getElementById('classNameText')
                       .value;
                     const { classList } = this.props;
-                    console.log(classList);
                     let repeated = false;
                     for (let i = 0; i < classList.length; i += 1) {
                       if (classList[i].class_name === check) {
-                        console.log('repeated');
                         repeated = true;
                       }
                     }
-                    console.log(repeated);
                     if (repeated) {
                       alert('This name has already been used!');
                     } else {

@@ -41,10 +41,7 @@ router.post('/classes', async (req, res) => {
       [class_name]
     );
 
-    console.log(check.rows);
-
     if (check.rows.length !== 0) {
-      console.log('repeat');
       res.send(false);
     } else {
       const query = await db.query(
@@ -78,11 +75,9 @@ router.get('/units/:classID', async (req, res) => {
 router.get('/lessons/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
-    console.log(unitID);
     const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1;', [
       unitID
     ]);
-    console.log(query);
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
