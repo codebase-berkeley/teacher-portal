@@ -24,6 +24,25 @@ class AddClassBox extends Component {
     this.studentsChangeModal = this.studentsChangeModal.bind(this);
     this.saveClass = this.saveClass.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
+    this.checkRepeat = this.checkRepeat.bind(this);
+  }
+
+  checkRepeat(check) {
+    const { classList } = this.props;
+    let repeated = false;
+    for (let i = 0; i < classList.length; i += 1) {
+      if (classList[i].class_name === check) {
+        repeated = true;
+      }
+    }
+    if (repeated) {
+      alert('This name has already been used.');
+    } else if (check === '') {
+      alert('Please enter a class name.');
+    } else {
+      this.classChangeModal();
+    }
+    this.saveClass();
   }
 
   classChangeModal() {
@@ -185,21 +204,7 @@ class AddClassBox extends Component {
                   onClick={() => {
                     const check = document.getElementById('classNameText')
                       .value;
-                    const { classList } = this.props;
-                    let repeated = false;
-                    for (let i = 0; i < classList.length; i += 1) {
-                      if (classList[i].class_name === check) {
-                        repeated = true;
-                      }
-                    }
-                    if (repeated) {
-                      alert('This name has already been used.');
-                    } else if (check === '') {
-                      alert('Please enter a class name.');
-                    } else {
-                      this.classChangeModal();
-                    }
-                    this.saveClass();
+                    this.checkRepeat(check);
                   }}
                   close
                 >
