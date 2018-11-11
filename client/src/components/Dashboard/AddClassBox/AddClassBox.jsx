@@ -108,14 +108,13 @@ class AddClassBox extends Component {
   checkSubmit(e) {
     const { currItem, items } = this.state;
     let same = true;
-    let valid = true;
+    let valid = false;
     for (let i = 0; i < items.length; i += 1) {
       if (currItem === items[i]) {
         same = false;
       }
     }
     for (let j = 0; j < currItem.length; j += 1) {
-      valid = false;
       if (currItem.substring(j, j + 1) === '@') {
         valid = true;
       }
@@ -194,7 +193,9 @@ class AddClassBox extends Component {
                       }
                     }
                     if (repeated) {
-                      alert('This name has already been used!');
+                      alert('This name has already been used.');
+                    } else if (check === '') {
+                      alert('Please enter a class name.');
                     } else {
                       this.classChangeModal();
                     }
