@@ -62,7 +62,7 @@ class Units extends Component {
     const { classID } = match.params;
     const { unitList } = this.state;
     const unitName = document.getElementById('unit_name').value;
-    fetch('/api/units', {
+    fetch('/api/units/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
