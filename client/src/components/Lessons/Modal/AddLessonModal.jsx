@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import plus from '../AddLessonBox/plsImage.png';
 import './AddLessonModal.css';
 
+/* key of the file being uploaded */
+const key = 'sampleFile';
+
 /* styles for react drop zone */
 const customStyles = {
   background: '#f4f4f4',
@@ -27,13 +30,18 @@ function onDropRejected() {
 class AddLessonModal extends Component {
   constructor() {
     super();
+    this.state = {
+      currfile: null
+    };
     this.okClicked = this.okClicked.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
   onDrop = files => {
     files.forEach(file => {
-      console.log(file.name);
+      this.setState({
+        currfile: file
+      });
     });
   };
 
@@ -43,7 +51,15 @@ class AddLessonModal extends Component {
     if (!lessonName) {
       alert('Please enter a lesson name.');
     } else {
-      handleCloseModal();
+      const { currfile } = this.state;
+      if (!currfile) {
+        alert('Please upload a file.');
+      } else {
+        const data = new FormData();
+        data.append(key, currfile);
+        fetch('/api/upload', { method: 'POST', body: data });
+        handleCloseModal();
+      }
     }
   }
 
@@ -69,6 +85,7 @@ class AddLessonModal extends Component {
             onDrop={this.onDrop}
             onDropRejected={onDropRejected}
             multiple={false}
+            inputProps={{ name: key }}
           >
             {({ acceptedFiles }) => {
               if (acceptedFiles.length) {
