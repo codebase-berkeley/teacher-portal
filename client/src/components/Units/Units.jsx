@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-let unitBoxes = [];
-
-function create(unitNames) {
-  unitBoxes = [];
-  for (let i = 0; i < unitNames.length; i += 1) {
-    unitBoxes.push(
-      <Unitbox
-        unitName={unitNames[i].unit_name}
-        key={unitNames[i].id}
-        path="/lessons"
-        buttonType="link"
-      />
-    );
-  }
-  return unitBoxes;
-}
+// function create(unitNames) {
+//   const unitBoxes = [];
+//   for (let i = 0; i < unitNames.length; i += 1) {
+//     unitBoxes.push(
+//       <Unitbox
+//         unitName={unitNames[i].unit_name}
+//         key={unitNames[i].id}
+//         path="/lessons"
+//         buttonType="link"
+//       />
+//     );
+//   }
+//   return unitBoxes;
+// }
 
 class Units extends Component {
+  static propTypes = {
+    match: PropTypes.string.isRequired
+  };
+
   constructor() {
     super();
     this.state = {
@@ -30,6 +33,8 @@ class Units extends Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.sendData = this.sendData.bind(this);
+    this.create = this.create.bind(this);
   }
 
   async componentWillMount() {
@@ -52,10 +57,51 @@ class Units extends Component {
     this.setState({ modalIsOpen: false });
   }
 
-  render() {
+  sendData() {
+    const { match } = this.props;
+    const { classID } = match.params;
     const { unitList } = this.state;
-    const { modalIsOpen } = this.state;
+    const unitName = document.getElementById('unit_name').value;
+    fetch('/api/units', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ unit_name: unitName, classid: classID })
+    }).then(
+      response => {
+        if (response.ok) {
+          this.setState({
+            unitList: unitList.concat({
+              classid: classID,
+              unit_name: unitName
+            })
+          });
+          return response;
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
+  }
 
+  create(unitNames) {
+    this.unitBoxes = [];
+    for (let i = 0; i < unitNames.length; i += 1) {
+      this.unitBoxes.push(
+        <Unitbox
+          unitName={unitNames[i].unit_name}
+          key={unitNames[i].id}
+          path="/lessons"
+          buttonType="link"
+        />
+      );
+    }
+    return this.unitBoxes;
+  }
+
+  render() {
+    const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
         <NavLink to="/" className="ReturnArrow">
@@ -72,7 +118,7 @@ class Units extends Component {
           >
             + Add New Unit
           </button>
-          {create(unitList)}
+          {this.create(unitList)}
           <Modal
             className="newUnitModal"
             isOpen={modalIsOpen}
@@ -81,11 +127,11 @@ class Units extends Component {
             contentLabel="Example Modal"
           >
             <div className="modalTitle">Add New Unit</div>
-            <form>
+            <form action="/units" method="post">
               <label htmlFor="unitname" id="unitname">
                 Unit Name
               </label>
-              <input className="inputText" type="text" />
+              <input className="inputText" id="unit_name" type="text" />
             </form>
             <div className="buttonwrapper">
               <button
@@ -99,8 +145,10 @@ class Units extends Component {
               <button
                 type="submit"
                 className="cancelButton"
-                onClick={this.closeModal}
-                close
+                onClick={() => {
+                  this.sendData();
+                  this.closeModal();
+                }}
               >
                 OK
               </button>
