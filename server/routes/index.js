@@ -49,7 +49,6 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [teacherID, className]
       );
-      console.log('here');
       for (let i = 0; i < emails.length; i += 1) {
         db.query(
           'INSERT INTO students_classes (studentID, classID) values((SELECT u.id FROM users as u WHERE u.email = $1), $2);',
