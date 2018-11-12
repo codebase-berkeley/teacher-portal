@@ -137,7 +137,7 @@ router.put('/update/:lessonID', async (req, res) => {
   const { notes } = req.body;
   console.log(notes);
   console.log(lessonID);
-  db.query("UPDATE lessons SET reflection_text = '$1' WHERE id = $2;", [
+  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
     notes.toString(),
     lessonID
   ]);
