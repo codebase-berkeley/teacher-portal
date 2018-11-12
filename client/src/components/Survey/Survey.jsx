@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import './Survey.css';
 import Star from './Star/Star';
 
+/** TOOD: hard-coded for now, someone fix this later */
+const unitID = 1;
+
 class Survey extends Component {
   constructor() {
     super();
@@ -25,10 +28,10 @@ class Survey extends Component {
   displayQuestions() {
     const { questions } = this.state;
     const qlist = [];
-    questions.forEach(q => {
+    questions.forEach((q, index) => {
       qlist.push(
         <div className="star-container">
-          <Star question={q} />
+          <Star number={index} question={q} />
         </div>
       );
     });
@@ -36,6 +39,7 @@ class Survey extends Component {
   }
 
   render() {
+    const route = `/api/survey/${unitID}`;
     return (
       <section className="Survey">
         <div className="back-container">
@@ -43,7 +47,10 @@ class Survey extends Component {
             &#8592; Return to Classes
           </NavLink>
         </div>
-        <div className="Questions">{this.displayQuestions()}</div>
+        <form method="POST" action={route} className="Questions">
+          {this.displayQuestions()}
+          <button type="submit">Submit</button>
+        </form>
       </section>
     );
   }

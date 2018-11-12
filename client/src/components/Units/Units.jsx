@@ -5,21 +5,6 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-// function create(unitNames) {
-//   const unitBoxes = [];
-//   for (let i = 0; i < unitNames.length; i += 1) {
-//     unitBoxes.push(
-//       <Unitbox
-//         unitName={unitNames[i].unit_name}
-//         key={unitNames[i].id}
-//         path="/lessons"
-//         buttonType="link"
-//       />
-//     );
-//   }
-//   return unitBoxes;
-// }
-
 class Units extends Component {
   static propTypes = {
     match: PropTypes.string.isRequired

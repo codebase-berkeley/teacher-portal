@@ -79,18 +79,20 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         }
       });
 
-      const q = [[0], [0], [0], [0]];
+      const q = [[], [], [], []];
 
       rowsYear.forEach(row => {
         const i = row.question - 1;
         q[i].push(row.response);
       });
 
+      const qlengths = [q[0].length, q[1].length, q[2].length, q[3].length];
+
       const averagedQ = [
-        q[0].reduce((a, b) => a + b, 0) / q[0].length,
-        q[1].reduce((a, b) => a + b, 0) / q[0].length,
-        q[2].reduce((a, b) => a + b, 0) / q[0].length,
-        q[3].reduce((a, b) => a + b, 0) / q[0].length
+        q[0].reduce((a, b) => a + b, 0) / qlengths[0],
+        q[1].reduce((a, b) => a + b, 0) / qlengths[1],
+        q[2].reduce((a, b) => a + b, 0) / qlengths[2],
+        q[3].reduce((a, b) => a + b, 0) / qlengths[3]
       ];
 
       data.push({
@@ -140,6 +142,30 @@ router.post('/upload', async (req, res) => {
     return null;
   });
   return null;
+});
+
+router.post('/survey/:unitID', async (req, res) => {
+  /** TODO: make this dynamically update based on year */
+  const year = 2018;
+  const { unitID } = req.params;
+  const { rating0, rating1, rating2, rating3 } = req.body;
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
+    [unitID, rating0, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
+    [unitID, rating1, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
+    [unitID, rating2, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
+    [unitID, rating3, year]
+  );
+  res.send('Update successful');
 });
 
 router.put('/update/:lessonID', async (req, res) => {
