@@ -36,10 +36,10 @@ router.get('/classes', async (req, res) => {
 
 router.post('/classes', async (req, res) => {
   try {
-    const { teacherID, class_name, emails } = req.body;
+    const { teacherID, className, emails } = req.body;
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
-      [class_name]
+      [className]
     );
 
     if (check.rows.length !== 0) {
@@ -47,7 +47,7 @@ router.post('/classes', async (req, res) => {
     } else {
       const query = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-        [teacherID, class_name]
+        [teacherID, className]
       );
       for (let i = 0; i < emails.length; i += 1) {
         db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
@@ -55,7 +55,7 @@ router.post('/classes', async (req, res) => {
           query.rows[0].id
         ]);
       }
-      res.send(class_name);
+      res.send(className);
     }
   } catch (error) {
     console.log(error.stack);

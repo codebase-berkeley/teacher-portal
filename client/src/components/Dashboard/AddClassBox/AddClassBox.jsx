@@ -72,7 +72,7 @@ class AddClassBox extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        class_name: className,
+        className,
         teacherID: 1,
         emails: items
       })
