@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
@@ -19,6 +20,7 @@ class App extends Component {
 
         <Router>
           <Switch>
+            <Route exact path="/login" component={Login} />
             <Route exact path="/" component={Dashboard} />
             <Route path="/units/:classID" component={Units} />
             <Route exact path="/survey" component={Survey} />
