@@ -61,14 +61,9 @@ class AddLessonModal extends Component {
         data.append(key, currfile);
         data.append('name', lessonName);
         fetch('/api/upload', { method: 'POST', body: data })
-          .then(response => {
-            console.log(response);
-            return response.json();
-          })
+          .then(response => response.json())
           .then(jsonResponse => {
-            console.log(jsonResponse);
             const { id } = jsonResponse;
-            console.log(`lessonName: ${lessonName}`);
             updateLessons(id, lessonName, 'yellow top-bar');
           });
       }

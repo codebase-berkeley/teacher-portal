@@ -33,7 +33,6 @@ class Lessons extends Component {
         throw new Error('Request Failed');
       })
       .then(lessons => {
-        console.log(`lessons: ${lessons}`);
         this.setState({ lessons });
       });
   }
