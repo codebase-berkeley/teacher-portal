@@ -20,7 +20,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Dashboard} />
-            <Route exact path="/units" component={Units} />
+            <Route path="/units/:classID" component={Units} />
             <Route exact path="/survey" component={Survey} />
             <Route exact path="/studentsummary" component={Summary} />
             <Route exact path="/lessons" component={Lessons} />
