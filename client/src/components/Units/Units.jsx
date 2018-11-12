@@ -60,7 +60,6 @@ class Units extends Component {
     const { match } = this.props;
     const { classID } = match.params;
     const { unitList } = this.state;
-    const self = this;
     const unitName = document.getElementById('unit_name').value;
     fetch('/api/units', {
       method: 'POST',
@@ -71,7 +70,7 @@ class Units extends Component {
     }).then(
       response => {
         if (response.ok) {
-          self.setState({
+          this.setState({
             unitList: unitList.concat({
               classid: classID,
               unit_name: unitName
