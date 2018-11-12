@@ -123,7 +123,6 @@ router.post('/upload', async (req, res) => {
 router.post('/units', async (req, res) => {
   try {
     const { unitName, classid } = req.body;
-    console.log(req.body);
     db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
       classid,
       unitName
