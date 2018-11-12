@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -19,6 +21,7 @@ class Lessons extends Component {
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.updateLessons = this.updateLessons.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +45,12 @@ class Lessons extends Component {
     this.setState({ showModal: false });
   }
 
+  updateLessons(lessonID, lessonName, color) {
+    const { lessons } = this.state;
+    lessons.push({ lesson_name: lessonName, color, id: lessonID });
+    this.setState({ lessons });
+  }
+
   render() {
     const { lessons, showModal } = this.state;
     return (
@@ -56,12 +65,12 @@ class Lessons extends Component {
         <div className="box-container">
           <AddLessonBox onClick={this.handleOpenModal} />
           {lessons.map(less => (
-            <div key={less.lesson_name}>
-              <LessonBox
-                title={less.lesson_name}
-                color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
-              />
-            </div>
+            <LessonBox
+              title={less.lesson_name}
+              color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+              id={less.id}
+              key={less.lesson_name}
+            />
           ))}
         </div>
         <Modal
@@ -72,6 +81,7 @@ class Lessons extends Component {
           <AddLessonModal
             handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
+            updateLessons={this.updateLessons}
           />
         </Modal>
       </div>

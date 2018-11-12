@@ -1,13 +1,12 @@
 const Router = require('express-promise-router');
 
-const path = require('path');
 const db = require('../db/index');
 
 const router = new Router();
 
 router.get('/users', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM users');
+    const query = await db.query('SELECT * FROM users;');
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
@@ -17,7 +16,7 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
-      'SELECT * FROM classes JOIN users on classes.teacherID = users.id'
+      'SELECT * FROM classes JOIN users on classes.teacherID = users.id;'
     );
     res.send(query.rows);
   } catch (error) {
@@ -27,7 +26,7 @@ router.get('/classes', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
-    const query = await db.query('SELECT * FROM units WHERE classid = $1', [
+    const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       req.params.classID
     ]);
     res.send(query.rows);
@@ -39,21 +38,23 @@ router.get('/units/:classID', async (req, res) => {
 router.get('/lessons/:unitID', async (req, res) => {
   try {
     const { unitID } = req.params;
-    const query = await db.query('SELECT * FROM lessons WHERE unit_id = $1', [
-      unitID
-    ]);
+    const query = await db.query(
+      'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
+      [unitID]
+    );
     res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
   }
 });
 
-router.get('/teacherNotes/:lessonID', (req, res) => {
-  res.send({
-    pdf: '/lesson.pdf',
-    notes:
-      'In differential calculus, related rates problems involve finding a rate at which a quantity changes by relating that quantity to other quantities whose rates of change are known. The rate of change is usually with respect to time.'
-  });
+router.get('/teacherNotes/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const query = await db.query('SELECT * FROM lessons WHERE id = $1;', [
+    lessonID
+  ]);
+  const { rows } = query;
+  res.send({ pdf: '/lessodn.pdf', notes: rows[0].reflection_text });
 });
 
 router.get('/studentSummary/:unitID', async (req, res) => {
@@ -107,17 +108,39 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   }
 });
 
+// TODO: unit_id is always 1...
+
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
+  const { name } = req.body;
+  const lessonPath = `./static/${sampleFile.name}`;
 
-  sampleFile.mv(path.resolve(`./static/${sampleFile.name}`), err => {
+  // the RETURNING id is used for dynamically rendering the lesson box after uploading
+  const query = await db.query(
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', 1, $2) RETURNING id;",
+    [name, lessonPath]
+  );
+
+  const lessonID = query.rows[0].id;
+
+  sampleFile.mv(lessonPath, err => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.send('File uploaded!');
+    res.send({ id: lessonID });
     return null;
   });
   return null;
+});
+
+router.put('/update/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const { notes } = req.body;
+  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
+    notes.toString(),
+    lessonID
+  ]);
+  res.send('Update successful');
 });
 
 module.exports = router;
