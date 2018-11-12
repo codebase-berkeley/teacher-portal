@@ -60,6 +60,7 @@ class Lessons extends Component {
               <LessonBox
                 title={less.lesson_name}
                 color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
+                id={less.id}
               />
             </div>
           ))}
