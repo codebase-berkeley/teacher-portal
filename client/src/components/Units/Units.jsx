@@ -17,16 +17,12 @@ function create(unitNames) {
       />
     );
   }
-  return React.createElement('div', [], unitBoxes);
+  return unitBoxes;
 }
 
 class Units extends Component {
   static propTypes = {
-    match: PropTypes.string
-  };
-
-  static defaultProps = {
-    match: {}
+    match: PropTypes.string.isRequired
   };
 
   constructor() {
@@ -137,9 +133,7 @@ class Units extends Component {
                 onClick={() => {
                   this.sendData();
                   this.closeModal();
-                  // this.displayNewUnit();
                 }}
-                close
               >
                 OK
               </button>
