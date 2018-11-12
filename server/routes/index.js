@@ -117,7 +117,7 @@ router.post('/upload', async (req, res) => {
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
   const query = await db.query(
-    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, 'lmao', 1, $2) RETURNING id;",
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', 1, $2) RETURNING id;",
     [name, lessonPath]
   );
 
