@@ -5,7 +5,20 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-// let unitBoxes = [];
+function create(unitNames) {
+  const unitBoxes = [];
+  for (let i = 0; i < unitNames.length; i += 1) {
+    unitBoxes.push(
+      <Unitbox
+        unitName={unitNames[i].unit_name}
+        key={unitNames[i].id}
+        path="/lessons"
+        buttonType="link"
+      />
+    );
+  }
+  return React.createElement('div', [], unitBoxes);
+}
 
 class Units extends Component {
   static propTypes = {
@@ -19,10 +32,8 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      unitList: [],
-      unitBoxes: []
+      unitList: []
     };
-    this.create = this.create.bind(this);
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -35,22 +46,6 @@ class Units extends Component {
     this.setState({
       unitList: unitsJSON
     });
-  }
-
-  create(unitNames) {
-    const { unitBoxes } = this.state;
-    for (let i = 0; i < unitNames.length; i += 1) {
-      unitBoxes.push(
-        <Unitbox
-          unitName={unitNames[i].unit_name}
-          key={unitNames[i].id}
-          path="/lessons"
-          buttonType="link"
-        />
-      );
-    }
-    this.setState({ unitBoxes });
-    return unitBoxes;
   }
 
   openModal() {
@@ -68,9 +63,9 @@ class Units extends Component {
   sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    console.log(classID);
+    const { unitList } = this.state;
+    const self = this;
     const unitName = document.getElementById('unit_name').value;
-    console.log(unitName);
     fetch('/api/units', {
       method: 'POST',
       headers: {
@@ -80,6 +75,12 @@ class Units extends Component {
     }).then(
       response => {
         if (response.ok) {
+          self.setState({
+            unitList: unitList.concat({
+              classid: classID,
+              unit_name: unitName
+            })
+          });
           return response;
         }
         throw new Error('Request failed!');
@@ -88,26 +89,8 @@ class Units extends Component {
     );
   }
 
-  displayNewUnit() {
-    const { match } = this.props;
-    const { classID } = match.params;
-    const { unitBoxes } = this.state;
-    this.setState({
-      unitBoxes: unitBoxes.append(
-        <Unitbox
-          unitName={document.getElementById('unit_name').value}
-          key={classID}
-          path="/lessons"
-          buttonType="link"
-        />
-      )
-    });
-  }
-
   render() {
-    const { unitList } = this.state;
-    const { modalIsOpen } = this.state;
-
+    const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
         <NavLink to="/" className="ReturnArrow">
@@ -124,7 +107,7 @@ class Units extends Component {
           >
             + Add New Unit
           </button>
-          {this.create(unitList)}
+          {create(unitList)}
           <Modal
             className="newUnitModal"
             isOpen={modalIsOpen}
@@ -154,7 +137,7 @@ class Units extends Component {
                 onClick={() => {
                   this.sendData();
                   this.closeModal();
-                  this.displayNewUnit();
+                  // this.displayNewUnit();
                 }}
                 close
               >
