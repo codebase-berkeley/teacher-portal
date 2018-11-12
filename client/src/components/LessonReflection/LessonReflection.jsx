@@ -7,6 +7,7 @@ import './LessonReflection.css';
 
 // import lesson from './lesson.pdf';
 
+/** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
 const unitID = 1;
 
 class LessonReflection extends Component {
@@ -18,7 +19,16 @@ class LessonReflection extends Component {
     match: {}
   };
 
+  /** Here's the putting of the PUT request function */
+  // saveText() {
+  //   const { text } = this.state;
+  //   const { match } = this.props;
+  //   const { lessonID } = match.params;
+  //   fetch(`/api/update/${lessonID}`, { method: 'PUT', body: text });
+  // }
+
   state = {
+    text: '',
     teachNotes: {},
     filepath: null
   };
@@ -61,6 +71,9 @@ class LessonReflection extends Component {
           <embed className="lesson" src={pathway} type="application/pdf" />
         </div>
         <div className="editor-container">
+          <button type="button" onClick={this.saveText}>
+            Save
+          </button>
           <Editor
             initialValue={teachNotes.notes}
             init={{
