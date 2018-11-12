@@ -14,15 +14,6 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/students', async (req, res) => {
-  try {
-    const query = await db.query('SELECT * FROM students');
-    res.send(query.rows);
-  } catch (error) {
-    console.log(error.stack);
-  }
-});
-
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(

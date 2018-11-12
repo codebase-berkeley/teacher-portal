@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './AddClassBox.css';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import Item from './Modal/Item';
+import Item from './Item';
 
 class AddClassBox extends Component {
   constructor() {
