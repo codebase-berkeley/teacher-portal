@@ -45,14 +45,14 @@ router.post('/classes', async (req, res) => {
     if (check.rows.length !== 0) {
       res.send(false);
     } else {
-      const query = await db.query(
+      await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [teacherID, className]
       );
       for (let i = 0; i < emails.length; i += 1) {
-        db.query('INSERT INTO students (email, class_id) VALUES ($1, $2);', [
+        db.query('INSERT INTO users (email, is_teacher) VALUES ($1, $2);', [
           emails[i],
-          query.rows[0].id
+          false
         ]);
       }
       res.send(className);

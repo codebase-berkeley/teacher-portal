@@ -80,6 +80,7 @@ class AddClassBox extends Component {
       response => {
         if (response.ok) {
           reRender();
+          this.setState({ items: [] });
           return response;
         }
         throw new Error('Request failed!');

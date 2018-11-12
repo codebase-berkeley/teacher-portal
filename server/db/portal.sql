@@ -22,13 +22,6 @@ CREATE TABLE classes
   class_name VARCHAR
 );
 
-CREATE TABLE students
-(
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(254),
-  class_id SERIAL REFERENCES classes (id)
-);
-
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY,
