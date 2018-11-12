@@ -108,6 +108,15 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   }
 });
 
+router.get('/questions', async (req, res) => {
+  const query = await db.query('SELECT text FROM questions');
+  const questions = [];
+  query.rows.forEach(e => {
+    questions.push(e.text);
+  });
+  res.send(questions);
+});
+
 // TODO: unit_id is always 1...
 
 router.post('/upload', async (req, res) => {
