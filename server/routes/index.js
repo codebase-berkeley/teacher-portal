@@ -133,6 +133,18 @@ router.post('/upload', async (req, res) => {
   return null;
 });
 
+router.post('/units', async (req, res) => {
+  try {
+    const { unitName, classid } = req.body;
+    db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
+      classid,
+      unitName
+    ]);
+    res.send(unitName);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;
