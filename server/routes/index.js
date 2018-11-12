@@ -107,21 +107,26 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   }
 });
 
+// TODO: unit_id is always 1...
+
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   const { name } = req.body;
   const lessonPath = `./static/${sampleFile.name}`;
 
-  db.query(
-    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, 'lmao', 1, $2);",
+  // the RETURNING id is used for dynamically rendering the lesson box after uploading
+  const query = await db.query(
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, 'lmao', 1, $2) RETURNING id;",
     [name, lessonPath]
   );
+
+  const lessonID = query.rows[0].id;
 
   sampleFile.mv(lessonPath, err => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.send('File uploaded!');
+    res.send({ id: lessonID });
     return null;
   });
   return null;
