@@ -5,8 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
-// import lesson from './lesson.pdf';
-
 /** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
 const unitID = 1;
 
