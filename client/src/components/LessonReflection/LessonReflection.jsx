@@ -19,19 +19,16 @@ class LessonReflection extends Component {
     match: {}
   };
 
-  /** Here's the putting of the PUT request function */
-  // saveText() {
-  //   const { text } = this.state;
-  //   const { match } = this.props;
-  //   const { lessonID } = match.params;
-  //   fetch(`/api/update/${lessonID}`, { method: 'PUT', body: text });
-  // }
+  constructor() {
+    super();
+    this.state = {
+      teachNotes: {},
+      filepath: null
+    };
 
-  state = {
-    text: '',
-    teachNotes: {},
-    filepath: null
-  };
+    this.handleEditorChange = this.handleEditorChange.bind(this);
+    this.saveText = this.saveText.bind(this);
+  }
 
   componentDidMount() {
     const { match } = this.props;
@@ -46,6 +43,7 @@ class LessonReflection extends Component {
       .then(notes => {
         this.setState({ teachNotes: notes });
       });
+
     fetch(`/api/lessons/${unitID}`)
       .then(response => response.json())
       .then(response => {
@@ -56,6 +54,25 @@ class LessonReflection extends Component {
           filepath: fr.filepath.slice(1)
         });
       });
+  }
+
+  handleEditorChange = event => {
+    const { teachNotes } = this.state;
+    teachNotes.notes = event.target.getContent();
+    this.setState({ teachNotes });
+  };
+
+  saveText() {
+    const { teachNotes } = this.state;
+    const { match } = this.props;
+    const { lessonID } = match.params;
+    const data = new FormData();
+    data.append('notes', teachNotes.notes);
+    fetch(`/api/update/${parseInt(lessonID, 10)}`, {
+      method: 'PUT',
+      body: data
+    });
+    alert('Saved!');
   }
 
   render() {
@@ -71,17 +88,15 @@ class LessonReflection extends Component {
           <embed className="lesson" src={pathway} type="application/pdf" />
         </div>
         <div className="editor-container">
-          <button type="button" onClick={this.saveText}>
-            Save
-          </button>
           <Editor
             initialValue={teachNotes.notes}
             init={{
               width: '600',
               height: '100vh',
-              plugins: 'link image code textcolor colorpicker autosave',
+              plugins: 'link image code textcolor colorpicker autosave save',
               toolbar:
-                'undo redo | fontsizeselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | image'
+                'undo redo | fontsizeselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | code | image | save',
+              save_onsavecallback: this.saveText
             }}
             onChange={this.handleEditorChange}
           />
