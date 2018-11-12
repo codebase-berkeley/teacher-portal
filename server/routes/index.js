@@ -120,4 +120,18 @@ router.post('/upload', async (req, res) => {
   return null;
 });
 
+router.post('/units', async (req, res) => {
+  try {
+    const { unit_name, classid } = req.body;
+    console.log(req.body);
+    db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
+      classid,
+      unit_name
+    ]);
+    res.send(unit_name);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 module.exports = router;

@@ -10,7 +10,8 @@ const app = express();
 
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, '/../client/build')));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
