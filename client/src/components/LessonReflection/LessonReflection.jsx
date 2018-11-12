@@ -72,7 +72,6 @@ class LessonReflection extends Component {
       method: 'PUT',
       body: data
     });
-    alert('Saved!');
   }
 
   render() {

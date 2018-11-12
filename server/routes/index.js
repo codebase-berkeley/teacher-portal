@@ -135,19 +135,12 @@ router.post('/upload', async (req, res) => {
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;
-  console.log(notes);
-  console.log(lessonID);
   db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
     notes.toString(),
     lessonID
   ]);
-
+  db.query('');
   res.send('Update successful');
-
-  // db.query(
-  //   "UPDATE lessons SET reflection_text = 'WHY ISNT IT WORKING' WHERE id = 1;"
-  // );
-  // res.send('Update successful');
 });
 
 module.exports = router;
