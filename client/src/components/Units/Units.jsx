@@ -5,20 +5,20 @@ import { NavLink } from 'react-router-dom';
 import Unitbox from './Unitbox';
 import './Units.css';
 
-function create(unitNames) {
-  const unitBoxes = [];
-  for (let i = 0; i < unitNames.length; i += 1) {
-    unitBoxes.push(
-      <Unitbox
-        unitName={unitNames[i].unit_name}
-        key={unitNames[i].id}
-        path="/lessons"
-        buttonType="link"
-      />
-    );
-  }
-  return unitBoxes;
-}
+// function create(unitNames) {
+//   const unitBoxes = [];
+//   for (let i = 0; i < unitNames.length; i += 1) {
+//     unitBoxes.push(
+//       <Unitbox
+//         unitName={unitNames[i].unit_name}
+//         key={unitNames[i].id}
+//         path="/lessons"
+//         buttonType="link"
+//       />
+//     );
+//   }
+//   return unitBoxes;
+// }
 
 class Units extends Component {
   static propTypes = {
@@ -34,6 +34,7 @@ class Units extends Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.sendData = this.sendData.bind(this);
+    this.create = this.create.bind(this);
   }
 
   async componentWillMount() {
@@ -84,6 +85,21 @@ class Units extends Component {
     );
   }
 
+  create(unitNames) {
+    this.unitBoxes = [];
+    for (let i = 0; i < unitNames.length; i += 1) {
+      this.unitBoxes.push(
+        <Unitbox
+          unitName={unitNames[i].unit_name}
+          key={unitNames[i].id}
+          path="/lessons"
+          buttonType="link"
+        />
+      );
+    }
+    return this.unitBoxes;
+  }
+
   render() {
     const { unitList, modalIsOpen } = this.state;
     return (
@@ -102,7 +118,7 @@ class Units extends Component {
           >
             + Add New Unit
           </button>
-          {create(unitList)}
+          {this.create(unitList)}
           <Modal
             className="newUnitModal"
             isOpen={modalIsOpen}
