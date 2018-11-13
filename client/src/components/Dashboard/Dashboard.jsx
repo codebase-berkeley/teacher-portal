@@ -28,6 +28,7 @@ class Dashboard extends Component {
     this.state = {
       classList: []
     };
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   async componentWillMount() {
@@ -44,7 +45,10 @@ class Dashboard extends Component {
       <div className="dashboard-container">
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
-          <AddClassBox />
+          <AddClassBox
+            reRender={this.componentWillMount}
+            classList={classList}
+          />
           {displayClassBoxes(classList)}
         </div>
       </div>

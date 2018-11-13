@@ -67,7 +67,7 @@ button:focus {
   padding: 40px;
   background-color: white;
   width: 30%;
-  height: 60%;
+  height: 50%;
   text-align: left;
   border-top: 45px solid #009fb7;
 }
@@ -161,7 +161,7 @@ button:focus {
   font-size: 15px;
   border: solid;
   width: 90%;
-  height: 250px;
+  height: 100px;
   margin-top: 20px;
   border-color: #ebe9e9;
   overflow: scroll;

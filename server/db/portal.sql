@@ -22,6 +22,13 @@ CREATE TABLE classes
   class_name VARCHAR
 );
 
+CREATE TABLE students_classes
+(
+  studentID SERIAL REFERENCES users (id),
+  classID SERIAL REFERENCES classes (id),
+  PRIMARY KEY (studentID, classID)
+);
+
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY,
