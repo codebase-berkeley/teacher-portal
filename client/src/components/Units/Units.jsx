@@ -25,6 +25,7 @@ class Units extends Component {
   async componentWillMount() {
     const units = await fetch('/api/units/1');
     const unitsJSON = await units.json();
+    console.log(unitsJSON);
     this.setState({
       unitList: unitsJSON
     });
@@ -76,7 +77,7 @@ class Units extends Component {
       this.unitBoxes.push(
         <Unitbox
           unitName={unitNames[i].unit_name}
-          key={unitNames[i].id}
+          id={unitNames[i].id}
           path="/lessons"
           buttonType="link"
         />
