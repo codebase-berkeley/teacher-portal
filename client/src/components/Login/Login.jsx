@@ -8,7 +8,7 @@ class Login extends Component {
       <div className="login-page">
         <div>
           <img src={Logo} alt="logo" className="logo" />
-          <div className="welcome">Welcome!</div>
+          <h1 className="welcome">Welcome!</h1>
           <div className="welcome-sub">Get started here.</div>
           <div className="button-wrapper">
             <a href="/" className="signin">
@@ -18,15 +18,6 @@ class Login extends Component {
               Sign in as Teacher
             </a>
           </div>
-
-          {/* <form>
-            <input type="text" placeholder="Email" className="login-box" />
-            <input
-              type="password"
-              placeholder="Password"
-              className="login-box"
-            />
-          </form> */}
         </div>
       </div>
     );

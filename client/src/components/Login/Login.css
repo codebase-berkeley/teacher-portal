@@ -4,7 +4,7 @@
 
 .logo {
   width: 20%;
-  margin: 70px 20px 20px 50px;
+  margin: 70px 20px 5px 50px;
 }
 .welcome {
   border: none;
@@ -30,8 +30,6 @@
   background-color: #fed766;
   border-radius: 3px;
   padding: 10px 20px 10px 20px;
-  width: auto;
-  height: auto;
   color: black;
   display: inline-block;
   margin: 20px;
