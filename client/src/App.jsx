@@ -25,7 +25,7 @@ class App extends Component {
             <Route path="/units/:classID" component={Units} />
             <Route exact path="/survey" component={Survey} />
             <Route exact path="/studentsummary" component={Summary} />
-            <Route exact path="/lessons" component={Lessons} />
+            <Route exact path="/lessons/:unitID" component={Lessons} />
             <Route path="/reflections/:lessonID" component={LessonReflection} />
           </Switch>
         </Router>

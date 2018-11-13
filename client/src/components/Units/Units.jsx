@@ -77,6 +77,7 @@ class Units extends Component {
         <Unitbox
           unitName={unitNames[i].unit_name}
           key={unitNames[i].id}
+          id={unitNames[i].id}
           path="/lessons"
           buttonType="link"
         />
