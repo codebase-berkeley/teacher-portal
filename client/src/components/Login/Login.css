@@ -1,15 +1,36 @@
-.welcome {
-  position: relative;
-  text-align: left;
-  left: 100px;
-  border: none;
-  margin-top: 100px;
+.login-page {
+  text-align: center;
 }
 
-.login-box {
-  margin: 10px 0;
+.logo {
   width: 20%;
-  display: block;
-  padding: 10px 10px;
-  border-radius: 10px;
+  margin: 70px 20px 5px 50px;
+}
+.welcome {
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.welcome-sub {
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+
+.button-wrapper {
+  margin-top: 30px;
+}
+
+.signin {
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  background-color: #fed766;
+  border-radius: 3px;
+  padding: 10px 20px 10px 20px;
+  color: black;
+  display: inline-block;
+  margin: 20px;
 }
