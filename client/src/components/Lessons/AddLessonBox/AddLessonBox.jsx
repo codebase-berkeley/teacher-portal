@@ -5,12 +5,12 @@ import plus from './plsImage.png';
 
 class AddLessonBox extends Component {
   render() {
-    const { onClick, onKeyDown } = this.props;
+    const { onClick } = this.props;
     return (
       <div
         className="lessonbox"
         onClick={onClick}
-        onKeyDown={onKeyDown}
+        onKeyDown={onClick}
         role="button"
         tabIndex={0}
       >
@@ -23,8 +23,7 @@ class AddLessonBox extends Component {
 }
 
 AddLessonBox.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 };
 
 export default AddLessonBox;
