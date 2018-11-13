@@ -7,12 +7,13 @@ class ClassBox extends Component {
   static propTypes = {
     color: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    teacher: PropTypes.string.isRequired
+    teacher: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
   };
 
   render() {
-    const { color, title, teacher } = this.props;
-    const route = `/units/`;
+    const { color, title, teacher, id } = this.props;
+    const route = `/units/${id}`;
 
     return (
       <NavLink className="classbox" to={route}>
