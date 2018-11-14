@@ -23,7 +23,7 @@ class Units extends Component {
   }
 
   async componentWillMount() {
-    const units = await fetch('/api/units/1');
+    const units = await fetch(`/api/units/1`);
     const unitsJSON = await units.json();
     this.setState({
       unitList: unitsJSON

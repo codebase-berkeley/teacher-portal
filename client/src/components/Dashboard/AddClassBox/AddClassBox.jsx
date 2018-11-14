@@ -3,6 +3,7 @@ import './AddClassBox.css';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import Item from './Item';
+import plus from './plusImage.png';
 
 class AddClassBox extends Component {
   constructor() {
@@ -221,7 +222,8 @@ class AddClassBox extends Component {
             unitName="+ Add New Unit"
             buttonType="add"
           >
-            + Add New Class
+            <img src={plus} alt="plus" className="plus" />
+            <div className="new-class-text">Add New Class</div>
           </button>
         </div>
       );
