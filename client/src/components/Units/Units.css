@@ -59,6 +59,7 @@
   width: 30%;
   height: 35%;
   border-top: 45px solid #009fb7;
+  overflow: hidden;
 }
 
 .modalTitle {

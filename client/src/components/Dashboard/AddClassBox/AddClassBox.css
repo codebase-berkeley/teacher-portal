@@ -58,6 +58,7 @@ button:focus {
   height: 40%;
   text-align: left;
   border-top: 45px solid #009fb7;
+  overflow: hidden;
 }
 
 .student-modal {
@@ -72,6 +73,7 @@ button:focus {
   height: 50%;
   text-align: left;
   border-top: 45px solid #009fb7;
+  overflow: hidden;
 }
 
 .class-modal:focus {
