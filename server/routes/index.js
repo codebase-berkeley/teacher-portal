@@ -24,6 +24,34 @@ router.get('/classes', async (req, res) => {
   }
 });
 
+router.post('/classes', async (req, res) => {
+  try {
+    const { teacherID, className, emails } = req.body;
+    const check = await db.query(
+      'SELECT * FROM classes where class_name = $1;',
+      [className]
+    );
+
+    if (check.rows.length !== 0) {
+      res.send(false);
+    } else {
+      const classID = await db.query(
+        'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
+        [teacherID, className]
+      );
+      for (let i = 0; i < emails.length; i += 1) {
+        db.query(
+          'INSERT INTO students_classes (studentID, classID) values((SELECT u.id FROM users as u WHERE u.email = $1), $2);',
+          [emails[i], classID.rows[0].id]
+        );
+      }
+      res.send(className);
+    }
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.get('/units/:classID', async (req, res) => {
   try {
     const { classID } = req.params;
@@ -66,10 +94,7 @@ router.get('/studentSummary/:unitID', async (req, res) => {
     );
     const data = [];
     const { rows } = mainquery;
-    const questionquery = await db.query(
-      `SELECT * FROM questions where unit_id=${unitID}`
-    );
-    const NUMQS = questionquery.rows.length;
+
     const yearsquery = await db.query(
       `SELECT DISTINCT yr FROM responses WHERE unit=${unitID};`
     );
@@ -83,42 +108,38 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         }
       });
 
-      const rawQuestions = [];
-
-      for (let i = 0; i < NUMQS; i += 1) {
-        rawQuestions.push([]);
-      }
+      const q = [[], [], [], []];
 
       rowsYear.forEach(row => {
         const i = row.question - 1;
-        rawQuestions[i].push(row.response);
+        q[i].push(row.response);
       });
+      const qlengths = [q[0].length, q[1].length, q[2].length, q[3].length];
 
-      const averagedQ = [];
-
-      for (let i = 0; i < rawQuestions.length; i += 1) {
-        averagedQ.push(
-          rawQuestions[i].reduce((a, b) => a + b, 0) / rawQuestions[i].length
-        );
-      }
+      const averagedQ = [
+        q[0].reduce((a, b) => a + b, 0) / qlengths[0],
+        q[1].reduce((a, b) => a + b, 0) / qlengths[1],
+        q[2].reduce((a, b) => a + b, 0) / qlengths[2],
+        q[3].reduce((a, b) => a + b, 0) / qlengths[3]
+      ];
 
       data.push({
         year: yr,
-        num: NUMQS,
-        questions: averagedQ
+        q1: averagedQ[0],
+        q2: averagedQ[1],
+        q3: averagedQ[2],
+        q4: averagedQ[3]
       });
     });
+
     res.send(data);
   } catch (error) {
     console.log(error.stack);
   }
 });
 
-router.get('/questions/:unitID', async (req, res) => {
-  const { unitID } = req.params;
-  const query = await db.query(
-    `SELECT text FROM questions where unit_id=${unitID}`
-  );
+router.get('/questions', async (req, res) => {
+  const query = await db.query('SELECT text FROM questions');
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
@@ -149,6 +170,42 @@ router.post('/upload', async (req, res) => {
     return null;
   });
   return null;
+});
+
+router.post('/survey/:unitID', async (req, res) => {
+  /** TODO: make this dynamically update based on year */
+  const year = 2018;
+  const { unitID } = req.params;
+  const { rating0, rating1, rating2, rating3 } = req.body;
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
+    [unitID, rating0, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
+    [unitID, rating1, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
+    [unitID, rating2, year]
+  );
+  db.query(
+    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
+    [unitID, rating3, year]
+  );
+  res.send('Update successful');
+});
+router.post('/units', async (req, res) => {
+  try {
+    const { unitName, classid } = req.body;
+    db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
+      classid,
+      unitName
+    ]);
+    res.send(unitName);
+  } catch (error) {
+    console.log(error.stack);
+  }
 });
 
 router.put('/update/:lessonID', async (req, res) => {

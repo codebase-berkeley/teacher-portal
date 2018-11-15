@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ClassBox from './ClassBox/ClassBox';
+import Logout from '../Logout/Logout';
 import AddClassBox from './AddClassBox/AddClassBox';
 import './Dashboard.css';
 
@@ -43,6 +44,7 @@ class Dashboard extends Component {
     const { classList } = this.state;
     return (
       <div className="dashboard-container">
+        <Logout />
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           <AddClassBox

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import LessonBox from './LessonBox/LessonBox';
 import AddLessonBox from './AddLessonBox/AddLessonBox';
 import AddLessonModal from './Modal/AddLessonModal';
+import Logout from '../Logout/Logout';
 import './Lessons.css';
 
 const topBar = 'top-bar';
@@ -64,6 +65,7 @@ class Lessons extends Component {
     const { lessons, showModal } = this.state;
     return (
       <div className="lessons-container">
+        <Logout />
         <button type="button" className="Return" onClick={this.handleGoBack}>
           &#8592; Return to Units
         </button>

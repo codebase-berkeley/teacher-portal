@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-
+import Logout from '../Logout/Logout';
 import Unitbox from './Unitbox';
 import './Units.css';
 
@@ -99,6 +99,7 @@ class Units extends Component {
     const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
+        <Logout />
         <button
           type="button"
           className="ReturnArrow"
