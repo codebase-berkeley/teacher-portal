@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
-import { NavLink } from 'react-router-dom';
 import Chart from 'chart.js';
 import './Histogram.css';
 
@@ -9,11 +9,17 @@ const unitID = 1;
 ReactChartkick.addAdapter(Chart);
 
 export default class Histogram extends Component {
+  static propTypes = {
+    history: PropTypes.string.isRequired
+  };
+
   constructor() {
     super();
     this.state = {
       columnCharts: []
     };
+
+    this.handleGoBack = this.handleGoBack.bind(this);
   }
 
   componentDidMount() {
@@ -45,13 +51,18 @@ export default class Histogram extends Component {
       });
   }
 
+  handleGoBack() {
+    const { history } = this.props;
+    history.goBack();
+  }
+
   render() {
     const { columnCharts } = this.state;
     return (
       <div className="histogram">
-        <NavLink to="/lessons" className="Return">
+        <button type="button" className="Return" onClick={this.handleGoBack}>
           &#8592; Return to Lessons
-        </NavLink>
+        </button>
         <h1 className="title">Student Summary</h1>
         {columnCharts}
       </div>
