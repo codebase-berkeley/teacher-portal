@@ -53,3 +53,8 @@ button:focus {
   top: 0;
   bottom: 0;
 }
+
+.ReturnArrow {
+  margin-left: 25px;
+  padding: 0;
+}

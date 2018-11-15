@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Login from './components/Login/Login';
-import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
 import Survey from './components/Survey/Survey';
 import Units from './components/Units/Units';
@@ -18,10 +17,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="logout-container">
-          <Logout />
-        </div>
-
         <Router history={hst}>
           <Switch>
             <Route exact path="/login" component={Login} />

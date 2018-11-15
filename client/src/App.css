@@ -25,6 +25,8 @@ h1 {
   background-color: #009fb7;
 }
 
-.logout-container {
-  text-align: right;
+.logout {
+  position: absolute;
+  top: 30px;
+  right: 50px;
 }

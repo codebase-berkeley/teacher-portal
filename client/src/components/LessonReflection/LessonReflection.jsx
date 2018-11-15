@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
+import Logout from '../Logout/Logout';
 
 /** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
 const unitID = 1;
@@ -82,7 +83,12 @@ class LessonReflection extends Component {
     const pathway = `http://localhost:8080${filepath}`;
     return (
       <div>
-        <button type="button" className="Return" onClick={this.handleGoBack}>
+        <Logout />
+        <button
+          type="button"
+          className="ReturnArrow Push"
+          onClick={this.handleGoBack}
+        >
           &#8592; Return to Lessons
         </button>
         <p className="my-classes">My Lesson</p>

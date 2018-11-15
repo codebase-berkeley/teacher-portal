@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-
+import Logout from '../Logout/Logout';
 import Unitbox from './Unitbox';
 import './Units.css';
 
@@ -99,11 +99,8 @@ class Units extends Component {
     const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
-        <button
-          type="button"
-          className="ReturnArrow"
-          onClick={this.handleGoBack}
-        >
+        <Logout />
+        <button type="button" className="Return" onClick={this.handleGoBack}>
           &#8592; Return to Classes
         </button>
         <h2 className="Unit-header">My Units</h2>
