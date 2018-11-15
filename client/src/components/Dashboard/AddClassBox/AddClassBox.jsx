@@ -202,7 +202,7 @@ class AddClassBox extends Component {
                 </button>
                 <button
                   type="submit"
-                  className="cancel-class cancel-class2"
+                  className="cancel-class marginFix"
                   onClick={() => {
                     const check = document.getElementById('classNameText')
                       .value;
@@ -265,7 +265,7 @@ class AddClassBox extends Component {
                   Back
                 </button>
                 <button
-                  className="cancel-student cancel-student2"
+                  className="cancel-student marginFix"
                   type="button"
                   onClick={() => {
                     if (items.length > 0) {

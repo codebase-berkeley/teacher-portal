@@ -126,7 +126,7 @@ button:focus {
   box-shadow: none;
   border: 0;
 }
-.cancel-class2 {
+.marginFix {
   float: right;
   margin-right: 20%;
   margin-left: 15%;
@@ -154,7 +154,7 @@ button:focus {
 .cancel-student2 {
   float: right;
   margin-right: 20%;
-  margin-left: 0;
+  margin-left: 15%;
 }
 
 .inputText {
