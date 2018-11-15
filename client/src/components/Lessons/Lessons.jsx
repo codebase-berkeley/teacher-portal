@@ -66,7 +66,11 @@ class Lessons extends Component {
     return (
       <div className="lessons-container">
         <Logout />
-        <button type="button" className="Return" onClick={this.handleGoBack}>
+        <button
+          type="button"
+          className="ReturnArrow"
+          onClick={this.handleGoBack}
+        >
           &#8592; Return to Units
         </button>
         <p className="my-lessons">My Lessons</p>

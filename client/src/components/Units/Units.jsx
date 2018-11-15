@@ -100,11 +100,7 @@ class Units extends Component {
     return (
       <div className="Page-layout">
         <Logout />
-        <button
-          type="button"
-          className="ReturnArrow"
-          onClick={this.handleGoBack}
-        >
+        <button type="button" className="Return" onClick={this.handleGoBack}>
           &#8592; Return to Classes
         </button>
         <h2 className="Unit-header">My Units</h2>

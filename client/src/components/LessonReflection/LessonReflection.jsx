@@ -84,7 +84,11 @@ class LessonReflection extends Component {
     return (
       <div>
         <Logout />
-        <button type="button" className="Return" onClick={this.handleGoBack}>
+        <button
+          type="button"
+          className="ReturnArrow Push"
+          onClick={this.handleGoBack}
+        >
           &#8592; Return to Lessons
         </button>
         <p className="my-classes">My Lesson</p>
