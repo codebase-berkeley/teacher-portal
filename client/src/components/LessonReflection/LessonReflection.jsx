@@ -86,7 +86,7 @@ class LessonReflection extends Component {
         <Logout />
         <button
           type="button"
-          className="ReturnArrow Push"
+          className="ReturnArrow moveRight"
           onClick={this.handleGoBack}
         >
           &#8592; Return to Lessons

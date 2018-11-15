@@ -71,7 +71,7 @@ class Lessons extends Component {
         <Logout />
         <button
           type="button"
-          className="ReturnArrow"
+          className="ReturnArrow moveRight"
           onClick={this.handleGoBack}
         >
           &#8592; Return to Units
