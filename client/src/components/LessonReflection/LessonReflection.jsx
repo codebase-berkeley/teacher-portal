@@ -1,16 +1,18 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
 /** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
 const unitID = 1;
+const hst = createBrowserHistory();
 
 class LessonReflection extends Component {
   static propTypes = {
-    match: PropTypes.string
+    match: PropTypes.string,
+    history: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -25,6 +27,7 @@ class LessonReflection extends Component {
     };
 
     this.handleEditorChange = this.handleEditorChange.bind(this);
+    this.handleGoBack = this.handleGoBack.bind(this);
     this.saveText = this.saveText.bind(this);
   }
 
@@ -60,6 +63,11 @@ class LessonReflection extends Component {
     this.setState({ teachNotes });
   };
 
+  handleGoBack() {
+    const { history } = this.props;
+    history.goBack();
+  }
+
   saveText() {
     const { teachNotes } = this.state;
     const { match } = this.props;
@@ -77,9 +85,11 @@ class LessonReflection extends Component {
     const pathway = `http://localhost:8080${filepath}`;
     return (
       <div>
-        <NavLink to="/lessons" className="Return">
-          &#8592; Return to Lessons
-        </NavLink>
+        <Router history={hst}>
+          <button type="button" className="Return" onClick={this.handleGoBack}>
+            &#8592; Return to Lessons
+          </button>
+        </Router>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
           <embed className="lesson" src={pathway} type="application/pdf" />

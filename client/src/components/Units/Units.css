@@ -3,12 +3,16 @@
 }
 
 .ReturnArrow {
+  background: none !important;
+  padding: 0 !important;
   font-family: 'Open Sans', sans-serif;
   position: block;
   border: none;
   color: rgb(0, 159, 183);
   text-decoration: none;
   margin-left: 7%;
+  cursor: pointer;
+  font-size: inherit;
 }
 
 .Unit-header {
