@@ -12,6 +12,7 @@ const colors = ['yellow', 'aqua', 'dark-teal'];
 
 class Lessons extends Component {
   static propTypes = {
+    match: PropTypes.string.isRequired,
     history: PropTypes.string.isRequired
   };
 
@@ -29,7 +30,9 @@ class Lessons extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/lessons/1')
+    const { match } = this.props;
+    const { unitID } = match.params;
+    fetch(`/api/lessons/${unitID}`)
       .then(response => {
         if (response.ok) {
           return response.json();
