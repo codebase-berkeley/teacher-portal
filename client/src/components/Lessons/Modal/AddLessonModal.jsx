@@ -78,7 +78,7 @@ class AddLessonModal extends Component {
       <div className="lesson-modal">
         <div className="top-bar top-modal" />
         <form className="contents">
-          <h2 className="bad-code">Add New lesson</h2>
+          <h2 className="bad-code">Add New Lesson</h2>
           <p>Lesson Name</p>
           <input
             type="text"
