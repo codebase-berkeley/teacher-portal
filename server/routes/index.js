@@ -93,7 +93,10 @@ router.get('/studentSummary/:unitID', async (req, res) => {
     );
     const data = [];
     const { rows } = mainquery;
-
+    const qquery = await db.query(
+      `SELECT * FROM questions where unit_id=${unitID}`
+    );
+    const NUMQS = qquery.rows.length;
     const yearsquery = await db.query(
       `SELECT DISTINCT yr FROM responses WHERE unit=${unitID};`
     );
@@ -107,39 +110,40 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         }
       });
 
-      const q = [[], [], [], []];
+      const q = [];
+
+      for (let i = 0; i < NUMQS; i += 1) {
+        q.push([]);
+      }
 
       rowsYear.forEach(row => {
         const i = row.question - 1;
         q[i].push(row.response);
       });
 
-      const qlengths = [q[0].length, q[1].length, q[2].length, q[3].length];
+      const averagedQ = [];
 
-      const averagedQ = [
-        q[0].reduce((a, b) => a + b, 0) / qlengths[0],
-        q[1].reduce((a, b) => a + b, 0) / qlengths[1],
-        q[2].reduce((a, b) => a + b, 0) / qlengths[2],
-        q[3].reduce((a, b) => a + b, 0) / qlengths[3]
-      ];
+      for (let i = 0; i < q.length; i += 1) {
+        averagedQ.push(q[i].reduce((a, b) => a + b, 0) / q[i].length);
+      }
 
       data.push({
         year: yr,
-        q1: averagedQ[0],
-        q2: averagedQ[1],
-        q3: averagedQ[2],
-        q4: averagedQ[3]
+        num: NUMQS,
+        questions: averagedQ
       });
     });
-
     res.send(data);
   } catch (error) {
     console.log(error.stack);
   }
 });
 
-router.get('/questions', async (req, res) => {
-  const query = await db.query('SELECT text FROM questions');
+router.get('/questions/:unitID', async (req, res) => {
+  const { unitID } = req.params;
+  const query = await db.query(
+    `SELECT text FROM questions where unit_id=${unitID}`
+  );
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
