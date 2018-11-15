@@ -16,7 +16,7 @@ class Survey extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/questions')
+    fetch(`/api/questions/${unitID}`)
       .then(response => response.json())
       .then(response => {
         this.setState({

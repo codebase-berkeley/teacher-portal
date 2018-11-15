@@ -48,6 +48,7 @@ CREATE TABLE lessons
 CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
+  unit_id SERIAL REFERENCES units(id),
   text VARCHAR
 );
 
@@ -101,12 +102,14 @@ VALUES
 -- dummy data for questions 
 
 INSERT INTO questions
-  (id, text)
+  (id, unit_id, text)
 VALUES
-  (1, 'How interesting was this unit?'),
-  (2, 'Would you recommend to a friend?'),
-  (3, 'Did you learn anything?'),
-  (4, 'What is the purpose of life?');
+  (1, 1, 'How interesting was this unit?'),
+  (2, 1, 'Would you recommend to a friend?'),
+  (3, 1, 'Did you learn anything?'),
+  (4, 1, 'What is the purpose of life?'),
+  (5, 1, 'Why is Parth such a fucking snake?'),
+  (6, 1, 'lol');
 
 -- dummy data for responses
 
