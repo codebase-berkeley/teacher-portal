@@ -27,8 +27,13 @@
 }
 
 .Return {
+  background: none !important;
+  padding: 0 !important;
+  border: none;
+  font-size: inherit;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   text-decoration: none;
   color: rgb(0, 159, 183);
+  cursor: pointer;
 }

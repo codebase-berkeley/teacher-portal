@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { NavLink } from 'react-router-dom';
+
 import Unitbox from './Unitbox';
 import './Units.css';
 
 class Units extends Component {
   static propTypes = {
-    match: PropTypes.string.isRequired
+    match: PropTypes.string.isRequired,
+    history: PropTypes.string.isRequired
   };
 
   constructor() {
@@ -20,6 +21,7 @@ class Units extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.sendData = this.sendData.bind(this);
     this.create = this.create.bind(this);
+    this.handleGoBack = this.handleGoBack.bind(this);
   }
 
   async componentWillMount() {
@@ -88,13 +90,22 @@ class Units extends Component {
     return this.unitBoxes;
   }
 
+  handleGoBack() {
+    const { history } = this.props;
+    history.goBack();
+  }
+
   render() {
     const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
-        <NavLink to="/" className="ReturnArrow">
+        <button
+          type="button"
+          className="ReturnArrow"
+          onClick={this.handleGoBack}
+        >
           &#8592; Return to Classes
-        </NavLink>
+        </button>
         <h2 className="Unit-header">My Units</h2>
         <div>
           <button
