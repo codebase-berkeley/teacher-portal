@@ -24,38 +24,11 @@ router.get('/classes', async (req, res) => {
   }
 });
 
-router.post('/classes', async (req, res) => {
-  try {
-    const { teacherID, className, emails } = req.body;
-    const check = await db.query(
-      'SELECT * FROM classes where class_name = $1;',
-      [className]
-    );
-
-    if (check.rows.length !== 0) {
-      res.send(false);
-    } else {
-      const classID = await db.query(
-        'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-        [teacherID, className]
-      );
-      for (let i = 0; i < emails.length; i += 1) {
-        db.query(
-          'INSERT INTO students_classes (studentID, classID) values((SELECT u.id FROM users as u WHERE u.email = $1), $2);',
-          [emails[i], classID.rows[0].id]
-        );
-      }
-      res.send(className);
-    }
-  } catch (error) {
-    console.log(error.stack);
-  }
-});
-
 router.get('/units/:classID', async (req, res) => {
   try {
+    const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
-      req.params.classID
+      classID
     ]);
     res.send(query.rows);
   } catch (error) {
@@ -174,43 +147,6 @@ router.post('/upload', async (req, res) => {
     return null;
   });
   return null;
-});
-
-router.post('/survey/:unitID', async (req, res) => {
-  /** TODO: make this dynamically update based on year */
-  const year = 2018;
-  const { unitID } = req.params;
-  const { rating0, rating1, rating2, rating3 } = req.body;
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
-    [unitID, rating0, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
-    [unitID, rating1, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
-    [unitID, rating2, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
-    [unitID, rating3, year]
-  );
-  res.send('Update successful');
-});
-
-router.post('/units', async (req, res) => {
-  try {
-    const { unitName, classid } = req.body;
-    db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
-      classid,
-      unitName
-    ]);
-    res.send(unitName);
-  } catch (error) {
-    console.log(error.stack);
-  }
 });
 
 router.put('/update/:lessonID', async (req, res) => {
