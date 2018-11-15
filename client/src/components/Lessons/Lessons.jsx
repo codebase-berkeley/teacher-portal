@@ -65,6 +65,8 @@ class Lessons extends Component {
 
   render() {
     const { lessons, showModal } = this.state;
+    const { match } = this.props;
+    const { unitID } = match.params;
     return (
       <div className="lessons-container">
         <button type="button" className="Return" onClick={this.handleGoBack}>
@@ -94,6 +96,7 @@ class Lessons extends Component {
             handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
             updateLessons={this.updateLessons}
+            unitID={unitID}
           />
         </Modal>
       </div>
