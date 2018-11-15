@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
 import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
 /** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
 const unitID = 1;
-const hst = createBrowserHistory();
 
 class LessonReflection extends Component {
   static propTypes = {
@@ -85,11 +82,9 @@ class LessonReflection extends Component {
     const pathway = `http://localhost:8080${filepath}`;
     return (
       <div>
-        <Router history={hst}>
-          <button type="button" className="Return" onClick={this.handleGoBack}>
-            &#8592; Return to Lessons
-          </button>
-        </Router>
+        <button type="button" className="Return" onClick={this.handleGoBack}>
+          &#8592; Return to Lessons
+        </button>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
           <embed className="lesson" src={pathway} type="application/pdf" />

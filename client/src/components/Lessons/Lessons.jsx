@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import LessonBox from './LessonBox/LessonBox';
@@ -10,7 +9,6 @@ import './Lessons.css';
 
 const topBar = 'top-bar';
 const colors = ['yellow', 'aqua', 'dark-teal'];
-const hst = createBrowserHistory();
 
 class Lessons extends Component {
   static propTypes = {
@@ -66,11 +64,9 @@ class Lessons extends Component {
     const { lessons, showModal } = this.state;
     return (
       <div className="lessons-container">
-        <Router history={hst}>
-          <button type="button" className="Return" onClick={this.handleGoBack}>
-            &#8592; Return to Units
-          </button>
-        </Router>
+        <button type="button" className="Return" onClick={this.handleGoBack}>
+          &#8592; Return to Units
+        </button>
         <p className="my-lessons">My Lessons</p>
         <NavLink to="/studentsummary" className="student-summary-button">
           Student Summary

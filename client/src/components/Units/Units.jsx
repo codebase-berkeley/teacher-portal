@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
 
 import Unitbox from './Unitbox';
 import './Units.css';
-
-const hst = createBrowserHistory();
 
 class Units extends Component {
   static propTypes = {
@@ -101,15 +97,13 @@ class Units extends Component {
     const { unitList, modalIsOpen } = this.state;
     return (
       <div className="Page-layout">
-        <Router history={hst}>
-          <button
-            type="button"
-            className="ReturnArrow"
-            onClick={this.handleGoBack}
-          >
-            &#8592; Return to Classes
-          </button>
-        </Router>
+        <button
+          type="button"
+          className="ReturnArrow"
+          onClick={this.handleGoBack}
+        >
+          &#8592; Return to Classes
+        </button>
         <h2 className="Unit-header">My Units</h2>
         <div>
           <button

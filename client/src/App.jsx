@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -8,7 +9,10 @@ import Units from './components/Units/Units';
 import Summary from './components/Histogram/Histogram';
 import Lessons from './components/Lessons/Lessons';
 import LessonReflection from './components/LessonReflection/LessonReflection';
+
 import './App.css';
+
+const hst = createBrowserHistory();
 
 class App extends Component {
   render() {
@@ -18,7 +22,7 @@ class App extends Component {
           <Logout />
         </div>
 
-        <Router>
+        <Router history={hst}>
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/" component={Dashboard} />
