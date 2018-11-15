@@ -22,6 +22,14 @@ button:focus {
   z-index: 0;
 }
 
+.button-wrapper {
+  margin: 0;
+  position: relative;
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
 .plus {
   position: relative;
   padding: 10px 0 25px 0;
@@ -47,6 +55,8 @@ button:focus {
 }
 
 .class-modal {
+  overflow: visible;
+  position: relative;
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
@@ -54,22 +64,24 @@ button:focus {
   margin: 150px auto;
   padding: 40px;
   background-color: white;
-  width: 30%;
-  height: 40%;
+  width: 400px;
+  height: 300px;
   text-align: left;
   border-top: 45px solid #009fb7;
 }
 
 .student-modal {
+  position: relative;
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
   font-size: 16px;
   margin: 150px auto;
   padding: 40px;
+  padding-bottom: 70px;
   background-color: white;
-  width: 30%;
-  height: 50%;
+  width: 400px;
+  height: 300px;
   text-align: left;
   border-top: 45px solid #009fb7;
 }
@@ -97,43 +109,52 @@ button:focus {
 }
 
 .cancel-class {
+  display: inline-block;
+  position: relative;
+  margin-top: 19%;
   font-family: 'Open Sans', sans-serif;
   border-radius: 4px;
   border-style: solid;
   text-align: center;
   text-decoration: none;
-  position: relative;
   color: black;
-  margin: 15% 0 0 20%;
+  margin-left: 20%;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
-  float: left;
   padding: 10px;
   box-shadow: none;
   border: 0;
+}
+.marginFix {
+  float: right;
+  margin-right: 20%;
+  margin-left: 15%;
 }
 
 .cancel-student {
+  display: inline-block;
+  position: relative;
   font-family: 'Open Sans', sans-serif;
   border-radius: 4px;
   border-style: solid;
   text-align: center;
   text-decoration: none;
-  position: relative;
   color: black;
-  margin: 6% 0 0 20%;
   font-size: 16px;
   background-color: #fed766;
   width: 80px;
-  float: left;
-  padding: 10px;
   box-shadow: none;
   border: 0;
+  padding: 10px;
+  margin-left: 20%;
+  margin-top: 30px;
 }
 
-.button-wrapper {
-  text-align: center;
+.cancel-student2 {
+  float: right;
+  margin-right: 20%;
+  margin-left: 15%;
 }
 
 .inputText {
@@ -169,6 +190,8 @@ button:focus {
   overflow: scroll;
   list-style: none;
   padding: 10px;
+  padding-top: 22px;
+  margin: 0;
 }
 
 .modal-button {
