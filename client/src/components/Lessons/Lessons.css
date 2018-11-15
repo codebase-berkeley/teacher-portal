@@ -54,7 +54,7 @@ button:focus {
   bottom: 0;
 }
 
-.ReturnArrow {
-  margin-left: 25px;
-  padding: 0;
+.moveRight {
+  margin-top: 60px;
+  margin-left: 30px;
 }

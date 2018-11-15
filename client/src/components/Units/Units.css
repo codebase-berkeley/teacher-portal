@@ -3,14 +3,14 @@
 }
 
 .ReturnArrow {
+  position: relative;
   background: none !important;
   padding: 0 !important;
   font-family: 'Open Sans', sans-serif;
-  position: block;
   border: none;
   color: rgb(0, 159, 183);
   text-decoration: none;
-  margin-left: 7%;
+  margin-left: 0;
   cursor: pointer;
   font-size: inherit;
 }
@@ -109,4 +109,9 @@
 
 .newUnitModal:focus {
   outline: none;
+}
+
+.shiftRight {
+  margin-left: 80px;
+  margin-top: 60px;
 }
