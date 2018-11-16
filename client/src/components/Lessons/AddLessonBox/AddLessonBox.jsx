@@ -11,6 +11,7 @@ class AddLessonBox extends Component {
         className="lessonbox"
         onClick={onClick}
         onKeyDown={onClick}
+        onKeyPress={onClick}
         role="button"
         tabIndex={0}
       >
