@@ -31,22 +31,17 @@ export default class Histogram extends Component {
         throw new Error('Request Failed!');
       })
       .then(jsonResponse => {
-        const { num } = jsonResponse[0];
         const charts = [];
-        const xlabel = 'Years';
+        const xlabel = 'Question';
         const ylabel = 'Average Star Rating';
-        for (let i = 0; i < num; i += 1) {
-          const arr = [];
-          for (let j = 0; j < jsonResponse.length; j += 1) {
-            arr.push([jsonResponse[j].year, jsonResponse[j].questions[i]]);
-          }
+        jsonResponse.forEach(e => {
           charts.push(
             <div>
-              <h2 className="questionTitle">{`Question ${i + 1}`}</h2>
-              <ColumnChart data={arr} xtitle={xlabel} ytitle={ylabel} />
+              <h2 className="questionTitle">{e.year}</h2>
+              <ColumnChart data={e.questions} xtitle={xlabel} ytitle={ylabel} />
             </div>
           );
-        }
+        });
         this.setState({ columnCharts: charts });
       });
   }

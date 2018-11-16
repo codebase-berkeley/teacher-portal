@@ -125,9 +125,10 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       const averagedQ = [];
 
       for (let i = 0; i < rawQuestions.length; i += 1) {
-        averagedQ.push(
+        averagedQ.push([
+          i + 1,
           rawQuestions[i].reduce((a, b) => a + b, 0) / rawQuestions[i].length
-        );
+        ]);
       }
 
       data.push({
