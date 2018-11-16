@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Item from './Item';
 import plus from './plusImage.png';
 
+const enterKey = 13;
+
 class AddClassBox extends Component {
   constructor() {
     super();
@@ -141,7 +143,7 @@ class AddClassBox extends Component {
         valid = true;
       }
     }
-    if (e && e.charCode === 13) {
+    if (e && e.charCode === enterKey) {
       if (valid && same) {
         this.addItem();
       } else if (!valid) {
@@ -163,7 +165,7 @@ class AddClassBox extends Component {
   }
 
   goToNextModal(event) {
-    if (event.charCode === 13) {
+    if (event.charCode === enterKey) {
       event.preventDefault();
       this.checkRepeat(document.getElementById('classNameText'));
     }
@@ -301,7 +303,8 @@ class AddClassBox extends Component {
           unitName="+ Add New Unit"
           buttonType="add"
         >
-          + Add New Class
+          <img src={plus} alt="plus" className="plus" />
+          <div className="new-class-text">Add New Class</div>
         </button>
       </div>
     );
