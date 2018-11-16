@@ -69,7 +69,6 @@ class Units extends Component {
       )
       .then(jsonResponse => {
         const { id } = jsonResponse;
-        console.log(jsonResponse);
         this.setState({
           unitList: unitList.concat({
             classID,
