@@ -7,7 +7,6 @@ import './Dashboard.css';
 const topBar = 'top-bar';
 
 function displayClassBoxes(classList) {
-  console.log(classList);
   const boxArray = [];
   for (let i = 0; i < classList.length; i += 1) {
     const str = `${classList[i].color} ${topBar}`;
@@ -36,7 +35,6 @@ class Dashboard extends Component {
   async componentWillMount() {
     const classes = await fetch('/api/classes');
     const classesJSON = await classes.json();
-    // console.log(classesJSON);
     this.setState({
       classList: classesJSON
     });
