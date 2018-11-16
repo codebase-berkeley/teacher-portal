@@ -24,6 +24,36 @@ export default class Histogram extends Component {
   }
 
   componentDidMount() {
+    fetch(`api/questions/${unitID}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Request Failed!');
+      })
+      .then(jsonResponse => {
+        const rows = [];
+        jsonResponse.forEach((e, i) => {
+          rows.push(
+            <tr>
+              <td>{i + 1}</td>
+              <td>{e}</td>
+            </tr>
+          );
+        });
+        const questionTable = (
+          <table className="legend">
+            <tr>
+              <th>Question Number</th>
+              <th>Text</th>
+            </tr>
+            {rows}
+          </table>
+        );
+        this.setState({
+          questions: questionTable
+        });
+      });
     fetch(`/api/studentSummary/${unitID}`)
       .then(response => {
         if (response.ok) {
@@ -32,6 +62,7 @@ export default class Histogram extends Component {
         throw new Error('Request Failed!');
       })
       .then(jsonResponse => {
+        const { questions } = this.state;
         const charts = [];
         const xlabel = 'Question';
         const ylabel = 'Average Star Rating';
@@ -40,12 +71,12 @@ export default class Histogram extends Component {
             <div>
               <h2 className="questionTitle">{e.year}</h2>
               <ColumnChart data={e.questions} xtitle={xlabel} ytitle={ylabel} />
+              <p>{questions}</p>
             </div>
           );
         });
         this.setState({ columnCharts: charts });
       });
-    // fetch(`api/`)
   }
 
   handleGoBack() {
@@ -61,23 +92,6 @@ export default class Histogram extends Component {
           &#8592; Return to Lessons
         </button>
         <h1 className="title">Student Summary</h1>
-        <table className="legend">
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Age</th>
-          </tr>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-        </table>
         {columnCharts}
       </div>
     );
