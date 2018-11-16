@@ -16,7 +16,8 @@ export default class Histogram extends Component {
   constructor() {
     super();
     this.state = {
-      columnCharts: []
+      columnCharts: [],
+      questions: []
     };
 
     this.handleGoBack = this.handleGoBack.bind(this);
@@ -44,6 +45,7 @@ export default class Histogram extends Component {
         });
         this.setState({ columnCharts: charts });
       });
+    // fetch(`api/`)
   }
 
   handleGoBack() {
@@ -59,6 +61,23 @@ export default class Histogram extends Component {
           &#8592; Return to Lessons
         </button>
         <h1 className="title">Student Summary</h1>
+        <table className="legend">
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Age</th>
+          </tr>
+          <tr>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>Eve</td>
+            <td>Jackson</td>
+            <td>94</td>
+          </tr>
+        </table>
         {columnCharts}
       </div>
     );

@@ -143,8 +143,11 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   }
 });
 
-router.get('/questions', async (req, res) => {
-  const query = await db.query('SELECT text FROM questions');
+router.get('/questions/:unitID', async (req, res) => {
+  const { unitID } = req.params;
+  const query = await db.query(
+    `SELECT text FROM questions where unit_id=${unitID}`
+  );
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);

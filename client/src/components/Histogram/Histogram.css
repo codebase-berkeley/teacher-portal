@@ -12,3 +12,8 @@
   padding: 75px 75px;
   display: block;
 }
+
+.legend {
+  width: 100%;
+  text-align: center;
+}
