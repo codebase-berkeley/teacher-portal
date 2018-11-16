@@ -13,8 +13,8 @@ function displayClassBoxes(classList) {
     boxArray.push(
       <ClassBox
         title={classList[i].class_name}
-        id={classList[i].id}
-        key={classList[i].id}
+        id={classList[i].classid}
+        key={classList[i].classid}
         teacher={`${classList[i].first_name} ${classList[i].last_name}`}
         color={str}
       />
