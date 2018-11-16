@@ -77,7 +77,7 @@ INSERT INTO classes
 VALUES
   (1, 'English 102'),
   (2, 'English 202'),
-  (1, 'English 302');
+  (3, 'English 302');
 
 -- dummy data for units
 
@@ -97,9 +97,7 @@ VALUES
   ('Related Rates', 'two', 1, './static/pdf-sample.pdf'),
   ('Linear Algebra', 'three', 1, './static/yeeeeee.pdf'),
   ('Integrals', 'four', 1, './static/yoighht.pdf'),
-  ('Differential Equations', 'five', 1, './static/lesson.pdf'),
-  ('Lesson for Unit 3', 'Sample lesson reflection text', 3, './static/lesson.pdf'),
-  ('Another Lesson for Unit 3', 'More sample lesson reflection text', 3, './static/lesson.pdf');
+  ('Differential Equations', 'five', 1, './static/lesson.pdf');
 
 -- dummy data for questions 
 
