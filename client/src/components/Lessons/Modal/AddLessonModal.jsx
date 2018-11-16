@@ -34,6 +34,7 @@ class AddLessonModal extends Component {
     };
     this.okClicked = this.okClicked.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.handleEnterPress = this.handleEnterPress.bind(this);
   }
 
   onDrop = files => {
@@ -69,6 +70,13 @@ class AddLessonModal extends Component {
     }
   }
 
+  handleEnterPress(event) {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      this.okClicked(document.getElementById('classNameText'));
+    }
+  }
+
   render() {
     const { handleCloseModal } = this.props;
 
@@ -83,6 +91,7 @@ class AddLessonModal extends Component {
             name="lessonName"
             id="input-id"
             className="lesson_input"
+            onKeyPress={this.handleEnterPress}
           />
           <ReactDropzone
             style={customStyles}
