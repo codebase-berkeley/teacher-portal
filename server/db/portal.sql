@@ -77,7 +77,7 @@ INSERT INTO classes
 VALUES
   (1, 'English 102'),
   (2, 'English 202'),
-  (3, 'English 302');
+  (1, 'English 302');
 
 -- dummy data for units
 

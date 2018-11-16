@@ -16,7 +16,7 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
-      'SELECT * FROM classes JOIN users on classes.teacherID = users.id;'
+      'SELECT classes.id as classID, classes.class_name, users.* from classes, users where classes.teacherID = users.id;'
     );
     res.send(query.rows);
   } catch (error) {
