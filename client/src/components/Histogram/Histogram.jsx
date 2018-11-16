@@ -44,7 +44,7 @@ export default class Histogram extends Component {
         const questionTable = (
           <table className="legend">
             <tr>
-              <th>Question Number</th>
+              <th>Question</th>
               <th>Text</th>
             </tr>
             {rows}
