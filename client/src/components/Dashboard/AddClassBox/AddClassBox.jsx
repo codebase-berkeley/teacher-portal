@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Item from './Item';
 import plus from './plusImage.png';
 
+const enterKey = 13;
+
 class AddClassBox extends Component {
   constructor() {
     super();
@@ -26,6 +28,7 @@ class AddClassBox extends Component {
     this.saveClass = this.saveClass.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
     this.checkRepeat = this.checkRepeat.bind(this);
+    this.goToNextModal = this.goToNextModal.bind(this);
   }
 
   checkRepeat(check) {
@@ -140,7 +143,7 @@ class AddClassBox extends Component {
         valid = true;
       }
     }
-    if (e && e.charCode === 13) {
+    if (e && e.charCode === enterKey) {
       if (valid && same) {
         this.addItem();
       } else if (!valid) {
@@ -158,6 +161,13 @@ class AddClassBox extends Component {
           });
         }
       }
+    }
+  }
+
+  goToNextModal(event) {
+    if (event.charCode === enterKey) {
+      event.preventDefault();
+      this.checkRepeat(document.getElementById('classNameText'));
     }
   }
 
@@ -187,6 +197,7 @@ class AddClassBox extends Component {
                 <input
                   className="inputText"
                   type="text"
+                  onKeyPress={this.goToNextModal}
                   id="classNameText"
                   default={className}
                 />
@@ -203,6 +214,7 @@ class AddClassBox extends Component {
                 <button
                   type="submit"
                   className="cancel-class marginFix"
+                  onKeyPress={this.goToNextModal}
                   onClick={() => {
                     const check = document.getElementById('classNameText')
                       .value;
@@ -291,7 +303,8 @@ class AddClassBox extends Component {
           unitName="+ Add New Unit"
           buttonType="add"
         >
-          + Add New Class
+          <img src={plus} alt="plus" className="plus" />
+          <div className="new-class-text">Add New Class</div>
         </button>
       </div>
     );
