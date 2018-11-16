@@ -165,7 +165,6 @@ class AddClassBox extends Component {
   goToNextModal(event) {
     if (event.charCode === 13) {
       event.preventDefault();
-      console.log('NExt MODAL');
       this.checkRepeat(document.getElementById('classNameText'));
     }
   }
