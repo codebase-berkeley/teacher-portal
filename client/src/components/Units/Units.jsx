@@ -56,22 +56,28 @@ class Units extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ unit_name: unitName, classid: classID })
-    }).then(
-      response => {
-        if (response.ok) {
-          this.setState({
-            unitList: unitList.concat({
-              classid: classID,
-              unit_name: unitName
-            })
-          });
-          return response;
-        }
-        throw new Error('Request failed!');
-      },
-      networkError => console.log(networkError.message)
-    );
+      body: JSON.stringify({ unitName, classID })
+    })
+      .then(
+        response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Request failed!');
+        },
+        networkError => console.log(networkError.message)
+      )
+      .then(jsonResponse => {
+        const { id } = jsonResponse;
+        console.log(jsonResponse);
+        this.setState({
+          unitList: unitList.concat({
+            classID,
+            id,
+            unit_name: unitName
+          })
+        });
+      });
   }
 
   create(unitNames) {

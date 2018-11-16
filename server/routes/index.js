@@ -200,14 +200,16 @@ router.post('/survey/:unitID', async (req, res) => {
   );
   res.send('Update successful');
 });
+
 router.post('/units', async (req, res) => {
   try {
-    const { unitName, classid } = req.body;
-    db.query('INSERT INTO units(classid, unit_name) VALUES($1 ,$2);', [
-      classid,
-      unitName
-    ]);
-    res.send(unitName);
+    const { unitName, classID } = req.body;
+    const query = await db.query(
+      'INSERT INTO units(classid, unit_name) VALUES($1 ,$2) RETURNING id;',
+      [classID, unitName]
+    );
+    const unitID = query.rows[0].id;
+    res.send({ id: unitID });
   } catch (error) {
     console.log(error.stack);
   }
