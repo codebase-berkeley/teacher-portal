@@ -40,20 +40,8 @@ class LessonReflection extends Component {
       })
       .then(response => {
         const { notes, filepath } = response;
-        console.log(`notes: ${notes}`);
         this.setState({ teachNotes: notes, filepath: filepath.slice(1) });
       });
-
-    //   fetch(`/api/lessons/${unit}`)
-    //     .then(response => response.json())
-    //     .then(response => {
-    //       const fr = response.filter(
-    //         element => element.id === parseInt(lessonID, 10)
-    //       )[0];
-    //       this.setState({
-    //         filepath: fr.filepath.slice(1)
-    //       });
-    //     });
   }
 
   handleEditorChange = event => {
@@ -81,7 +69,6 @@ class LessonReflection extends Component {
 
   render() {
     const { teachNotes, filepath } = this.state;
-    console.log(`teachNotes: ${teachNotes}`);
     const pathway = `http://localhost:8080${filepath}`;
     return (
       <div>
