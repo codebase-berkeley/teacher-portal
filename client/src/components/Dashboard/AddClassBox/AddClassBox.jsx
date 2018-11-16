@@ -26,6 +26,7 @@ class AddClassBox extends Component {
     this.saveClass = this.saveClass.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
     this.checkRepeat = this.checkRepeat.bind(this);
+    this.goToNextModal = this.goToNextModal.bind(this);
   }
 
   checkRepeat(check) {
@@ -161,6 +162,14 @@ class AddClassBox extends Component {
     }
   }
 
+  goToNextModal(event) {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      console.log('NExt MODAL');
+      this.checkRepeat(document.getElementById('classNameText'));
+    }
+  }
+
   render() {
     const {
       modalIsOpen,
@@ -187,6 +196,7 @@ class AddClassBox extends Component {
                 <input
                   className="inputText"
                   type="text"
+                  onKeyPress={this.goToNextModal}
                   id="classNameText"
                   default={className}
                 />
@@ -203,6 +213,7 @@ class AddClassBox extends Component {
                 <button
                   type="submit"
                   className="cancel-class marginFix"
+                  onKeyPress={this.goToNextModal}
                   onClick={() => {
                     const check = document.getElementById('classNameText')
                       .value;
