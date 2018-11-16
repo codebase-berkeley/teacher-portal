@@ -55,7 +55,10 @@ router.get('/teacherNotes/:lessonID', async (req, res) => {
     lessonID
   ]);
   const { rows } = query;
-  res.send({ pdf: '/lessodn.pdf', notes: rows[0].reflection_text });
+  res.send({
+    filepath: rows[0].filepath,
+    notes: rows[0].reflection_text
+  });
 });
 
 router.get('/studentSummary/:unitID', async (req, res) => {

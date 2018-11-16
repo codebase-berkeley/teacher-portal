@@ -4,7 +4,6 @@ import { Editor } from '@tinymce/tinymce-react';
 import './LessonReflection.css';
 
 /** Currently Unit ID is hardcoded to 1, should be fetched from API in future versions  */
-const unitID = 1;
 
 class LessonReflection extends Component {
   static propTypes = {
@@ -31,6 +30,7 @@ class LessonReflection extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { lessonID } = match.params;
+
     fetch(`/api/teacherNotes/${lessonID}`)
       .then(response => {
         if (response.ok) {
@@ -38,25 +38,27 @@ class LessonReflection extends Component {
         }
         throw new Error('Request Failed');
       })
-      .then(notes => {
-        this.setState({ teachNotes: notes });
+      .then(response => {
+        const { notes, filepath } = response;
+        console.log(`notes: ${notes}`);
+        this.setState({ teachNotes: notes, filepath: filepath.slice(1) });
       });
 
-    fetch(`/api/lessons/${unitID}`)
-      .then(response => response.json())
-      .then(response => {
-        const fr = response.filter(
-          element => element.id === parseInt(lessonID, 10)
-        )[0];
-        this.setState({
-          filepath: fr.filepath.slice(1)
-        });
-      });
+    //   fetch(`/api/lessons/${unit}`)
+    //     .then(response => response.json())
+    //     .then(response => {
+    //       const fr = response.filter(
+    //         element => element.id === parseInt(lessonID, 10)
+    //       )[0];
+    //       this.setState({
+    //         filepath: fr.filepath.slice(1)
+    //       });
+    //     });
   }
 
   handleEditorChange = event => {
-    const { teachNotes } = this.state;
-    teachNotes.notes = event.target.getContent();
+    let { teachNotes } = this.state;
+    teachNotes = event.target.getContent();
     this.setState({ teachNotes });
   };
 
@@ -70,7 +72,7 @@ class LessonReflection extends Component {
     const { match } = this.props;
     const { lessonID } = match.params;
     const data = new FormData();
-    data.append('notes', teachNotes.notes);
+    data.append('notes', teachNotes);
     fetch(`/api/update/${parseInt(lessonID, 10)}`, {
       method: 'PUT',
       body: data
@@ -79,6 +81,7 @@ class LessonReflection extends Component {
 
   render() {
     const { teachNotes, filepath } = this.state;
+    console.log(`teachNotes: ${teachNotes}`);
     const pathway = `http://localhost:8080${filepath}`;
     return (
       <div>
@@ -91,7 +94,7 @@ class LessonReflection extends Component {
         </div>
         <div className="editor-container">
           <Editor
-            initialValue={teachNotes.notes}
+            initialValue={teachNotes}
             init={{
               width: '600',
               height: '100vh',
