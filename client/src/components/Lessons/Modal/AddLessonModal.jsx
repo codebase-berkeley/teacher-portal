@@ -1,6 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
-
 import React, { Component } from 'react';
 import ReactDropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
@@ -48,7 +45,7 @@ class AddLessonModal extends Component {
   };
 
   okClicked() {
-    const { handleCloseModal, updateLessons } = this.props;
+    const { handleCloseModal, updateLessons, unitID } = this.props;
     const lessonName = document.getElementById('input-id').value;
     if (!lessonName) {
       alert('Please enter a lesson name.');
@@ -59,6 +56,7 @@ class AddLessonModal extends Component {
       } else {
         const data = new FormData();
         data.append(key, currfile);
+        data.append('unitID', unitID);
         data.append('name', lessonName);
         fetch('/api/upload', { method: 'POST', body: data })
           .then(response => response.json())
@@ -128,7 +126,8 @@ class AddLessonModal extends Component {
 
 AddLessonModal.propTypes = {
   handleCloseModal: PropTypes.func.isRequired,
-  updateLessons: PropTypes.func.isRequired
+  updateLessons: PropTypes.func.isRequired,
+  unitID: PropTypes.number.isRequired
 };
 
 export default AddLessonModal;
