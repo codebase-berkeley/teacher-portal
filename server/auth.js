@@ -34,7 +34,11 @@ module.exports = passport => {
           );
         } else {
           db.query(
+<<<<<<< HEAD
             'UPDATE users SET token= $1, google_id=$2 WHERE users.email = $3;',
+=======
+            'INSERT INTO users (token, google_id) VALUES ($1, $2) WHERE users.email = $3;',
+>>>>>>> auth attempt sstuck in loop
             [token, profile.id, profile.emails[0].value]
           );
         }
