@@ -4,6 +4,16 @@ const db = require('../db/index');
 
 const router = new Router();
 
+async function checkToken(token) {
+  const check = await db.query('SELECT * FROM users WHERE users.token = $1', [
+    token
+  ]);
+  if (check.rowCount === 0) {
+    return null;
+  }
+  return check.rows[0].id;
+}
+
 router.get('/users', async (req, res) => {
   try {
     const query = await db.query('SELECT * FROM users;');
@@ -13,8 +23,13 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/classes', async (req, res) => {
+router.get('/classes', async (req, res, next) => {
   try {
+    const userExist = await checkToken(req.session.passport.token);
+    if (userExist === null) {
+      console.log('redirec');
+      res.redirect('/login');
+    }
     const query = await db.query(
       'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = users.id;'
     );
@@ -217,16 +232,6 @@ router.post('/units', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
-});
-
-router.put('/update/:lessonID', async (req, res) => {
-  const { lessonID } = req.params;
-  const { notes } = req.body;
-  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
-    notes.toString(),
-    lessonID
-  ]);
-  res.send('Update successful');
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import Item from './Item';
 import plus from './plusImage.png';
+// import { IncomingMessage } from 'http';
 
 const enterKey = 13;
 
@@ -70,6 +71,7 @@ class AddClassBox extends Component {
   submitInfo() {
     const { className, items } = this.state;
     const { reRender } = this.props;
+
     fetch('/api/classes', {
       method: 'POST',
       headers: {

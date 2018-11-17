@@ -33,7 +33,16 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
-    const classes = await fetch('/api/classes');
+    const { history } = this.props;
+
+    const classes = await fetch('/api/classes', { redirect: 'follow' });
+    console.log(classes);
+    console.log(classes.redirected);
+    if (classes.redirected) {
+      console.log('replace');
+      history.push('/login');
+      return;
+    }
     const classesJSON = await classes.json();
     this.setState({
       classList: classesJSON

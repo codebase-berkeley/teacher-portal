@@ -11,7 +11,7 @@ class Login extends Component {
           <h1 className="welcome">Welcome!</h1>
           <div className="welcome-sub">Get started here.</div>
           <div className="button-wrapper">
-            <a href="/" className="signin">
+            <a href="http://localhost:8080/auth/google/" className="signin">
               Sign in as Student
             </a>
             <a href="/" className="signin">
