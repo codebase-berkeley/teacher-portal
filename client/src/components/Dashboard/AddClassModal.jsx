@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import './ClassBox.css';
+import './AddClassBox/AddClassBox.css';
+import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import AddClassModal from '../AddClassModal';
+import Item from './AddClassBox/Item';
 
 const enterKey = 13;
 
-class ClassBox extends Component {
-  static propTypes = {
-    color: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    teacher: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-  };
-
+class AddClassModal extends Component {
   constructor() {
     super();
     this.state = {
@@ -22,10 +15,8 @@ class ClassBox extends Component {
       currYearItem: '',
       items: [],
       classModalType: true,
-      className: '',
-      showModal: false
+      className: ''
     };
-
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -40,7 +31,6 @@ class ClassBox extends Component {
     this.submitInfo = this.submitInfo.bind(this);
     this.checkRepeat = this.checkRepeat.bind(this);
     this.goToNextModal = this.goToNextModal.bind(this);
-    this.handleShowModal = this.handleShowModal.bind(this);
   }
 
   checkRepeat(check) {
@@ -201,34 +191,137 @@ class ClassBox extends Component {
     }
   }
 
-  handleShowModal() {
-    this.setState({ showModal: true });
-  }
-
   render() {
-    const { color, title, teacher, id } = this.props;
-    const { showModal } = this.state;
-    const route = `/units/${id}`;
+    const {
+      currEmailItem,
+      currYearItem,
+      items,
+      classModalType,
+      className
+    } = this.state;
 
+    const { showModal } = this.props;
+
+    if (classModalType) {
+      return (
+        <Modal
+          className="class-modal"
+          isOpen={showModal}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          contentLabel="Example Modal"
+        >
+          <div className="class-modalTitle">Add New Class</div>
+          <form>
+            <label htmlFor="className">Class Name</label>
+            <input
+              className="inputText"
+              type="text"
+              onKeyPress={this.goToNextModal}
+              id="classNameText"
+              default={className}
+            />
+          </form>
+          <div className="button-wrapper">
+            <button
+              type="submit"
+              className="cancel-class"
+              onClick={this.closeModal}
+              close
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="cancel-class marginFix"
+              onKeyPress={this.goToNextModal}
+              onClick={() => {
+                const check = document.getElementById('classNameText').value;
+                this.checkRepeat(check);
+              }}
+              close
+            >
+              Next
+            </button>
+          </div>
+        </Modal>
+      );
+    }
     return (
-      <div>
-        <button type="button" onClick={this.handleShowModal}>
-          + Add New Students
-        </button>
-        <NavLink className="classbox" to={route}>
-          <div className={color} />
-          <p className="title-p">{title}</p>
-          <p className="teacher-p">{teacher}</p>
-        </NavLink>
-        <AddClassModal showModal={showModal} />
-      </div>
+      <Modal
+        className="student-modal"
+        isOpen={showModal}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        contentLabel="Example Modal"
+        ariaHideApp={false}
+      >
+        <h1 className="student-modalTitle">Add Students</h1>
+        <div className="todo-container">
+          <div className="input-container">
+            <input
+              onKeyPress={this.checkSubmit}
+              className="inputText"
+              placeholder="ie. johndoe@gmail.com"
+              value={currEmailItem}
+              onChange={this.handleItem}
+            />
+          </div>
+
+          <ul className="display">
+            {items.map(item => (
+              <Item text={item} />
+            ))}
+          </ul>
+
+          <h3 className="forclassyear">For class year: </h3>
+
+          <div className="input-container">
+            <input
+              onKeyPress={this.checkYearEnter}
+              className="inputTextYear"
+              placeholder="ie. 2018-2019"
+              value={currYearItem}
+              onChange={this.handleYearItem}
+            />
+          </div>
+
+          <div className="button-wrapper">
+            <button
+              className="cancel-student"
+              type="button"
+              onClick={this.classChangeModal}
+            >
+              Back
+            </button>
+            <button
+              className="cancel-student marginFix"
+              type="button"
+              onClick={() => {
+                if (currYearItem === '') {
+                  alert('Please enter a year');
+                } else if (items.length > 0) {
+                  this.studentsChangeModal();
+                  this.submitInfo();
+                } else {
+                  alert(
+                    'Please add student emails in order to create a class.'
+                  );
+                }
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
     );
   }
 }
 
-ClassBox.propTypes = {
+AddClassModal.propTypes = {
   reRender: PropTypes.func.isRequired,
-  classList: PropTypes.arrayOf(PropTypes.string).isRequired
+  classList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  showModal: PropTypes.bool.isRequired
 };
-
-export default ClassBox;
+export default AddClassModal;

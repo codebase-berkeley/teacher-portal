@@ -58,7 +58,7 @@ CREATE TABLE responses
   question SERIAL REFERENCES questions(id),
   unit SERIAL REFERENCES units(id),
   response FLOAT,
-  yr INTEGER
+  yr VARCHAR
 );
 
 -- dummy data for users

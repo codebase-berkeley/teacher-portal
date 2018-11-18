@@ -3,6 +3,7 @@ import './AddClassBox.css';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import Item from './Item';
+
 import plus from './plusImage.png';
 
 const enterKey = 13;
@@ -12,7 +13,8 @@ class AddClassBox extends Component {
     super();
     this.state = {
       modalIsOpen: false,
-      currItem: '',
+      currEmailItem: '',
+      currYearItem: '',
       items: [],
       classModalType: true,
       className: ''
@@ -21,8 +23,10 @@ class AddClassBox extends Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleItem = this.handleItem.bind(this);
+    this.handleYearItem = this.handleYearItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.checkSubmit = this.checkSubmit.bind(this);
+    this.checkYearEnter = this.checkYearEnter.bind(this);
     this.classChangeModal = this.classChangeModal.bind(this);
     this.studentsChangeModal = this.studentsChangeModal.bind(this);
     this.saveClass = this.saveClass.bind(this);
@@ -107,57 +111,75 @@ class AddClassBox extends Component {
 
   handleItem(event) {
     this.setState({
-      currItem: event.target.value
+      currEmailItem: event.target.value
+    });
+  }
+
+  handleYearItem(event) {
+    this.setState({
+      currYearItem: event.target.value
     });
   }
 
   addItem() {
-    const { currItem, items } = this.state;
-    if (currItem !== '') {
+    const { currEmailItem, items } = this.state;
+    if (currEmailItem !== '') {
       this.setState({
-        currItem: ''
+        currEmailItem: ''
       });
-      if (currItem.indexOf(',') !== 0) {
+      if (currEmailItem.indexOf(',') !== 0) {
         this.setState({
-          items: items.concat(currItem.split(','))
+          items: items.concat(currEmailItem.split(','))
         });
       } else {
         this.setState({
-          items: items.concat(currItem)
+          items: items.concat(currEmailItem)
         });
+      }
+    }
+  }
+
+  checkYearEnter(e) {
+    const { currYearItem } = this.state;
+    if (e && e.charCode === enterKey) {
+      if (currYearItem === '') {
+        alert('Please enter a year');
       }
     }
   }
 
   checkSubmit(e) {
-    const { currItem, items } = this.state;
+    const { currEmailItem, items } = this.state;
     let same = true;
     let valid = false;
+
     for (let i = 0; i < items.length; i += 1) {
-      if (currItem === items[i]) {
+      if (currEmailItem === items[i]) {
         same = false;
       }
     }
-    for (let j = 0; j < currItem.length; j += 1) {
-      if (currItem.substring(j, j + 1) === '@') {
+
+    for (let j = 0; j < currEmailItem.length; j += 1) {
+      if (currEmailItem.substring(j, j + 1) === '@') {
         valid = true;
       }
     }
+
     if (e && e.charCode === enterKey) {
       if (valid && same) {
         this.addItem();
       } else if (!valid) {
         alert('Not a valid email address.');
-        if (currItem !== '') {
+        if (currEmailItem !== '') {
           this.setState({
-            currItem: ''
+            currEmailItem: ''
           });
         }
       } else if (!same) {
         alert('This email address has already been added.');
-        if (currItem !== '') {
+        if (currEmailItem !== '') {
           this.setState({
-            currItem: ''
+            currEmailItem: ''
           });
         }
       }
@@ -174,7 +196,8 @@ class AddClassBox extends Component {
   render() {
     const {
       modalIsOpen,
-      currItem,
+      currEmailItem,
+      currYearItem,
       items,
       classModalType,
       className
@@ -258,7 +281,7 @@ class AddClassBox extends Component {
                   onKeyPress={this.checkSubmit}
                   className="inputText"
                   placeholder="ie. johndoe@gmail.com"
-                  value={currItem}
+                  value={currEmailItem}
                   onChange={this.handleItem}
                 />
               </div>
@@ -268,6 +291,19 @@ class AddClassBox extends Component {
                   <Item text={item} />
                 ))}
               </ul>
+
+              <h3 className="forclassyear">For class year: </h3>
+
+              <div className="input-container">
+                <input
+                  onKeyPress={this.checkYearEnter}
+                  className="inputTextYear"
+                  placeholder="ie. 2018-2019"
+                  value={currYearItem}
+                  onChange={this.handleYearItem}
+                />
+              </div>
+
               <div className="button-wrapper">
                 <button
                   className="cancel-student"
@@ -280,7 +316,9 @@ class AddClassBox extends Component {
                   className="cancel-student marginFix"
                   type="button"
                   onClick={() => {
-                    if (items.length > 0) {
+                    if (currYearItem === '') {
+                      alert('Please enter a year');
+                    } else if (items.length > 0) {
                       this.studentsChangeModal();
                       this.submitInfo();
                     } else {
