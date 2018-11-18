@@ -12,22 +12,26 @@ module.exports = passport => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: 'client id not here pls add',
-        clientSecret: 'client secret not here pls add',
-        callbackURL: '/auth/google/callback'
+        clientID: process.env.CLIENTID,
+        clientSecret: process.env.CLIENTSECRET,
+        callbackURL: '/auth/google/callback',
+        enableProof: false,
+        passReqToCallback: true
       },
-      async (token, refreshToken, profile, done) => {
-        const check = await db.query(
-          'SELECT * FROM users WHERE users.email = $1',
-          [profile.emails[0].value]
+      async (req, token, refreshToken, profile, done) => {
+        const isTeacher = req.query.state === '1' ? true : false;
+        let check = await db.query(
+          'SELECT * FROM users WHERE users.email = $1 and users.is_teacher= $2',
+          [profile.emails[0].value, isTeacher]
         );
         if (check.rowCount === 0) {
           db.query(
-            'INSERT INTO users (email, first_name, last_name, token, google_id) VALUES ($1, $2, $3, $4, $5)',
+            'INSERT INTO users (email, first_name, last_name, is_teacher,token, google_id) VALUES ($1, $2, $3, $4, $5, $6)',
             [
               profile.emails[0].value,
               profile.name.givenName,
               profile.name.familyName,
+              isTeacher,
               token,
               profile.id
             ]

@@ -24,23 +24,22 @@ router.get('/logout', (req, res) => {
   res.redirect('http://localhost:3000/login');
 });
 
-router.get(
-  '/google',
+router.get('/google/teacherStatus/:isTeacher', (req, res, next) => {
+  const { isTeacher } = req.params;
   passport.authenticate('google', {
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email'
-    ]
-  })
-);
+    scope: ['profile', 'email'],
+    state: isTeacher
+  })(req, res, next);
+});
 
 router.get(
-  '/google/callback',
+  '/google/callback/',
   passport.authenticate('google', {
     failureRedirect: '/'
   }),
   (req, res) => {
     req.session.token = req.user.token;
+    // req.sessions.isTeacher = req.user.i
     res.redirect('http://localhost:3000/');
   }
 );

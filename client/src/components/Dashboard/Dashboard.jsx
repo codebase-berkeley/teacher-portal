@@ -40,30 +40,17 @@ class Dashboard extends Component {
       return;
     }
 
-    fetch('/api/getUsers')
-      .then(
-        response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Request failed!');
-        },
-        networkError => console.log(networkError.message)
-      )
-      .then(jsonResponse => {
-        const id = jsonResponse;
-        fetch(`/api/classes/${id}`).then(
-          async classes => {
-            if (classes.ok) {
-              const classesJSON = await classes.json();
-              this.setState({ classList: classesJSON });
-              return classes;
-            }
-            throw new Error('Request failed!');
-          },
-          networkError => console.log(networkError.message)
-        );
-      });
+    fetch('/api/classes/').then(
+      async classes => {
+        if (classes.ok) {
+          const classesJSON = await classes.json();
+          this.setState({ classList: classesJSON });
+          return classes;
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
   }
 
   render() {
