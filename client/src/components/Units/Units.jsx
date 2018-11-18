@@ -15,9 +15,10 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      questions: [<InputBox key="1" input="" />],
+      questions: [<InputBox keynumber="1" input="" />],
       unitList: [],
-      unitModalType: true
+      unitModalType: true,
+      unitName: ''
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -28,6 +29,7 @@ class Units extends Component {
     this.unitChangeModal = this.unitChangeModal.bind(this);
     this.generateInputBox = this.generateInputBox.bind(this);
     this.addNewQuestion = this.addNewQuestion.bind(this);
+    this.saveUnitName = this.saveUnitName.bind(this);
   }
 
   async componentWillMount() {
@@ -65,31 +67,38 @@ class Units extends Component {
     this.setState({
       questions: questions.concat(
         <InputBox
-          key={questions.length + 1}
+          keynumber={questions.length + 1}
           input={document.getElementById('question_name')}
         />
       )
     });
   }
 
+  saveUnitName() {
+    const { unitName } = this.state;
+    this.setState({
+      unitName: unitName + document.getElementById('unit_name').value
+    });
+  }
+
   sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    const { unitList } = this.state;
-    const unitName = document.getElementById('unit_name').value;
+    const { unitList, unitName } = this.state;
+    const nameOfUnit = unitName;
     fetch('/api/units', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ unit_name: unitName, classid: classID })
+      body: JSON.stringify({ unit_name: nameOfUnit, classid: classID })
     }).then(
       response => {
         if (response.ok) {
           this.setState({
             unitList: unitList.concat({
               classid: classID,
-              unit_name: unitName
+              unit_name: nameOfUnit
             })
           });
           return response;
@@ -128,7 +137,13 @@ class Units extends Component {
   }
 
   render() {
-    const { unitList, modalIsOpen, unitModalType, questions } = this.state;
+    const {
+      unitList,
+      modalIsOpen,
+      unitModalType,
+      questions,
+      unitName
+    } = this.state;
     if (unitModalType) {
       return (
         <div className="Page-layout">
@@ -179,7 +194,7 @@ class Units extends Component {
                   type="submit"
                   className="cancelButton"
                   onClick={() => {
-                    this.sendData();
+                    this.saveUnitName(unitName);
                     this.unitChangeModal();
                   }}
                 >
