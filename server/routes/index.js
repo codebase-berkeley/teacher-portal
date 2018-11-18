@@ -17,11 +17,17 @@ async function checkToken(token) {
 
 router.get('/getUsers', async (req, res) => {
   try {
-    const query = await db.query(
-      'SELECT id FROM users WHERE users.token = $1',
-      [req.session.passport.user.token]
-    );
-    res.status(200).send(query.rows[0].id.toString());
+    console.log(req.session);
+    // const userExist = await checkToken(req.session.passport.user.token);
+    if (Object.keys(req.session).length === 0) {
+      res.redirect('/login');
+    } else {
+      const query = await db.query(
+        'SELECT id FROM users WHERE users.token = $1',
+        [req.session.passport.user.token]
+      );
+      res.status(200).send(query.rows[0].id.toString());
+    }
   } catch (error) {
     console.log(error.stack);
   }
@@ -39,10 +45,6 @@ router.get('/users', async (req, res) => {
 router.get('/classes/:userID', async (req, res) => {
   try {
     const { userID } = req.params;
-    const userExist = await checkToken(req.session.passport.user.token);
-    if (userExist === null) {
-      res.redirect('/login');
-    }
     const query = await db.query(
       'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
       [userID]
