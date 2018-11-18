@@ -4,17 +4,6 @@ const db = require('../db/index');
 
 const router = new Router();
 
-async function checkToken(token) {
-  const check = await db.query(
-    'SELECT token FROM users WHERE users.token = $1',
-    [token]
-  );
-  if (check.rowCount === 0) {
-    return null;
-  }
-  return check.rows[0].id;
-}
-
 router.get('/getUsers', async (req, res) => {
   try {
     if (Object.keys(req.session).length === 0) {
@@ -64,6 +53,7 @@ router.post('/classes', async (req, res) => {
     if (check.rows.length !== 0) {
       res.send(false);
     } else {
+      console.log(teacherID, className);
       const classID = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [teacherID, className]
