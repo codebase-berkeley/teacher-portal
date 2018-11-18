@@ -15,7 +15,7 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      questions: [<InputBox keynumber="1" input="" />],
+      questions: [],
       unitList: [],
       unitModalType: true,
       unitName: ''
