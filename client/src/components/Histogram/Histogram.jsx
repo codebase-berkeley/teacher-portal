@@ -16,13 +16,44 @@ export default class Histogram extends Component {
   constructor() {
     super();
     this.state = {
-      columnCharts: []
+      columnCharts: [],
+      questions: []
     };
 
     this.handleGoBack = this.handleGoBack.bind(this);
   }
 
   componentDidMount() {
+    fetch(`api/questions/${unitID}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Request Failed!');
+      })
+      .then(jsonResponse => {
+        const rows = [];
+        jsonResponse.forEach((e, i) => {
+          rows.push(
+            <tr>
+              <td>{i + 1}</td>
+              <td>{e}</td>
+            </tr>
+          );
+        });
+        const questionTable = (
+          <table className="legend">
+            <tr>
+              <th>Question</th>
+              <th>Text</th>
+            </tr>
+            {rows}
+          </table>
+        );
+        this.setState({
+          questions: questionTable
+        });
+      });
     fetch(`/api/studentSummary/${unitID}`)
       .then(response => {
         if (response.ok) {
@@ -31,22 +62,19 @@ export default class Histogram extends Component {
         throw new Error('Request Failed!');
       })
       .then(jsonResponse => {
-        const { num } = jsonResponse[0];
+        const { questions } = this.state;
         const charts = [];
-        const xlabel = 'Years';
+        const xlabel = 'Question';
         const ylabel = 'Average Star Rating';
-        for (let i = 0; i < num; i += 1) {
-          const arr = [];
-          for (let j = 0; j < jsonResponse.length; j += 1) {
-            arr.push([jsonResponse[j].year, jsonResponse[j].questions[i]]);
-          }
+        jsonResponse.forEach(e => {
           charts.push(
             <div>
-              <h2 className="questionTitle">{`Question ${i + 1}`}</h2>
-              <ColumnChart data={arr} xtitle={xlabel} ytitle={ylabel} />
+              <h2 className="questionTitle">{e.year}</h2>
+              <ColumnChart data={e.questions} xtitle={xlabel} ytitle={ylabel} />
+              <p>{questions}</p>
             </div>
           );
-        }
+        });
         this.setState({ columnCharts: charts });
       });
   }

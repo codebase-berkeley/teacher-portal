@@ -16,7 +16,7 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const query = await db.query(
-      'SELECT * FROM classes JOIN users on classes.teacherID = users.id;'
+      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = users.id;'
     );
     res.send(query.rows);
   } catch (error) {
@@ -83,7 +83,10 @@ router.get('/teacherNotes/:lessonID', async (req, res) => {
     lessonID
   ]);
   const { rows } = query;
-  res.send({ pdf: '/lessodn.pdf', notes: rows[0].reflection_text });
+  res.send({
+    filepath: rows[0].filepath,
+    notes: rows[0].reflection_text
+  });
 });
 
 router.get('/studentSummary/:unitID', async (req, res) => {
@@ -125,9 +128,10 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       const averagedQ = [];
 
       for (let i = 0; i < rawQuestions.length; i += 1) {
-        averagedQ.push(
+        averagedQ.push([
+          i + 1,
           rawQuestions[i].reduce((a, b) => a + b, 0) / rawQuestions[i].length
-        );
+        ]);
       }
 
       data.push({
@@ -142,8 +146,11 @@ router.get('/studentSummary/:unitID', async (req, res) => {
   }
 });
 
-router.get('/questions', async (req, res) => {
-  const query = await db.query('SELECT text FROM questions');
+router.get('/questions/:unitID', async (req, res) => {
+  const { unitID } = req.params;
+  const query = await db.query(
+    `SELECT text FROM questions where unit_id=${unitID}`
+  );
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
@@ -151,17 +158,15 @@ router.get('/questions', async (req, res) => {
   res.send(questions);
 });
 
-// TODO: unit_id is always 1...
-
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
-  const { name } = req.body;
+  const { name, unitID } = req.body;
   const lessonPath = `./static/${sampleFile.name}`;
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
   const query = await db.query(
-    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', 1, $2) RETURNING id;",
-    [name, lessonPath]
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', $2, $3) RETURNING id;",
+    [name, unitID, lessonPath]
   );
 
   const lessonID = query.rows[0].id;
