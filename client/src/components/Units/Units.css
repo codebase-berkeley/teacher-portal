@@ -50,6 +50,10 @@
   outline: none;
 }
 
+.Expand {
+  height: 350px !important;
+}
+
 .newUnitModal {
   box-shadow: 5px 5px 100px grey;
   font-family: 'Open Sans', sans-serif;
@@ -69,7 +73,7 @@
 .modalTitle {
   font-family: 'Open Sans', sans-serif;
   font-size: 26px;
-  padding-bottom: 10%;
+  padding-bottom: 6%;
 }
 
 .buttonwrapper {
@@ -100,7 +104,7 @@
   padding: 10px;
   width: 90%;
   height: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   border-color: #ebe9e9;
 }
 
@@ -115,4 +119,34 @@
 .shiftRight {
   margin-left: 80px;
   margin-top: 60px;
+}
+
+.question-wrapper {
+  height: 230px;
+  overflow: auto;
+  border-bottom: solid 0.75px #ebe9e9;
+}
+
+.addButtonWrapper {
+  text-align: center;
+}
+
+.center {
+  margin: 30px auto;
+  width: auto;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
