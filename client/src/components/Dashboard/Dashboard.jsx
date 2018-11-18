@@ -33,8 +33,6 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
-    // const { history } = this.props;
-
     fetch('/api/getUsers')
       .then(
         response => {
