@@ -88,7 +88,6 @@ class Units extends Component {
     const { match } = this.props;
     const { classID } = match.params;
     const { unitList, unitName } = this.state;
-    console.log(JSON.stringify({ unitName, classID }));
     if (unitName === '') {
       alert('Please enter a unit name.');
       return;

@@ -21,7 +21,6 @@ class InputBox extends Component {
           onKeyUp={e => {
             if (e.keyCode === 13 && e.shiftKey === false) {
               e.preventDefault();
-              // this.unitChangeModal();
             }
           }}
         />
