@@ -137,22 +137,20 @@ class Units extends Component {
             contentLabel="Example Modal"
           >
             <div className="modalTitle">Add New Unit</div>
-            <form>
-              <label htmlFor="unitname" id="unitname">
-                Unit Name
-              </label>
-              <input
-                className="inputText"
-                id="unit_name"
-                type="text"
-                onKeyDown={e => {
-                  if (e.keyCode === 13 && e.shiftKey === false) {
-                    this.sendData();
-                    this.closeModal();
-                  }
-                }}
-              />
-            </form>
+            <label htmlFor="unitname" id="unitname">
+              Unit Name
+            </label>
+            <input
+              className="inputText"
+              id="unit_name"
+              type="text"
+              onKeyUp={e => {
+                if (e.keyCode === 13 && e.shiftKey === false) {
+                  this.sendData();
+                  this.closeModal();
+                }
+              }}
+            />
             <div className="buttonwrapper">
               <button
                 type="submit"
