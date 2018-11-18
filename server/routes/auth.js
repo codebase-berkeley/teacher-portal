@@ -41,7 +41,6 @@ router.get(
   }),
   (req, res) => {
     req.session.token = req.user.token;
-    req.session.save();
     res.redirect('http://localhost:3000/');
   }
 );
