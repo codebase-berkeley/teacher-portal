@@ -33,6 +33,13 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
+    const { history } = this.props;
+    const classRoute = await fetch('/api/getUsers', { redirect: 'follow' });
+    if (classRoute.redirected) {
+      history.push('/login');
+      return;
+    }
+
     fetch('/api/getUsers')
       .then(
         response => {
