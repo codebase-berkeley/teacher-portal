@@ -53,7 +53,6 @@ router.post('/classes', async (req, res) => {
     if (check.rows.length !== 0) {
       res.send(false);
     } else {
-      console.log(teacherID, className);
       const classID = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [teacherID, className]
