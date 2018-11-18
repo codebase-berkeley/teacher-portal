@@ -51,7 +51,7 @@
 }
 
 .Expand {
-  height: 350px !important;
+  height: 350px;
 }
 
 .newUnitModal {
@@ -63,9 +63,9 @@
   padding-top: 40px;
   padding-left: 40px;
   padding-right: 40px;
-  padding-bottom: 70px;
+  padding-bottom: 50px;
   background-color: white;
-  height: 250px;
+  height: auto;
   width: 400px;
   border-top: 45px solid #009fb7;
 }
@@ -135,6 +135,7 @@
   margin: 30px auto;
   width: auto;
 }
+
 ::-webkit-scrollbar {
   width: 8px;
 }

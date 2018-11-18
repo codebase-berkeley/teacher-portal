@@ -85,20 +85,19 @@ class Units extends Component {
     const { match } = this.props;
     const { classID } = match.params;
     const { unitList, unitName } = this.state;
-    const nameOfUnit = unitName;
     fetch('/api/units', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ unit_name: nameOfUnit, classid: classID })
+      body: JSON.stringify({ unit_name: unitName, classid: classID })
     }).then(
       response => {
         if (response.ok) {
           this.setState({
             unitList: unitList.concat({
               classid: classID,
-              unit_name: nameOfUnit
+              unit_name: unitName
             })
           });
           return response;
