@@ -67,9 +67,10 @@ class AddClassBox extends Component {
     this.setState({ className: x });
   }
 
-  submitInfo() {
+  async submitInfo() {
     const { className, items } = this.state;
     const { reRender } = this.props;
+
     fetch('/api/classes', {
       method: 'POST',
       headers: {
@@ -77,7 +78,6 @@ class AddClassBox extends Component {
       },
       body: JSON.stringify({
         className,
-        teacherID: 1,
         emails: items
       })
     }).then(

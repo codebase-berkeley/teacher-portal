@@ -12,7 +12,9 @@ CREATE TABLE users
   email VARCHAR(254),
   first_name VARCHAR,
   last_name VARCHAR,
-  is_teacher BOOLEAN
+  is_teacher BOOLEAN,
+  token VARCHAR,
+  google_id VARCHAR
 );
 
 CREATE TABLE classes
