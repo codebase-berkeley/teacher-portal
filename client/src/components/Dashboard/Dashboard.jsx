@@ -33,19 +33,20 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
-    const { history } = this.props;
-    const classRoute = await fetch('/api/getUsers', { redirect: 'follow' });
-    if (classRoute.redirected) {
-      history.push('/login');
-      return;
-    }
-
-    fetch('/api/classes/').then(
+    fetch('/api/classes/', { redirect: 'follow' }).then(
       async classes => {
         if (classes.ok) {
-          const classesJSON = await classes.json();
-          this.setState({ classList: classesJSON });
-          return classes;
+          const { history } = this.props;
+          const classRoute = await fetch('/api/getUsers', {
+            redirect: 'follow'
+          });
+          if (classRoute.redirected) {
+            history.push('/login');
+          } else {
+            const classesJSON = await classes.json();
+            this.setState({ classList: classesJSON });
+            return classes;
+          }
         }
         throw new Error('Request failed!');
       },

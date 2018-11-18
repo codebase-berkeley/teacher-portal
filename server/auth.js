@@ -19,8 +19,8 @@ module.exports = passport => {
         passReqToCallback: true
       },
       async (req, token, refreshToken, profile, done) => {
-        const isTeacher = req.query.state === '1' ? true : false;
-        let check = await db.query(
+        const isTeacher = req.query.state === '1';
+        const check = await db.query(
           'SELECT * FROM users WHERE users.email = $1 and users.is_teacher= $2',
           [profile.emails[0].value, isTeacher]
         );
