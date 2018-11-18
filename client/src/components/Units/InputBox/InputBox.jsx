@@ -14,7 +14,17 @@ class InputBox extends Component {
     return (
       <div className="question">
         <label htmlFor="QuestionOne">{`Question ${keynumber}`}</label>
-        <input type="text" className="inputText" placeholder={input} />
+        <input
+          type="text"
+          className="inputText"
+          placeholder={input}
+          onKeyUp={e => {
+            if (e.keyCode === 13 && e.shiftKey === false) {
+              e.preventDefault();
+              // this.unitChangeModal();
+            }
+          }}
+        />
       </div>
     );
   }

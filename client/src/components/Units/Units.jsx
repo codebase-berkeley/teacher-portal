@@ -174,15 +174,30 @@ class Units extends Component {
               contentLabel="Example Modal"
             >
               <div className="modalTitle">Add New Unit</div>
-              <form action="/units" method="post">
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                }}
+              >
                 <label htmlFor="unitname" id="unitname">
                   Unit Name
                 </label>
-                <input className="inputText" id="unit_name" type="text" />
+                <input
+                  className="inputText"
+                  id="unit_name"
+                  type="text"
+                  onKeyUp={e => {
+                    if (e.keyCode === 13 && e.shiftKey === false) {
+                      e.preventDefault();
+                      this.saveUnitName(unitName);
+                      this.unitChangeModal();
+                    }
+                  }}
+                />
               </form>
               <div className="buttonwrapper">
                 <button
-                  type="submit"
+                  type="button"
                   className="cancelButton"
                   onClick={this.closeModal}
                   close
@@ -190,7 +205,8 @@ class Units extends Component {
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  type="button"
+                  id="next"
                   className="cancelButton"
                   onClick={() => {
                     this.saveUnitName(unitName);
@@ -219,7 +235,7 @@ class Units extends Component {
         <div>
           <button
             className="addButton"
-            type="submit"
+            type="button"
             onClick={this.openModal}
             unitName="+ Add New Unit"
             buttonType="add"
@@ -249,7 +265,7 @@ class Units extends Component {
             </div>
             <div className="buttonwrapper">
               <button
-                type="submit"
+                type="button"
                 className="cancelButton"
                 onClick={this.unitChangeModal}
                 close
@@ -257,7 +273,8 @@ class Units extends Component {
                 Back
               </button>
               <button
-                type="submit"
+                type="button"
+                id="OK"
                 className="cancelButton"
                 onClick={() => {
                   this.sendData();
