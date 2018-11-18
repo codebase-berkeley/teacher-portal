@@ -85,6 +85,16 @@ router.post('/classes', async (req, res) => {
   }
 });
 
+router.put('/update/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const { notes } = req.body;
+  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
+    notes.toString(),
+    lessonID
+  ]);
+  res.send('Update successful');
+});
+
 router.get('/units/:classID', async (req, res) => {
   try {
     const { classID } = req.params;
