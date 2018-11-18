@@ -12,6 +12,8 @@ module.exports = passport => {
   passport.use(
     new GoogleStrategy(
       {
+        clientID: 'client id not here pls add',
+        clientSecret: 'client secret not here pls add',
         callbackURL: '/auth/google/callback'
       },
       async (token, refreshToken, profile, done) => {
@@ -32,7 +34,7 @@ module.exports = passport => {
           );
         } else {
           db.query(
-            'INSERT INTO users (token, google_id) VALUES ($1, $2) WHERE users.email = $3;',
+            'UPDATE users SET token= $1, google_id=$2 WHERE users.email = $3;',
             [token, profile.id, profile.emails[0].value]
           );
         }

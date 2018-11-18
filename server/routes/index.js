@@ -5,14 +5,27 @@ const db = require('../db/index');
 const router = new Router();
 
 async function checkToken(token) {
-  const check = await db.query('SELECT * FROM users WHERE users.token = $1', [
-    token
-  ]);
+  const check = await db.query(
+    'SELECT token FROM users WHERE users.token = $1',
+    [token]
+  );
   if (check.rowCount === 0) {
     return null;
   }
   return check.rows[0].id;
 }
+
+router.get('/getUsers', async (req, res) => {
+  try {
+    const query = await db.query(
+      'SELECT id FROM users WHERE users.token = $1',
+      [req.session.passport.user.token]
+    );
+    res.status(200).send(query.rows[0].id.toString());
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
 
 router.get('/users', async (req, res) => {
   try {
@@ -23,15 +36,16 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/classes', async (req, res, next) => {
+router.get('/classes/:userID', async (req, res) => {
   try {
-    const userExist = await checkToken(req.session.passport.token);
+    const { userID } = req.params;
+    const userExist = await checkToken(req.session.passport.user.token);
     if (userExist === null) {
-      console.log('redirec');
       res.redirect('/login');
     }
     const query = await db.query(
-      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = users.id;'
+      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
+      [userID]
     );
     res.send(query.rows);
   } catch (error) {
@@ -41,7 +55,8 @@ router.get('/classes', async (req, res, next) => {
 
 router.post('/classes', async (req, res) => {
   try {
-    const { teacherID, className, emails } = req.body;
+    console.log(req.body);
+    const { className, teacherID, emails } = req.body;
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
       [className]
@@ -50,6 +65,7 @@ router.post('/classes', async (req, res) => {
     if (check.rows.length !== 0) {
       res.send(false);
     } else {
+      console.log(teacherID, className);
       const classID = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [teacherID, className]

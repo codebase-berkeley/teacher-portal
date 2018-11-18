@@ -68,31 +68,44 @@ class AddClassBox extends Component {
     this.setState({ className: x });
   }
 
-  submitInfo() {
+  async submitInfo() {
     const { className, items } = this.state;
     const { reRender } = this.props;
 
-    fetch('/api/classes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        className,
-        teacherID: 1,
-        emails: items
-      })
-    }).then(
-      response => {
-        if (response.ok) {
-          reRender();
-          this.setState({ items: [] });
-          return response;
-        }
-        throw new Error('Request failed!');
-      },
-      networkError => console.log(networkError.message)
-    );
+    fetch('/api/getUsers')
+      .then(
+        response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Request failed!');
+        },
+        networkError => console.log(networkError.message)
+      )
+      .then(jsonResponse => {
+        const id = jsonResponse;
+        fetch('/api/classes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            className,
+            teacherID: id.toString(),
+            emails: items
+          })
+        }).then(
+          response => {
+            if (response.ok) {
+              reRender();
+              this.setState({ items: [] });
+              return response;
+            }
+            throw new Error('Request failed!');
+          },
+          networkError => console.log(networkError.message)
+        );
+      });
   }
 
   openModal() {

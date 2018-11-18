@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.get('/logout', (req, res) => {
   req.logout();
   req.session = null;
-  res.redirect('/');
+  res.redirect('http://localhost:3000/login');
 });
 
 router.get(
@@ -41,6 +41,7 @@ router.get(
   }),
   (req, res) => {
     req.session.token = req.user.token;
+    req.session.save();
     res.redirect('http://localhost:3000/');
   }
 );

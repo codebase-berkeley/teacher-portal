@@ -3,9 +3,9 @@ import './Logout.css';
 
 function Logout() {
   return (
-    <button type="submit" className="logout">
+    <a href="http://localhost:8080/auth/logout/" className="logout">
       Logout
-    </button>
+    </a>
   );
 }
 
