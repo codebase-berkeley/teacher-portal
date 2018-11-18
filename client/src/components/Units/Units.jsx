@@ -67,14 +67,28 @@ class Units extends Component {
 
   addNewQuestion() {
     const { questions } = this.state;
+    const questionID = questions.length + 1;
+    const questionInput = document.getElementById('question_name');
     this.setState({
       questions: questions.concat(
-        <InputBox
-          keynumber={questions.length + 1}
-          input={document.getElementById('question_name')}
-        />
+        <InputBox keynumber={questionID} input={questionInput} />
       )
     });
+    fetch('/api/questions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ questionID, questionInput })
+    }).then(
+      response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Request failed!');
+      },
+      networkError => console.log(networkError.message)
+    );
   }
 
   saveUnitName() {

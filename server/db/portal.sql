@@ -102,14 +102,14 @@ VALUES
 -- dummy data for questions 
 
 INSERT INTO questions
-  (id, unit_id, text)
+  (id, unit_id, year, text)
 VALUES
-  (1, 1, 'How interesting was this unit?'),
-  (2, 1, 'Would you recommend to a friend?'),
-  (3, 1, 'Did you learn anything?'),
-  (4, 1, 'What is the purpose of life?'),
-  (5, 1, 'Why is Parth such a fucking snake?'),
-  (6, 1, 'lol');
+  (1, 1, 2018, 'How interesting was this unit?'),
+  (2, 1, 2018, 'Would you recommend to a friend?'),
+  (3, 1, 2018, 'Did you learn anything?'),
+  (4, 1, 2018, 'What is the purpose of life?'),
+  (5, 1, 2018, 'Why is Parth such a fucking snake?'),
+  (6, 1, 2018, 'lol');
 
 -- dummy data for responses
 
