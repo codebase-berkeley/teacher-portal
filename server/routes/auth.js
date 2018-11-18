@@ -39,7 +39,6 @@ router.get(
   }),
   (req, res) => {
     req.session.token = req.user.token;
-    // req.sessions.isTeacher = req.user.i
     res.redirect('http://localhost:3000/');
   }
 );
