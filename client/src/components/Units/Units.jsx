@@ -51,6 +51,10 @@ class Units extends Component {
     const { classID } = match.params;
     const { unitList } = this.state;
     const unitName = document.getElementById('unit_name').value;
+    if (unitName === '') {
+      alert('Please enter a unit name.');
+      return;
+    }
     fetch('/api/units', {
       method: 'POST',
       headers: {
@@ -132,12 +136,20 @@ class Units extends Component {
             contentLabel="Example Modal"
           >
             <div className="modalTitle">Add New Unit</div>
-            <form action="/units" method="post">
-              <label htmlFor="unitname" id="unitname">
-                Unit Name
-              </label>
-              <input className="inputText" id="unit_name" type="text" />
-            </form>
+            <label htmlFor="unitname" id="unitname">
+              Unit Name
+            </label>
+            <input
+              className="inputText"
+              id="unit_name"
+              type="text"
+              onKeyUp={e => {
+                if (e.keyCode === 13 && e.shiftKey === false) {
+                  this.sendData();
+                  this.closeModal();
+                }
+              }}
+            />
             <div className="buttonwrapper">
               <button
                 type="submit"
