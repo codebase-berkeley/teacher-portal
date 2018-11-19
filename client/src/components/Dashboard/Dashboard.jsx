@@ -33,25 +33,30 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
-    fetch('/api/classes/', { redirect: 'follow' }).then(
-      async classes => {
-        if (classes.ok) {
-          const { history } = this.props;
-          const classRoute = await fetch('/api/getUsers', {
-            redirect: 'follow'
-          });
-          if (classRoute.redirected) {
-            history.push('/login');
-          } else {
-            const classesJSON = await classes.json();
-            this.setState({ classList: classesJSON });
-            return classes;
+    const { history } = this.props;
+    const classRoute = await fetch('/api/classes', { redirect: 'follow' });
+    if (classRoute.redirected) {
+      history.push('/login');
+      return;
+    }
+
+    fetch('/api/classes/', { redirect: 'follow' })
+      .then(
+        async classes => {
+          if (classes.ok) {
+            if (classRoute.redirected) {
+              history.push('/login');
+            } else {
+              const classesJSON = await classes.json();
+              this.setState({ classList: classesJSON });
+              return classes;
+            }
           }
-        }
-        throw new Error('Request failed!');
-      },
-      networkError => console.log(networkError.message)
-    );
+          throw new Error('Request failed!');
+        },
+        networkError => console.log(networkError.message)
+      )
+      .then(jsonReponse => jsonReponse);
   }
 
   render() {
