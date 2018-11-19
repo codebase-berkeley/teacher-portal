@@ -23,7 +23,7 @@ class App extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route path="/units/:classID" component={Units} />
             <Route exact path="/survey" component={Survey} />
-            <Route exact path="/studentsummary" component={Summary} />
+            <Route exact path="/studentsummary/:unitID" component={Summary} />
             <Route exact path="/lessons/:unitID" component={Lessons} />
             <Route path="/reflections/:lessonID" component={LessonReflection} />
           </Switch>

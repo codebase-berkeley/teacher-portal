@@ -79,7 +79,10 @@ class Lessons extends Component {
           &#8592; Return to Units
         </button>
         <p className="my-lessons">My Lessons</p>
-        <NavLink to="/studentsummary" className="student-summary-button">
+        <NavLink
+          to={`/studentsummary/${unitID}`}
+          className="student-summary-button"
+        >
           Student Summary
         </NavLink>
         <div className="box-container">
