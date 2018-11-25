@@ -37,21 +37,11 @@ class Dashboard extends Component {
     const classRoute = await fetch('/api/classes', { redirect: 'follow' });
     if (classRoute.redirected) {
       history.push('/login');
-      return;
+    } else if (classRoute.ok) {
+      const classesJSON = await classRoute.json();
+      this.setState({ classList: classesJSON });
     }
-    fetch('/api/classes/', { redirect: 'follow' }).then(
-      async classes => {
-        if (classes.redirected) {
-          history.push('/login');
-        } else if (classes.ok) {
-          const classesJSON = await classes.json();
-          this.setState({ classList: classesJSON });
-          return classes;
-        }
-        throw new Error('Request failed!');
-      },
-      networkError => console.log(networkError.message)
-    );
+    return classRoute;
   }
 
   render() {
