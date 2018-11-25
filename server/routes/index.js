@@ -30,19 +30,6 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.post('/teacherBool', async (req, res) => {
-  try {
-    const { isTeacher } = req.body;
-    const query = await db.query(
-      'INSERT INTO users (is_teacher) VALUES ($1);',
-      [isTeacher]
-    );
-    res.send(query);
-  } catch (error) {
-    console.log(error.stack);
-  }
-});
-
 router.get('/classes', async (req, res) => {
   try {
     const userID = await getUsers(req, res);
