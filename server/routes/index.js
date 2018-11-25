@@ -8,7 +8,7 @@ async function getUsers(req, res) {
   try {
     if (Object.keys(req.session).length === 0) {
       res.redirect('/login');
-      return false;
+      return 0;
     }
     const query = await db.query(
       'SELECT id FROM users WHERE users.token = $1',
