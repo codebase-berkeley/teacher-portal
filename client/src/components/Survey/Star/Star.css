@@ -10,14 +10,14 @@
       format('woff');
 }
 
-.star {
+.question {
   padding: 80px;
 }
 .rating {
   float: left;
 }
 
-.question {
+.star {
   position: relative;
   display: inline-block;
   margin-right: 50px;

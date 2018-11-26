@@ -7,12 +7,12 @@ class Star extends React.Component {
     const { question, number } = this.props;
     const name = `rating${number}`;
     return (
-      <div className="star">
+      <div className="question">
         {question}
 
         <div className="stars">
           <div className="rating">
-            <div className="question">
+            <div className="star">
               <input
                 className="form-radio"
                 type="radio"
@@ -22,7 +22,7 @@ class Star extends React.Component {
               />
               <label htmlFor="rating-5">5</label>
             </div>
-            <div className="question">
+            <div className="star">
               <input
                 className="form-radio"
                 type="radio"
@@ -32,7 +32,7 @@ class Star extends React.Component {
               />
               <label htmlFor="rating-4">4</label>
             </div>
-            <div className="question">
+            <div className="star">
               <input
                 className="form-radio"
                 type="radio"
@@ -43,7 +43,7 @@ class Star extends React.Component {
               <label htmlFor="rating-3">3</label>
             </div>
 
-            <div className="question">
+            <div className="star">
               <input
                 className="form-radio"
                 type="radio"
@@ -53,7 +53,7 @@ class Star extends React.Component {
               />
               <label htmlFor="rating-2">2</label>
             </div>
-            <div className="question">
+            <div className="star">
               <input
                 className="form-radio"
                 type="radio"
