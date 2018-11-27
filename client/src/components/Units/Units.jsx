@@ -18,7 +18,9 @@ class Units extends Component {
       questions: [],
       unitList: [],
       unitModalType: true,
-      unitName: ''
+      unitName: '',
+      unitID: 0
+      // questionInputs: []
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -41,6 +43,8 @@ class Units extends Component {
       unitList: unitsJSON
     });
   }
+
+  // getInputFromInputBox() {}
 
   generateInputBox(questions) {
     this.inputList = [];
@@ -68,50 +72,34 @@ class Units extends Component {
   addNewQuestion() {
     const { questions } = this.state;
     const questionID = questions.length + 1;
-    const questionInput = document.getElementById('question_name');
     this.setState({
       questions: questions.concat(
-        <InputBox keynumber={questionID} input={questionInput} />
+        <InputBox id={questionID} passToUnits={this.getInputFromInputBox} />
       )
     });
-    fetch('/api/questions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ questionID, questionInput })
-    }).then(
-      response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Request failed!');
-      },
-      networkError => console.log(networkError.message)
-    );
   }
 
   saveUnitName() {
     const { unitName } = this.state;
     this.setState({
-      unitName: unitName + document.getElementById('unit_name').value
+      unitName: document.getElementById('unit_name').value
     });
+    if (unitName === '') {
+      alert('Please enter a unit name.');
+    }
   }
 
   sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    const { unitList, unitName } = this.state;
-    if (unitName === '') {
-      alert('Please enter a unit name.');
-      return;
-    }
+    const year = 2018;
+    const { unitList, unitName, questions, unitID } = this.state;
     fetch('/api/units', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ unitName, classID })
+      body: JSON.stringify({ classID, unitName })
     })
       .then(
         response => {
@@ -125,6 +113,7 @@ class Units extends Component {
       .then(jsonResponse => {
         const { id } = jsonResponse;
         this.setState({
+          unitID: id,
           unitList: unitList.concat({
             classID,
             id,
@@ -132,6 +121,25 @@ class Units extends Component {
           })
         });
       });
+    for (let i = 1; i < questions.length + 1; i += 1) {
+      const questionInput = document.getElementById(i).value;
+      console.log(questionInput);
+      fetch('/api/questions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ unitID, year })
+      }).then(
+        response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Request failed!');
+        },
+        networkError => console.log(networkError.message)
+      );
+    }
   }
 
   unitChangeModal() {

@@ -219,6 +219,19 @@ router.post('/units', async (req, res) => {
   }
 });
 
+router.post('/questions', async (req, res) => {
+  try {
+    const { year, questionInput } = req.body;
+    db.query('INSERT INTO questions(year, text) VALUES($1 ,$2)', [
+      year,
+      questionInput
+    ]);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  res.send('Update successful');
+});
+
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;

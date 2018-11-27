@@ -49,6 +49,7 @@ CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
   unit_id SERIAL REFERENCES units(id),
+  year INTEGER,
   text VARCHAR
 );
 
