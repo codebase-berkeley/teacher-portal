@@ -13,7 +13,7 @@
 .question {
   padding: 80px;
 }
-.rating {
+.stars {
   float: left;
 }
 
@@ -42,7 +42,7 @@
 }
 .form-radio:checked::before {
   position: absolute;
-  font: 13px/1 'Open Sans', sans-serif;
+  font: 13px 'Open Sans', sans-serif;
   left: 11px;
   top: 7px;
   content: '\02143';
@@ -54,7 +54,7 @@
 .form-radio:checked {
   background-color: #f1f1f1;
 }
-label {
+.rating {
   font: 300 16px/1.7 'Open Sans', sans-serif;
   color: #666;
   cursor: pointer;
