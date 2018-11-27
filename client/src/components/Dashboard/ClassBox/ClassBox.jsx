@@ -220,7 +220,11 @@ class ClassBox extends Component {
           <p className="title-p">{title}</p>
           <p className="teacher-p">{teacher}</p>
         </NavLink>
-        <AddClassModal showModal={showModal} />
+        <AddClassModal
+          showModal={showModal}
+          reRender={this.componentWillMount}
+          className={title}
+        />
       </div>
     );
   }

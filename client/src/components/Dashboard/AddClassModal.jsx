@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unused-state */
+
 import React, { Component } from 'react';
 import './AddClassBox/AddClassBox.css';
 import Modal from 'react-modal';
@@ -14,7 +17,7 @@ class AddClassModal extends Component {
       currEmailItem: '',
       currYearItem: '',
       items: [],
-      classModalType: true,
+      classModalType: false,
       className: ''
     };
     this.openModal = this.openModal.bind(this);
@@ -30,7 +33,7 @@ class AddClassModal extends Component {
     this.saveClass = this.saveClass.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
     this.checkRepeat = this.checkRepeat.bind(this);
-    this.goToNextModal = this.goToNextModal.bind(this);
+    // this.goToNextModal = this.goToNextModal.bind(this);
   }
 
   checkRepeat(check) {
@@ -70,8 +73,18 @@ class AddClassModal extends Component {
   }
 
   submitInfo() {
-    const { className, items } = this.state;
-    const { reRender } = this.props;
+    const { items, currYearItem } = this.state;
+    const { reRender, className } = this.props;
+
+    console.log(
+      JSON.stringify({
+        className,
+        teacherID: 1,
+        emails: items,
+        yearName: currYearItem
+      })
+    );
+
     fetch('/api/classes', {
       method: 'POST',
       headers: {
@@ -80,13 +93,15 @@ class AddClassModal extends Component {
       body: JSON.stringify({
         className,
         teacherID: 1,
-        emails: items
+        emails: items,
+        yearName: currYearItem
       })
     }).then(
       response => {
         if (response.ok) {
-          reRender();
-          this.setState({ items: [] });
+          // reRender();
+          console.log('hello');
+          this.setState({ items: [], modalIsOpen: false });
           return response;
         }
         throw new Error('Request failed!');
@@ -192,61 +207,11 @@ class AddClassModal extends Component {
   }
 
   render() {
-    const {
-      currEmailItem,
-      currYearItem,
-      items,
-      classModalType,
-      className
-    } = this.state;
-
+    const { currEmailItem, currYearItem, items, classModalType } = this.state;
+    const { className } = this.props;
     const { showModal } = this.props;
 
-    if (classModalType) {
-      return (
-        <Modal
-          className="class-modal"
-          isOpen={showModal}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-        >
-          <div className="class-modalTitle">Add New Class</div>
-          <form>
-            <label htmlFor="className">Class Name</label>
-            <input
-              className="inputText"
-              type="text"
-              onKeyPress={this.goToNextModal}
-              id="classNameText"
-              default={className}
-            />
-          </form>
-          <div className="button-wrapper">
-            <button
-              type="submit"
-              className="cancel-class"
-              onClick={this.closeModal}
-              close
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="cancel-class marginFix"
-              onKeyPress={this.goToNextModal}
-              onClick={() => {
-                const check = document.getElementById('classNameText').value;
-                this.checkRepeat(check);
-              }}
-              close
-            >
-              Next
-            </button>
-          </div>
-        </Modal>
-      );
-    }
+    const h1str = `Add Students to ${className}`;
     return (
       <Modal
         className="student-modal"
@@ -256,7 +221,7 @@ class AddClassModal extends Component {
         contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <h1 className="student-modalTitle">Add Students</h1>
+        <h1 className="student-modalTitle">{h1str}</h1>
         <div className="todo-container">
           <div className="input-container">
             <input
@@ -290,7 +255,7 @@ class AddClassModal extends Component {
             <button
               className="cancel-student"
               type="button"
-              onClick={this.classChangeModal}
+              onClick={this.closeModal}
             >
               Back
             </button>
@@ -301,7 +266,6 @@ class AddClassModal extends Component {
                 if (currYearItem === '') {
                   alert('Please enter a year');
                 } else if (items.length > 0) {
-                  this.studentsChangeModal();
                   this.submitInfo();
                 } else {
                   alert(
@@ -321,6 +285,7 @@ class AddClassModal extends Component {
 
 AddClassModal.propTypes = {
   reRender: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
   classList: PropTypes.arrayOf(PropTypes.string).isRequired,
   showModal: PropTypes.bool.isRequired
 };

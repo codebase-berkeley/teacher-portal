@@ -26,8 +26,10 @@ CREATE TABLE students_classes
 (
   studentID SERIAL REFERENCES users (id),
   classID SERIAL REFERENCES classes (id),
+  yearName VARCHAR,
   PRIMARY KEY (studentID, classID)
 );
+
 
 CREATE TABLE units
 (
