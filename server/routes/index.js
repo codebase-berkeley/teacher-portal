@@ -20,30 +20,6 @@ AWS.config.setPromisesDependency(bluebird);
 /** Create S3 instance */
 const s3 = new AWS.S3();
 
-// Define POST route
-router.post('/test-upload', (request, response) => {
-  const form = new multiparty.Form();
-  console.log(form);
-  form.parse(request, async (err1, fields, files) => {
-    console.log(fields);
-    console.log(files);
-    if (err1) throw new Error(err1);
-    // try {
-    console.log('Stage 1');
-    const { path } = files.file[0];
-    console.log('Stage 2');
-    const buffer = fs.readFileSync(path);
-    const type = fileType(buffer);
-    const timestamp = Date.now().toString();
-    const fileName = `bucketFolder/${timestamp}-lg`;
-    const data = await uploadFile(buffer, fileName, type);
-    return response.status(200).send(data);
-    // } catch (err2) {
-    //   return response.status(400).send(err1);
-    // }
-  });
-});
-
 async function getUsers(req, res) {
   try {
     if (Object.keys(req.session).length === 0) {
@@ -236,43 +212,35 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   console.log(sampleFile);
-  // const { name, unitID } = req.body;
+  const { name, unitID } = req.body;
   // const { name } = req.body;
   // const lessonPath = `./static/${sampleFile.name}`;
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
-  // const query = await db.query(
-  //   "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', $2, $3) RETURNING id;",
-  //   [name, unitID, lessonPath]
-  // );
+  const query = await db.query(
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id) VALUES ($1, '', $2) RETURNING id;",
+    [name, unitID]
+  );
+
+  const lessonID = query.rows[0].id;
 
   const params = {
     ACL: 'public-read',
     Bucket: process.env.S3_BUCKET,
     Body: sampleFile.data,
-    Key: sampleFile.name
+    Key: `${lessonID}.pdf`
   };
 
   s3.upload(params, (err, data) => {
     if (err) {
-      console.log('error in callback');
+      console.log('Error in callback');
       console.log(err);
     }
     console.log('Success!');
     console.log(data);
   });
 
-  // const lessonID = query.rows[0].id;
-
-  // sampleFile.mv(lessonPath, err => {
-  //   if (err) {
-  //     return res.status(500).send(err);
-  //   }
-  // res.send({ id: lessonID });
-  //   return null;
-  // });
-  // return null;
-  res.send('lmao');
+  res.send({ id: lessonID });
 });
 
 router.post('/survey/:unitID', async (req, res) => {
