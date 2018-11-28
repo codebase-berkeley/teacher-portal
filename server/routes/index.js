@@ -1,9 +1,6 @@
 const Router = require('express-promise-router');
 const AWS = require('aws-sdk');
-const fs = require('fs');
-const fileType = require('file-type');
 const bluebird = require('bluebird');
-const multiparty = require('multiparty');
 const db = require('../db/index');
 
 const router = new Router();
