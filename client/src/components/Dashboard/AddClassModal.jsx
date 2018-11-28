@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unused-state */
+/* eslint-disable react/no-did-update-set-state */
 
 import React, { Component } from 'react';
 import './AddClassBox/AddClassBox.css';
@@ -10,16 +9,13 @@ import Item from './AddClassBox/Item';
 const enterKey = 13;
 
 class AddClassModal extends Component {
-  constructor(props) {
-    super(props);
-    const { showModal } = this.props;
+  constructor() {
+    super();
     this.state = {
-      modalIsOpen: showModal,
+      modalIsOpen: false,
       currEmailItem: '',
       currYearItem: '',
-      items: [],
-      classModalType: false,
-      className: ''
+      items: []
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -29,12 +25,15 @@ class AddClassModal extends Component {
     this.addItem = this.addItem.bind(this);
     this.checkSubmit = this.checkSubmit.bind(this);
     this.checkYearEnter = this.checkYearEnter.bind(this);
-    this.classChangeModal = this.classChangeModal.bind(this);
-    this.studentsChangeModal = this.studentsChangeModal.bind(this);
-    this.saveClass = this.saveClass.bind(this);
     this.submitInfo = this.submitInfo.bind(this);
     this.checkRepeat = this.checkRepeat.bind(this);
-    // this.goToNextModal = this.goToNextModal.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { showModal } = this.props;
+    if (showModal !== prevProps.showModal) {
+      this.setState({ modalIsOpen: showModal });
+    }
   }
 
   checkRepeat(check) {
@@ -49,33 +48,12 @@ class AddClassModal extends Component {
       alert('This name has already been used.');
     } else if (check === '') {
       alert('Please enter a class name.');
-    } else {
-      this.classChangeModal();
     }
-    this.saveClass();
-  }
-
-  classChangeModal() {
-    this.setState(prevState => ({
-      classModalType: !prevState.classModalType
-    }));
-  }
-
-  studentsChangeModal() {
-    this.setState(prevState => ({
-      classModalType: !prevState.classModalType,
-      modalIsOpen: !prevState.modalIsOpen
-    }));
-  }
-
-  saveClass() {
-    const x = document.getElementById('classNameText').value;
-    this.setState({ className: x });
   }
 
   submitInfo() {
     const { items, currYearItem } = this.state;
-    const { reRender, className } = this.props;
+    const { className } = this.props;
 
     fetch('/api/classes', {
       method: 'POST',
@@ -91,7 +69,6 @@ class AddClassModal extends Component {
     }).then(
       response => {
         if (response.ok) {
-          reRender();
           this.setState({ items: [], modalIsOpen: false });
           return response;
         }
@@ -110,7 +87,9 @@ class AddClassModal extends Component {
   }
 
   closeModal() {
+    const { handleChangeState } = this.props;
     this.setState({ modalIsOpen: false });
+    handleChangeState(); // changes the state in parent component
   }
 
   handleItem(event) {
@@ -198,7 +177,7 @@ class AddClassModal extends Component {
   }
 
   render() {
-    const { currEmailItem, currYearItem, items, classModalType } = this.state;
+    const { currEmailItem, currYearItem, items } = this.state;
     const { className } = this.props;
     const { modalIsOpen } = this.state;
 
@@ -275,9 +254,9 @@ class AddClassModal extends Component {
 }
 
 AddClassModal.propTypes = {
-  reRender: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   classList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  showModal: PropTypes.bool.isRequired
+  showModal: PropTypes.bool.isRequired,
+  handleChangeState: PropTypes.func.isRequired
 };
 export default AddClassModal;

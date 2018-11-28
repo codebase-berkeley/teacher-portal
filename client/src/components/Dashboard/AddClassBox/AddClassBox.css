@@ -148,6 +148,7 @@ button:focus {
   padding: 10px;
   margin-left: 20%;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 .cancel-student2 {

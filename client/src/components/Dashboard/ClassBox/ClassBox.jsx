@@ -41,6 +41,7 @@ class ClassBox extends Component {
     this.checkRepeat = this.checkRepeat.bind(this);
     this.goToNextModal = this.goToNextModal.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleChangeState = this.handleChangeState.bind(this);
   }
 
   checkRepeat(check) {
@@ -203,12 +204,17 @@ class ClassBox extends Component {
 
   handleShowModal() {
     this.setState({ showModal: true });
-    console.log('handle show modal');
+  }
+
+  handleChangeState() {
+    const { showModal } = this.state;
+    this.setState({ showModal: !showModal });
   }
 
   render() {
     const { color, title, teacher, id } = this.props;
     const { showModal } = this.state;
+
     const route = `/units/${id}`;
 
     return (
@@ -229,6 +235,7 @@ class ClassBox extends Component {
           showModal={showModal}
           reRender={this.componentWillMount}
           className={title}
+          handleChangeState={this.handleChangeState}
         />
       </div>
     );
