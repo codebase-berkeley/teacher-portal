@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import './ClassBox.css';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -14,7 +15,25 @@ class ClassBox extends Component {
 
   constructor() {
     super();
+    this.state = {
+      modalIsOpen: false
+    };
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.deleteClass = this.deleteClass.bind(this);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  afterOpenModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   deleteClass() {
@@ -32,11 +51,40 @@ class ClassBox extends Component {
 
   render() {
     const { color, title, teacher, id } = this.props;
+    const { modalIsOpen } = this.state;
     const route = `/units/${id}`;
 
     return (
       <div className="class-container">
-        <button className="exit" type="button" onClick={this.deleteClass}>
+        <div className="confirmation">
+          <Modal
+            className="confirm-pop-up"
+            isOpen={modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal"
+          >
+            <div className="confirm-message">YOU FUCKING SURE???</div>
+            <div className="button-wrapper">
+              <button
+                type="submit"
+                className="cancel"
+                onClick={this.closeModal}
+                close
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="cancel marginFix"
+                onClick={this.deleteClass}
+              >
+                Delete
+              </button>
+            </div>
+          </Modal>
+        </div>
+        <button className="exit" type="button" onClick={this.openModal}>
           &#10005;
         </button>
         <NavLink className="classbox" to={route}>
