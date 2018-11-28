@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -14,6 +14,13 @@ import './App.css';
 const hst = createBrowserHistory();
 
 class App extends Component {
+  async componentWillMount() {
+    const status = await fetch('/api/classes', { redirect: 'follow' });
+    if (status.redirected) {
+      hst.push('/login');
+    }
+  }
+
   render() {
     return (
       <div className="App">

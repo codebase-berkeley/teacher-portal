@@ -45,7 +45,6 @@ router.get('/classes', async (req, res) => {
 
 router.post('/classes', async (req, res) => {
   try {
-    const userID = await getUsers(req, res);
     const { className, emails } = req.body;
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
@@ -74,6 +73,7 @@ router.post('/classes', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
+    await getUsers(req, res);
     const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
