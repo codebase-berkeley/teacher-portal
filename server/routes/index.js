@@ -47,7 +47,7 @@ router.get('/classes', async (req, res) => {
 
 router.post('/classes', async (req, res) => {
   try {
-    const { teacherID, className, emails, yearName } = req.body;
+    const { className, emails, yearName } = req.body;
     const userID = await getUsers(req, res);
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
