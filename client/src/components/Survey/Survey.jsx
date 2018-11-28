@@ -49,9 +49,7 @@ class Survey extends Component {
         </div>
         <form method="POST" action={route} className="Questions">
           {this.displayQuestions()}
-          <button className="submit-button" type="submit">
-            Submit
-          </button>
+          <button type="submit">Submit</button>
         </form>
       </section>
     );
