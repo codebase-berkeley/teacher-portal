@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 const Router = require('express-promise-router');
 
 const db = require('../db/index');
@@ -45,28 +47,38 @@ router.get('/classes', async (req, res) => {
 
 router.post('/classes', async (req, res) => {
   try {
+    const { className, emails, yearName } = req.body;
     const userID = await getUsers(req, res);
-    const { className, emails } = req.body;
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
       [className]
     );
 
+    // if that class name already exists (rows.length should be 1)
+    let classID;
     if (check.rows.length !== 0) {
-      res.send(false);
+      // rows.length should be 1 (there should be exactly one other class with that name)
+      classID = check.rows[0].id;
     } else {
-      const classID = await db.query(
+      // insert into table classes; make a new class row
+      const result = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [userID, className]
       );
-      for (let i = 0; i < emails.length; i += 1) {
-        db.query(
-          'INSERT INTO students_classes (studentID, classID) values((SELECT u.id FROM users as u WHERE u.email = $1), $2);',
-          [emails[i], classID.rows[0].id]
-        );
-      }
-      res.send(className);
+      classID = result.rows[0].id;
     }
+
+    for (let i = 0; i < emails.length; i += 1) {
+      await db.query(
+        'INSERT INTO users (email, is_teacher) values ($1, FALSE);',
+        [emails[i]]
+      );
+      db.query(
+        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1), $2, $3 );',
+        [emails[i], classID, yearName]
+      );
+    }
+    res.send('success!');
   } catch (error) {
     console.log(error.stack);
   }

@@ -81,7 +81,6 @@ button:focus {
   padding-bottom: 70px;
   background-color: white;
   width: 400px;
-  height: 300px;
   text-align: left;
   border-top: 45px solid #009fb7;
 }
@@ -149,6 +148,7 @@ button:focus {
   padding: 10px;
   margin-left: 20%;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 .cancel-student2 {
@@ -157,7 +157,8 @@ button:focus {
   margin-left: 15%;
 }
 
-.inputText {
+.inputText,
+.inputTextYear {
   background-color: #f4f4f4;
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
@@ -169,10 +170,12 @@ button:focus {
   padding: 10px;
 }
 
+.inputTextYear::placeholder,
 .inputText::placeholder {
   font-size: 15px;
 }
 
+.inputTextYear:focus,
 .inputText:focus {
   outline: none;
 }
@@ -209,4 +212,9 @@ button:focus {
   padding: 10px;
   box-shadow: none;
   border: 0;
+}
+
+.forclassyear {
+  margin-bottom: 0;
+  font-weight: 100;
 }
