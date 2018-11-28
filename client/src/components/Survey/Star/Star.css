@@ -11,7 +11,8 @@
 }
 
 .question {
-  padding: 80px;
+  padding: 30px;
+  margin-bottom: 50px;
 }
 .stars {
   float: left;
