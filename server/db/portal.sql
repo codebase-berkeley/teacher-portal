@@ -34,7 +34,7 @@ CREATE TABLE students_classes
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY,
-  classid SERIAL REFERENCES classes(id),
+  classid SERIAL REFERENCES classes(id) ON DELETE CASCADE,
   unit_name VARCHAR
 );
 
@@ -43,22 +43,22 @@ CREATE TABLE lessons
   id SERIAL PRIMARY KEY,
   lesson_name VARCHAR,
   reflection_text TEXT,
-  unit_id SERIAL REFERENCES units(id),
+  unit_id SERIAL REFERENCES units(id) ON DELETE CASCADE,
   filepath VARCHAR
 );
 
 CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
-  unit_id SERIAL REFERENCES units(id),
+  unit_id SERIAL REFERENCES units(id) ON DELETE CASCADE,
   text VARCHAR
 );
 
 CREATE TABLE responses
 (
   id SERIAL PRIMARY KEY,
-  question SERIAL REFERENCES questions(id),
-  unit SERIAL REFERENCES units(id),
+  question SERIAL REFERENCES questions(id) ON DELETE CASCADE,
+  unit SERIAL REFERENCES units(id) ON DELETE CASCADE,
   response FLOAT,
   yr INTEGER
 );

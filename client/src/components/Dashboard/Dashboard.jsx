@@ -6,23 +6,6 @@ import './Dashboard.css';
 
 const topBar = 'top-bar';
 
-function displayClassBoxes(classList) {
-  const boxArray = [];
-  for (let i = 0; i < classList.length; i += 1) {
-    const str = `${classList[i].color} ${topBar}`;
-    boxArray.push(
-      <ClassBox
-        title={classList[i].class_name}
-        id={classList[i].classid}
-        key={classList[i].classid}
-        teacher={`${classList[i].first_name} ${classList[i].last_name}`}
-        color={str}
-      />
-    );
-  }
-  return boxArray;
-}
-
 class Dashboard extends Component {
   constructor() {
     super();
@@ -30,6 +13,7 @@ class Dashboard extends Component {
       classList: []
     };
     this.componentWillMount = this.componentWillMount.bind(this);
+    this.displayClassBoxes = this.displayClassBoxes.bind(this);
   }
 
   async componentWillMount() {
@@ -44,6 +28,24 @@ class Dashboard extends Component {
     return classRoute;
   }
 
+  displayClassBoxes(classList) {
+    const boxArray = [];
+    for (let i = 0; i < classList.length; i += 1) {
+      const str = `${classList[i].color} ${topBar}`;
+      boxArray.push(
+        <ClassBox
+          reRender={this.componentWillMount}
+          title={classList[i].class_name}
+          id={classList[i].classid}
+          key={classList[i].classid}
+          teacher={`${classList[i].first_name} ${classList[i].last_name}`}
+          color={str}
+        />
+      );
+    }
+    return boxArray;
+  }
+
   render() {
     const { classList } = this.state;
     return (
@@ -55,7 +57,7 @@ class Dashboard extends Component {
             reRender={this.componentWillMount}
             classList={classList}
           />
-          {displayClassBoxes(classList)}
+          {this.displayClassBoxes(classList)}
         </div>
       </div>
     );

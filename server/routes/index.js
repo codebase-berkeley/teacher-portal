@@ -72,6 +72,18 @@ router.post('/classes', async (req, res) => {
   }
 });
 
+router.delete('/deleteClass/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const query = await db.query('DELETE FROM classes WHERE class_name = $1;', [
+      className
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;
