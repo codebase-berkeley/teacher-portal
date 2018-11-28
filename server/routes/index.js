@@ -96,6 +96,7 @@ router.put('/update/:lessonID', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
+    await getUsers(req, res);
     const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
