@@ -49,7 +49,6 @@ router.post('/classes', async (req, res) => {
     }
 
     for (let i = 0; i < emails.length; i += 1) {
-      console.log('better be loopin');
       await db.query(
         'INSERT INTO users (email, is_teacher) values ($1, FALSE);',
         [emails[i]]
