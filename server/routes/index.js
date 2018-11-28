@@ -1,8 +1,48 @@
 const Router = require('express-promise-router');
-
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const fileType = require('file-type');
+const bluebird = require('bluebird');
+const multiparty = require('multiparty');
 const db = require('../db/index');
 
 const router = new Router();
+
+/** Configure key for AWS */
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+/** configure AWS to work with promises */
+AWS.config.setPromisesDependency(bluebird);
+
+/** Create S3 instance */
+const s3 = new AWS.S3();
+
+// Define POST route
+router.post('/test-upload', (request, response) => {
+  const form = new multiparty.Form();
+  console.log(form);
+  form.parse(request, async (err1, fields, files) => {
+    console.log(fields);
+    console.log(files);
+    if (err1) throw new Error(err1);
+    // try {
+    console.log('Stage 1');
+    const { path } = files.file[0];
+    console.log('Stage 2');
+    const buffer = fs.readFileSync(path);
+    const type = fileType(buffer);
+    const timestamp = Date.now().toString();
+    const fileName = `bucketFolder/${timestamp}-lg`;
+    const data = await uploadFile(buffer, fileName, type);
+    return response.status(200).send(data);
+    // } catch (err2) {
+    //   return response.status(400).send(err1);
+    // }
+  });
+});
 
 async function getUsers(req, res) {
   try {
@@ -188,27 +228,51 @@ router.get('/questions/:unitID', async (req, res) => {
   res.send(questions);
 });
 
+// // abstracts function to upload a file returning a promise
+// const uploadFile = (buffer, name, type) => {
+//   return s3.upload(params).promise();
+// };
+
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
-  const { name, unitID } = req.body;
-  const lessonPath = `./static/${sampleFile.name}`;
+  console.log(sampleFile);
+  // const { name, unitID } = req.body;
+  // const { name } = req.body;
+  // const lessonPath = `./static/${sampleFile.name}`;
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
-  const query = await db.query(
-    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', $2, $3) RETURNING id;",
-    [name, unitID, lessonPath]
-  );
+  // const query = await db.query(
+  //   "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', $2, $3) RETURNING id;",
+  //   [name, unitID, lessonPath]
+  // );
 
-  const lessonID = query.rows[0].id;
+  const params = {
+    ACL: 'public-read',
+    Bucket: process.env.S3_BUCKET,
+    Body: sampleFile.data,
+    Key: sampleFile.name
+  };
 
-  sampleFile.mv(lessonPath, err => {
+  s3.upload(params, (err, data) => {
     if (err) {
-      return res.status(500).send(err);
+      console.log('error in callback');
+      console.log(err);
     }
-    res.send({ id: lessonID });
-    return null;
+    console.log('Success!');
+    console.log(data);
   });
-  return null;
+
+  // const lessonID = query.rows[0].id;
+
+  // sampleFile.mv(lessonPath, err => {
+  //   if (err) {
+  //     return res.status(500).send(err);
+  //   }
+  // res.send({ id: lessonID });
+  //   return null;
+  // });
+  // return null;
+  res.send('lmao');
 });
 
 router.post('/survey/:unitID', async (req, res) => {
