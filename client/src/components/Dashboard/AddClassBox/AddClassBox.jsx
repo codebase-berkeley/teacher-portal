@@ -74,6 +74,7 @@ class AddClassBox extends Component {
   submitInfo() {
     const { className, items, currYearItem } = this.state;
     const { reRender } = this.props;
+
     fetch('/api/classes', {
       method: 'POST',
       headers: {

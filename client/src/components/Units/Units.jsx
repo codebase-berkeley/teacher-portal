@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import Logout from '../Logout/Logout';
 import Unitbox from './Unitbox';
 import './Units.css';
+import InputBox from './InputBox/InputBox';
 
 class Units extends Component {
   static propTypes = {
@@ -14,7 +15,10 @@ class Units extends Component {
   constructor() {
     super();
     this.state = {
-      unitList: []
+      questions: [],
+      unitList: [],
+      unitModalType: true,
+      unitName: ''
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -22,6 +26,10 @@ class Units extends Component {
     this.sendData = this.sendData.bind(this);
     this.create = this.create.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
+    this.unitChangeModal = this.unitChangeModal.bind(this);
+    this.generateInputBox = this.generateInputBox.bind(this);
+    this.addNewQuestion = this.addNewQuestion.bind(this);
+    this.saveUnitName = this.saveUnitName.bind(this);
   }
 
   async componentWillMount() {
@@ -34,6 +42,14 @@ class Units extends Component {
     });
   }
 
+  generateInputBox(questions) {
+    this.inputList = [];
+    for (let i = 0; i < questions.length; i += 1) {
+      this.inputList.push(questions[i]);
+    }
+    return this.inputList;
+  }
+
   openModal() {
     this.setState({ modalIsOpen: true });
   }
@@ -43,14 +59,35 @@ class Units extends Component {
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    this.setState({
+      modalIsOpen: false,
+      unitModalType: true
+    });
+  }
+
+  addNewQuestion() {
+    const { questions } = this.state;
+    this.setState({
+      questions: questions.concat(
+        <InputBox
+          keynumber={questions.length + 1}
+          input={document.getElementById('question_name')}
+        />
+      )
+    });
+  }
+
+  saveUnitName() {
+    const { unitName } = this.state;
+    this.setState({
+      unitName: unitName + document.getElementById('unit_name').value
+    });
   }
 
   sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    const { unitList } = this.state;
-    const unitName = document.getElementById('unit_name').value;
+    const { unitList, unitName } = this.state;
     if (unitName === '') {
       alert('Please enter a unit name.');
       return;
@@ -83,6 +120,12 @@ class Units extends Component {
       });
   }
 
+  unitChangeModal() {
+    this.setState(prevState => ({
+      unitModalType: !prevState.unitModalType
+    }));
+  }
+
   create(unitNames) {
     this.unitBoxes = [];
     for (let i = 0; i < unitNames.length; i += 1) {
@@ -105,7 +148,91 @@ class Units extends Component {
   }
 
   render() {
-    const { unitList, modalIsOpen } = this.state;
+    const {
+      unitList,
+      modalIsOpen,
+      unitModalType,
+      questions,
+      unitName
+    } = this.state;
+    if (unitModalType) {
+      return (
+        <div className="Page-layout">
+          <Logout />
+          <button
+            type="button"
+            className="ReturnArrow shiftRight"
+            onClick={this.handleGoBack}
+          >
+            &#8592; Return to Classes
+          </button>
+          <h2 className="Unit-header">My Units</h2>
+          <div>
+            <button
+              className="addButton"
+              type="submit"
+              onClick={this.openModal}
+              unitName="+ Add New Unit"
+              buttonType="add"
+            >
+              + Add New Unit
+            </button>
+            {this.create(unitList)}
+            <Modal
+              className="newUnitModal"
+              isOpen={modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              contentLabel="Example Modal"
+            >
+              <div className="modalTitle">Add New Unit</div>
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                }}
+              >
+                <label htmlFor="unitname" id="unitname">
+                  Unit Name
+                </label>
+                <input
+                  className="inputText"
+                  id="unit_name"
+                  type="text"
+                  onKeyUp={e => {
+                    if (e.keyCode === 13 && e.shiftKey === false) {
+                      e.preventDefault();
+                      this.saveUnitName(unitName);
+                      this.unitChangeModal();
+                    }
+                  }}
+                />
+              </form>
+              <div className="buttonwrapper">
+                <button
+                  type="button"
+                  className="cancelButton"
+                  onClick={this.closeModal}
+                  close
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  id="next"
+                  className="cancelButton"
+                  onClick={() => {
+                    this.saveUnitName(unitName);
+                    this.unitChangeModal();
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </Modal>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="Page-layout">
         <Logout />
@@ -120,7 +247,7 @@ class Units extends Component {
         <div>
           <button
             className="addButton"
-            type="submit"
+            type="button"
             onClick={this.openModal}
             unitName="+ Add New Unit"
             buttonType="add"
@@ -129,38 +256,37 @@ class Units extends Component {
           </button>
           {this.create(unitList)}
           <Modal
-            className="newUnitModal"
+            className="newUnitModal Expand"
             isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             contentLabel="Example Modal"
           >
-            <div className="modalTitle">Add New Unit</div>
-            <label htmlFor="unitname" id="unitname">
-              Unit Name
-            </label>
-            <input
-              className="inputText"
-              id="unit_name"
-              type="text"
-              onKeyUp={e => {
-                if (e.keyCode === 13 && e.shiftKey === false) {
-                  this.sendData();
-                  this.closeModal();
-                }
-              }}
-            />
+            <div className="modalTitle">Add Survey Questions</div>
+            <div className="question-wrapper">
+              {this.generateInputBox(questions)}
+              <div className="addButtonWrapper">
+                <button
+                  className="cancelButton center"
+                  type="button"
+                  onClick={this.addNewQuestion}
+                >
+                  Add New Question
+                </button>
+              </div>
+            </div>
             <div className="buttonwrapper">
               <button
-                type="submit"
+                type="button"
                 className="cancelButton"
-                onClick={this.closeModal}
+                onClick={this.unitChangeModal}
                 close
               >
-                Cancel
+                Back
               </button>
               <button
-                type="submit"
+                type="button"
+                id="OK"
                 className="cancelButton"
                 onClick={() => {
                   this.sendData();

@@ -1,7 +1,3 @@
-const rewireEslint = require('react-app-rewire-eslint');
+const { override, useEslintRc } = require('customize-cra');
 
-module.exports = function override(config, env) {
-  let rewiredConfig = config;
-  rewiredConfig = rewireEslint(config, env);
-  return rewiredConfig;
-};
+module.exports = override(useEslintRc());

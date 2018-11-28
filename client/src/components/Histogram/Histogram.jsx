@@ -4,26 +4,24 @@ import ReactChartkick, { ColumnChart } from 'react-chartkick';
 import Chart from 'chart.js';
 import './Histogram.css';
 
-const unitID = 1;
-
 ReactChartkick.addAdapter(Chart);
 
 export default class Histogram extends Component {
   static propTypes = {
-    history: PropTypes.string.isRequired
+    history: PropTypes.string.isRequired,
+    match: PropTypes.string.isRequired
   };
 
   constructor() {
     super();
-    this.state = {
-      columnCharts: [],
-      questions: []
-    };
+    this.state = { columnCharts: [], questions: [] };
 
     this.handleGoBack = this.handleGoBack.bind(this);
   }
 
   componentDidMount() {
+    const { match } = this.props;
+    const { unitID } = match.params;
     fetch(`api/questions/${unitID}`)
       .then(response => {
         if (response.ok) {

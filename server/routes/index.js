@@ -6,6 +6,23 @@ const db = require('../db/index');
 
 const router = new Router();
 
+async function getUsers(req, res) {
+  try {
+    if (Object.keys(req.session).length === 0) {
+      res.redirect('/login');
+      return 0;
+    }
+    const query = await db.query(
+      'SELECT id FROM users WHERE users.token = $1',
+      [req.session.passport.user.token]
+    );
+    return query.rows[0].id;
+  } catch (error) {
+    console.log(error.stack);
+    return null;
+  }
+}
+
 router.get('/users', async (req, res) => {
   try {
     const query = await db.query('SELECT * FROM users;');
@@ -17,8 +34,10 @@ router.get('/users', async (req, res) => {
 
 router.get('/classes', async (req, res) => {
   try {
+    const userID = await getUsers(req, res);
     const query = await db.query(
-      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = users.id;'
+      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
+      [userID]
     );
     res.send(query.rows);
   } catch (error) {
@@ -29,6 +48,7 @@ router.get('/classes', async (req, res) => {
 router.post('/classes', async (req, res) => {
   try {
     const { teacherID, className, emails, yearName } = req.body;
+    const userID = await getUsers(req, res);
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
       [className]
@@ -43,7 +63,7 @@ router.post('/classes', async (req, res) => {
       // insert into table classes; make a new class row
       const result = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-        [teacherID, className]
+        [userID, className]
       );
       classID = result.rows[0].id;
     }
@@ -62,6 +82,16 @@ router.post('/classes', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
+});
+
+router.put('/update/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const { notes } = req.body;
+  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
+    notes.toString(),
+    lessonID
+  ]);
+  res.send('Update successful');
 });
 
 router.get('/units/:classID', async (req, res) => {
@@ -229,16 +259,6 @@ router.post('/units', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
-});
-
-router.put('/update/:lessonID', async (req, res) => {
-  const { lessonID } = req.params;
-  const { notes } = req.body;
-  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
-    notes.toString(),
-    lessonID
-  ]);
-  res.send('Update successful');
 });
 
 module.exports = router;
