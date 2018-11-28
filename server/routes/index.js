@@ -221,8 +221,10 @@ router.post('/units', async (req, res) => {
 
 router.post('/questions', async (req, res) => {
   try {
-    const { year, questionInput } = req.body;
-    db.query('INSERT INTO questions(year, text) VALUES($1 ,$2)', [
+    const { idForUnit, year, questionInput } = req.body;
+    console.log(req.body);
+    db.query('INSERT INTO questions(unit_id, yr, input) VALUES($1 ,$2, $3)', [
+      idForUnit,
       year,
       questionInput
     ]);

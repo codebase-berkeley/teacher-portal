@@ -19,8 +19,8 @@ class Units extends Component {
       unitList: [],
       unitModalType: true,
       unitName: '',
-      unitID: 0
-      // questionInputs: []
+      unitID: 0,
+      questionInputs: {}
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -32,6 +32,7 @@ class Units extends Component {
     this.generateInputBox = this.generateInputBox.bind(this);
     this.addNewQuestion = this.addNewQuestion.bind(this);
     this.saveUnitName = this.saveUnitName.bind(this);
+    this.handleQuestionInput = this.handleQuestionInput.bind(this);
   }
 
   async componentWillMount() {
@@ -44,7 +45,13 @@ class Units extends Component {
     });
   }
 
-  // getInputFromInputBox() {}
+  handleQuestionInput(questionID, input) {
+    const { questionInputs } = this.state;
+    questionInputs[questionID] = input;
+    this.setState({
+      questionInputs
+    });
+  }
 
   generateInputBox(questions) {
     this.inputList = [];
@@ -65,7 +72,9 @@ class Units extends Component {
   closeModal() {
     this.setState({
       modalIsOpen: false,
-      unitModalType: true
+      unitModalType: true,
+      questions: [],
+      questionInputs: {}
     });
   }
 
@@ -74,7 +83,7 @@ class Units extends Component {
     const questionID = questions.length + 1;
     this.setState({
       questions: questions.concat(
-        <InputBox id={questionID} passToUnits={this.getInputFromInputBox} />
+        <InputBox id={questionID} handler={this.handleQuestionInput} />
       )
     });
   }
@@ -82,9 +91,9 @@ class Units extends Component {
   saveUnitName() {
     const { unitName } = this.state;
     this.setState({
-      unitName: document.getElementById('unit_name').value
+      unitName: unitName + document.getElementById('unit_name').value
     });
-    if (unitName === '') {
+    if (document.getElementById('unit_name').value === '') {
       alert('Please enter a unit name.');
     }
   }
@@ -93,7 +102,7 @@ class Units extends Component {
     const { match } = this.props;
     const { classID } = match.params;
     const year = 2018;
-    const { unitList, unitName, questions, unitID } = this.state;
+    const { unitList, unitName, questionInputs, questions } = this.state;
     fetch('/api/units', {
       method: 'POST',
       headers: {
@@ -121,25 +130,26 @@ class Units extends Component {
           })
         });
       });
+    const { unitID: idForUnit } = this.state;
     for (let i = 1; i < questions.length + 1; i += 1) {
-      const questionInput = document.getElementById(i).value;
-      console.log(questionInput);
+      const questionInput = questionInputs[i];
       fetch('/api/questions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ unitID, year })
+        body: JSON.stringify({ idForUnit, year, questionInput })
       }).then(
         response => {
           if (response.ok) {
-            return response.json();
+            return;
           }
           throw new Error('Request failed!');
         },
         networkError => console.log(networkError.message)
       );
     }
+    this.setState({ questions: [], questionInputs: {} });
   }
 
   unitChangeModal() {

@@ -49,8 +49,8 @@ CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
   unit_id SERIAL REFERENCES units(id),
-  year INTEGER,
-  text VARCHAR
+  yr INTEGER,
+  input VARCHAR
 );
 
 CREATE TABLE responses
@@ -102,47 +102,47 @@ VALUES
 
 -- dummy data for questions 
 
-INSERT INTO questions
-  (id, unit_id, year, text)
-VALUES
-  (1, 1, 2018, 'How interesting was this unit?'),
-  (2, 1, 2018, 'Would you recommend to a friend?'),
-  (3, 1, 2018, 'Did you learn anything?'),
-  (4, 1, 2018, 'What is the purpose of life?'),
-  (5, 1, 2018, 'Why is Parth such a fucking snake?'),
-  (6, 1, 2018, 'lol');
+-- INSERT INTO questions
+--   (id, unit_id, yr, input)
+-- VALUES
+--   (9, 3, 2018, 'How interesting was this unit?'),
+-- --   (23, 100, 2018, 'Would you recommend to a friend?'),
+-- --   (33, 100, 2018, 'Did you learn anything?'),
+-- --   (43, 100, 2018, 'What is the purpose of life?'),
+-- --   (53, 100, 2018, 'Why is Parth such a fucking snake?'),
+-- --   (63, 100, 2018, 'lol');
 
--- dummy data for responses
+-- -- dummy data for responses
 
-INSERT INTO responses
-  (question, unit, response, yr)
-VALUES
-  (1, 1, 2, 2016),
-  (1, 1, 4, 2016),
-  (1, 1, 5, 2016),
-  (2, 1, 2.5, 2016),
-  (2, 1, 3.5, 2016),
-  (2, 1, 4.5, 2016),
-  (3, 1, 2.5, 2016),
-  (3, 1, 3.5, 2016),
-  (3, 1, 4.5, 2016),
-  (4, 1, 5.0, 2016),
-  (4, 1, 2.5, 2016),
-  (4, 1, 3.5, 2016),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (4, 1, 2.0, 2017),
-  (4, 1, 1.5, 2017),
-  (4, 1, 3.5, 2017);
+-- INSERT INTO responses
+--   (question, unit, response, yr)
+-- VALUES
+--   (1, 1, 2, 2016),
+--   (1, 1, 4, 2016),
+--   (1, 1, 5, 2016),
+--   (2, 1, 2.5, 2016),
+--   (2, 1, 3.5, 2016),
+--   (2, 1, 4.5, 2016),
+--   (3, 1, 2.5, 2016),
+--   (3, 1, 3.5, 2016),
+--   (3, 1, 4.5, 2016),
+--   (4, 1, 5.0, 2016),
+--   (4, 1, 2.5, 2016),
+--   (4, 1, 3.5, 2016),
+--   (1, 1, 4.5, 2017),
+--   (1, 1, 4.5, 2017),
+--   (1, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (4, 1, 2.0, 2017),
+--   (4, 1, 1.5, 2017),
+--   (4, 1, 3.5, 2017);
 
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
