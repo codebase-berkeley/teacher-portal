@@ -10,10 +10,11 @@ import Item from './AddClassBox/Item';
 const enterKey = 13;
 
 class AddClassModal extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { showModal } = this.props;
     this.state = {
-      modalIsOpen: false,
+      modalIsOpen: showModal,
       currEmailItem: '',
       currYearItem: '',
       items: [],
@@ -76,15 +77,6 @@ class AddClassModal extends Component {
     const { items, currYearItem } = this.state;
     const { reRender, className } = this.props;
 
-    console.log(
-      JSON.stringify({
-        className,
-        teacherID: 1,
-        emails: items,
-        yearName: currYearItem
-      })
-    );
-
     fetch('/api/classes', {
       method: 'POST',
       headers: {
@@ -99,8 +91,7 @@ class AddClassModal extends Component {
     }).then(
       response => {
         if (response.ok) {
-          // reRender();
-          console.log('hello');
+          reRender();
           this.setState({ items: [], modalIsOpen: false });
           return response;
         }
@@ -209,13 +200,13 @@ class AddClassModal extends Component {
   render() {
     const { currEmailItem, currYearItem, items, classModalType } = this.state;
     const { className } = this.props;
-    const { showModal } = this.props;
+    const { modalIsOpen } = this.state;
 
     const h1str = `Add Students to ${className}`;
     return (
       <Modal
         className="student-modal"
-        isOpen={showModal}
+        isOpen={modalIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
         contentLabel="Example Modal"
@@ -257,7 +248,7 @@ class AddClassModal extends Component {
               type="button"
               onClick={this.closeModal}
             >
-              Back
+              Cancel
             </button>
             <button
               className="cancel-student marginFix"

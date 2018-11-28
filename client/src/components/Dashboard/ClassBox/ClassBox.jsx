@@ -203,6 +203,7 @@ class ClassBox extends Component {
 
   handleShowModal() {
     this.setState({ showModal: true });
+    console.log('handle show modal');
   }
 
   render() {
@@ -211,8 +212,12 @@ class ClassBox extends Component {
     const route = `/units/${id}`;
 
     return (
-      <div>
-        <button type="button" onClick={this.handleShowModal}>
+      <div className="classbox-container">
+        <button
+          type="button"
+          className="add-new-students"
+          onClick={this.handleShowModal}
+        >
           + Add New Students
         </button>
         <NavLink className="classbox" to={route}>
