@@ -70,6 +70,7 @@ class AddClassModal extends Component {
       response => {
         if (response.ok) {
           this.setState({ items: [], modalIsOpen: false });
+          this.closeModal();
           return response;
         }
         throw new Error('Request failed!');

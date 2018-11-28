@@ -30,7 +30,6 @@ CREATE TABLE students_classes
   PRIMARY KEY (studentID, classID)
 );
 
-
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY,
