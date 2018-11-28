@@ -8,7 +8,7 @@ class Star extends React.Component {
     const name = `rating${number}`;
     return (
       <div className="question">
-        {question}
+        <h1 className="question-text">{question}</h1>
 
         <div className="stars">
           <div className="star">
@@ -47,7 +47,6 @@ class Star extends React.Component {
               3
             </label>
           </div>
-
           <div className="star">
             <input
               className="form-radio"
