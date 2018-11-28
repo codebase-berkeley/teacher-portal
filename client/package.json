@@ -4,28 +4,25 @@
   "private": true,
   "dependencies": {
     "@tinymce/tinymce-react": "^2.3.0",
-    "babel-eslint": "^10.0.1",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",
-    "eslint": "^5.6.1",
+    "customize-cra": "^0.2.6",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "history": "^4.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
-    "react-app-rewire-eslint": "^0.2.3",
     "react-app-rewired": "^1.6.2",
-    "react-chart-histogram": "^0.2.1",
     "react-chartkick": "^0.3.0",
     "react-dom": "^16.5.2",
     "react-dropzone": "^7.0.1",
     "react-modal": "^3.6.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5"
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -42,8 +39,11 @@
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0"
   },
-  "resolutions": {
-    "eslint": "^5.6.1"
-  },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
