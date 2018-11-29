@@ -38,7 +38,7 @@ class ClassBox extends Component {
 
   deleteClass() {
     const { title, reRender } = this.props;
-    fetch(`/api/deleteClass/${title}`, {
+    fetch(`/api/deleteClass/${encodeURIComponent(title)}`, {
       method: 'delete'
     }).then(response => {
       if (response.ok) {

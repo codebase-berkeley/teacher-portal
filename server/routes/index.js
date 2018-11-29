@@ -84,6 +84,31 @@ router.delete('/deleteClass/:className', async (req, res) => {
   }
 });
 
+router.delete('/deleteUnit/:unitName', async (req, res) => {
+  try {
+    const { unitName } = req.params;
+    const query = await db.query('DELETE FROM units WHERE unit_name = $1;', [
+      unitName
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteLesson/:lessonName', async (req, res) => {
+  try {
+    const { lessonName } = req.params;
+    const query = await db.query(
+      'DELETE FROM lessons WHERE lesson_name = $1;',
+      [lessonName]
+    );
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;

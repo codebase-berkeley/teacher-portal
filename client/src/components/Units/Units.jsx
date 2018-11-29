@@ -30,6 +30,7 @@ class Units extends Component {
     this.generateInputBox = this.generateInputBox.bind(this);
     this.addNewQuestion = this.addNewQuestion.bind(this);
     this.saveUnitName = this.saveUnitName.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   async componentWillMount() {
@@ -136,6 +137,7 @@ class Units extends Component {
           id={unitNames[i].id}
           path="/lessons"
           buttonType="link"
+          reRender={this.componentWillMount}
         />
       );
     }

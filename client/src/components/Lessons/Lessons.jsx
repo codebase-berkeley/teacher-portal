@@ -24,6 +24,7 @@ class Lessons extends Component {
       showModal: false
     };
 
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.updateLessons = this.updateLessons.bind(this);
@@ -93,6 +94,7 @@ class Lessons extends Component {
               color={`${colors[2 - Math.floor(Math.random() * 3)]} ${topBar}`}
               id={less.id}
               key={less.lesson_name}
+              reRender={this.componentDidMount}
             />
           ))}
         </div>
