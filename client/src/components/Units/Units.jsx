@@ -47,10 +47,13 @@ class Units extends Component {
 
     if (units.ok) {
       const unitsJSON = await units.json();
+      console.log('start', unitsJSON.query);
       this.setState({
         unitList: unitsJSON.query,
         isTeacher: unitsJSON.is_teacher
       });
+      const { isTeacher } = this.state;
+      console.log('end', isTeacher);
     }
   }
 
@@ -169,16 +172,27 @@ class Units extends Component {
   create(unitNames, isTeacher) {
     this.unitBoxes = [];
     for (let i = 0; i < unitNames.length; i += 1) {
-      this.unitBoxes.push(
-        <Unitbox
-          unitName={unitNames[i].unit_name}
-          key={unitNames[i].id}
-          id={unitNames[i].id}
-          path="/lessons"
-          reRender={this.componentWillMount}
-          isTeacher={isTeacher}
-        />
-      );
+      if (isTeacher) {
+        this.unitBoxes.push(
+          <Unitbox
+            unitName={unitNames[i].unit_name}
+            key={unitNames[i].id}
+            id={unitNames[i].id}
+            path="/lessons"
+            buttonType="link"
+          />
+        );
+      } else {
+        this.unitBoxes.push(
+          <Unitbox
+            unitName={unitNames[i].unit_name}
+            key={unitNames[i].id}
+            id={unitNames[i].id}
+            path="/survey"
+            buttonType="link"
+          />
+        );
+      }
     }
     return this.unitBoxes;
   }
@@ -347,6 +361,7 @@ class Units extends Component {
               </button>
             </div>
           </Modal>
+          {this.create(unitList)}
         </div>
       </div>
     );
