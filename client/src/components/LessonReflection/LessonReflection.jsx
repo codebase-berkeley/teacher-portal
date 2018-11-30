@@ -72,7 +72,6 @@ class LessonReflection extends Component {
 
   render() {
     const { teachNotes, url } = this.state;
-    console.log(url);
     return (
       <div>
         <Logout />
