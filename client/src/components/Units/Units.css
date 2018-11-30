@@ -1,6 +1,14 @@
 .Page-layout {
   margin-top: 50px;
-  margin-left: 20px;
+  margin-left: 40px;
+}
+
+.Unit-body {
+  margin-left: 80px;
+}
+.Unit-boxes {
+  margin-left: 40px;
+  text-align: left;
 }
 
 .ReturnArrow {
@@ -22,16 +30,15 @@
   font-size: 36px;
   position: relative;
   border: none;
-  margin: 40px 0;
-  margin-left: 7%;
 }
 
 .addButton {
   text-align: left;
   padding-left: 30px;
   text-decoration: none;
+  margin-right: 1000px;
+  margin-bottom: 20px;
   color: black;
-  margin: 2% 100% 0 7%;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   background-color: #fed766;
