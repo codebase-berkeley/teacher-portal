@@ -6,6 +6,11 @@ import AddClassModal from '../AddClassModal';
 
 const enterKey = 13;
 
+function validateEmail(email) {
+  const re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 class ClassBox extends Component {
   static propTypes = {
     color: PropTypes.string.isRequired,
@@ -161,7 +166,6 @@ class ClassBox extends Component {
   checkSubmit(e) {
     const { currEmailItem, items } = this.state;
     let same = true;
-    let valid = false;
 
     for (let i = 0; i < items.length; i += 1) {
       if (currEmailItem === items[i]) {
@@ -169,13 +173,8 @@ class ClassBox extends Component {
       }
     }
 
-    for (let j = 0; j < currEmailItem.length; j += 1) {
-      if (currEmailItem.substring(j, j + 1) === '@') {
-        valid = true;
-      }
-    }
-
     if (e && e.charCode === enterKey) {
+      const valid = validateEmail(currEmailItem);
       if (valid && same) {
         this.addItem();
       } else if (!valid) {
