@@ -22,7 +22,7 @@ export default class Histogram extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { unitID } = match.params;
-    fetch(`api/questions/${unitID}`)
+    fetch(`/api/questions/${unitID}`)
       .then(response => {
         if (response.ok) {
           return response.json();

@@ -214,10 +214,18 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       `SELECT * FROM questions where unit_id=${unitID}`
     );
     const NUMQS = questionquery.rows.length;
+    console.log(NUMQS);
     const yearsquery = await db.query(
       `SELECT DISTINCT yr FROM responses WHERE unit=${unitID};`
     );
     const years = yearsquery.rows.map(e => e.yr);
+    console.log(years);
+
+    const offsetQuery = await db.query(
+      `SELECT question FROM responses WHERE unit=${unitID} ORDER BY question`
+    );
+
+    const offset = offsetQuery.rows[0].question;
 
     years.forEach(yr => {
       const rowsYear = [];
@@ -227,14 +235,21 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         }
       });
 
+      console.log(rowsYear);
+
       const rawQuestions = [];
 
       for (let i = 0; i < NUMQS; i += 1) {
         rawQuestions.push([]);
       }
 
+      console.log(offset);
+      console.log(rawQuestions);
+
       rowsYear.forEach(row => {
-        const i = row.question - 1;
+        const i = row.question - offset;
+        console.log(i);
+        console.log(rawQuestions[i]);
         rawQuestions[i].push(row.response);
       });
 
@@ -247,12 +262,15 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         ]);
       }
 
+      console.log(averagedQ);
+
       data.push({
         year: yr,
         num: NUMQS,
         questions: averagedQ
       });
     });
+    console.log(data);
     res.send(data);
   } catch (error) {
     console.log(error.stack);
@@ -328,10 +346,10 @@ router.post('/survey', async (req, res) => {
     [studentID, classID]
   );
   const year = yearQuery.rows[0].yearname;
-  ratings.forEach((r, i) => {
+  Object.keys(ratings).forEach(q => {
     db.query(
       'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
-      [i, unitID, r, year]
+      [q, unitID, ratings[q], year]
     );
   });
   res.send('Update successful');
