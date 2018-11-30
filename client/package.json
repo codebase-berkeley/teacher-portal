@@ -16,6 +16,7 @@
     "history": "^4.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-app-rewire-eslint": "^0.2.3",
     "react-app-rewired": "^1.6.2",
     "react-chartkick": "^0.3.0",
     "react-dom": "^16.5.2",
