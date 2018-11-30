@@ -19,8 +19,7 @@ class Units extends Component {
       unitList: [],
       unitModalType: true,
       unitName: '',
-      isTeacher: false
-
+      isTeacher: false,
       unitID: 0,
       questionInputs: {}
     };
@@ -210,73 +209,74 @@ class Units extends Component {
           </button>
           <div className="Unit-body">
             <h2 className="Unit-header">My Units</h2>
-            <div className="Unit-boxes">          <div>
-            {isTeacher ? (
+            <div className="Unit-boxes">
+              {' '}
+              <div>
+                {isTeacher ? (
+                  <button
+                    className="addButton"
+                    type="submit"
+                    onClick={this.openModal}
+                    unitName="+ Add New Unit"
+                    buttonType="add"
+                  >
+                    + Add New Unit
+                  </button>
+                ) : null}
 
-              <button
-                className="addButton"
-                type="submit"
-                onClick={this.openModal}
-                unitName="+ Add New Unit"
-                buttonType="add"
-              >
-                + Add New Unit
-              </button>
-            ) : null}
-
-
-              {this.create(unitList)}
-              <Modal
-                className="newUnitModal"
-                isOpen={modalIsOpen}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={this.closeModal}
-                contentLabel="Example Modal"
-              >
-                <div className="modalTitle">Add New Unit</div>
-                <form
-                  onSubmit={e => {
-                    e.preventDefault();
-                  }}
+                {this.create(unitList)}
+                <Modal
+                  className="newUnitModal"
+                  isOpen={modalIsOpen}
+                  onAfterOpen={this.afterOpenModal}
+                  onRequestClose={this.closeModal}
+                  contentLabel="Example Modal"
                 >
-                  <label htmlFor="unitname" id="unitname">
-                    Unit Name
-                  </label>
-                  <input
-                    className="inputText"
-                    ref={this.inputText}
-                    type="text"
-                    onKeyUp={e => {
-                      if (e.keyCode === 13 && e.shiftKey === false) {
-                        e.preventDefault();
+                  <div className="modalTitle">Add New Unit</div>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                    }}
+                  >
+                    <label htmlFor="unitname" id="unitname">
+                      Unit Name
+                    </label>
+                    <input
+                      className="inputText"
+                      ref={this.inputText}
+                      type="text"
+                      onKeyUp={e => {
+                        if (e.keyCode === 13 && e.shiftKey === false) {
+                          e.preventDefault();
+                          this.saveUnitName(unitName);
+                          this.unitChangeModal();
+                        }
+                      }}
+                    />
+                  </form>
+                  <div className="buttonwrapper">
+                    <button
+                      type="button"
+                      className="cancelButton"
+                      onClick={this.closeModal}
+                      close
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      id="next"
+                      className="cancelButton"
+                      onClick={() => {
                         this.saveUnitName(unitName);
                         this.unitChangeModal();
-                      }
-                    }}
-                  />
-                </form>
-                <div className="buttonwrapper">
-                  <button
-                    type="button"
-                    className="cancelButton"
-                    onClick={this.closeModal}
-                    close
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    id="next"
-                    className="cancelButton"
-                    onClick={() => {
-                      this.saveUnitName(unitName);
-                      this.unitChangeModal();
-                    }}
-                  >
-                    Next
-                  </button>
-                </div>
-              </Modal>
+                      }}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </Modal>
+              </div>
             </div>
           </div>
         </div>

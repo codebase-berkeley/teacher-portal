@@ -230,7 +230,7 @@ class ClassBox extends Component {
     this.setState({ showModal: !showModal });
   }
 
-  render() { 
+  render() {
     const { color, title, teacher, id, isTeacher } = this.props;
     const { showModal, modalIsOpen } = this.state;
     const route = `/units/${id}`;
@@ -271,19 +271,22 @@ class ClassBox extends Component {
             </div>
           </Modal>
         </div>
-        
-         {isTeacher ? (
-        <button
-          type="button"
-          className="add-new-students"
-          onClick={this.handleShowModal}
-        >
-          + Add New Students
-        </button>
+
+        {isTeacher ? (
+          <button
+            type="button"
+            className="add-new-students"
+            onClick={this.handleShowModal}
+          >
+            + Add New Students
+          </button>
         ) : null}
-        <button className="class-exit" type="button" onClick={this.openModal}>
-          &#10005;
-        </button>
+
+        {isTeacher ? (
+          <button className="class-exit" type="button" onClick={this.openModal}>
+            &#10005;
+          </button>
+        ) : null}
 
         <NavLink className="classbox" to={route}>
           <div className={color} />

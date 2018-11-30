@@ -56,14 +56,13 @@ class Dashboard extends Component {
         <p className="my-classes">My Classes</p>
         <div className="boxes-container">
           {isTeacher ? (
-         <AddClassBox
-            reRender={this.componentWillMount}
-            classList={classList}
-          />
+            <AddClassBox
+              reRender={this.componentWillMount}
+              classList={classList}
+            />
           ) : null}
 
           {this.displayClassBoxes(classList, isTeacher)}
-
         </div>
       </div>
     );
