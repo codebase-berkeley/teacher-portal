@@ -94,7 +94,7 @@ class AddClassModal extends Component {
 
   closeModal() {
     const { handleChangeState } = this.props;
-    this.setState({ modalIsOpen: false });
+    this.setState({ modalIsOpen: false, items: [] });
     handleChangeState(); // changes the state in parent component
   }
 
