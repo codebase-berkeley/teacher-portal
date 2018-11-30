@@ -36,11 +36,16 @@ class Units extends Component {
   async componentWillMount() {
     const { match } = this.props;
     const { classID } = match.params;
-    const units = await fetch(`/api/units/${classID}`);
-    const unitsJSON = await units.json();
-    this.setState({
-      unitList: unitsJSON
+    const units = await fetch(`/api/units/${classID}`, {
+      redirected: 'follow'
     });
+
+    if (units.ok) {
+      const unitsJSON = await units.json();
+      this.setState({
+        unitList: unitsJSON
+      });
+    }
   }
 
   generateInputBox(questions) {

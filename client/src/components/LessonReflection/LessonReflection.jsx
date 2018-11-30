@@ -19,8 +19,7 @@ class LessonReflection extends Component {
   constructor() {
     super();
     this.state = {
-      teachNotes: {},
-      filepath: null
+      teachNotes: {}
     };
 
     this.handleEditorChange = this.handleEditorChange.bind(this);
@@ -40,8 +39,11 @@ class LessonReflection extends Component {
         throw new Error('Request Failed');
       })
       .then(response => {
-        const { notes, filepath } = response;
-        this.setState({ teachNotes: notes, filepath: filepath.slice(1) });
+        const { notes } = response;
+        this.setState({
+          teachNotes: notes,
+          url: `https://s3.us-east-2.amazonaws.com/ygnacio-lessons/${lessonID}.pdf`
+        });
       });
   }
 
@@ -69,8 +71,7 @@ class LessonReflection extends Component {
   }
 
   render() {
-    const { teachNotes, filepath } = this.state;
-    const pathway = `http://localhost:8080${filepath}`;
+    const { teachNotes, url } = this.state;
     return (
       <div>
         <Logout />
@@ -83,7 +84,7 @@ class LessonReflection extends Component {
         </button>
         <p className="my-classes">My Lesson</p>
         <div className="lesson-container">
-          <embed className="lesson" src={pathway} type="application/pdf" />
+          <embed className="lesson" src={url} type="application/pdf" />
         </div>
         <div className="editor-container">
           <Editor
