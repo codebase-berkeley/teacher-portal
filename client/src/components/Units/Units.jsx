@@ -166,7 +166,7 @@ class Units extends Component {
     }));
   }
 
-  create(unitNames) {
+  create(unitNames, isTeacher) {
     this.unitBoxes = [];
     for (let i = 0; i < unitNames.length; i += 1) {
       this.unitBoxes.push(
@@ -176,6 +176,7 @@ class Units extends Component {
           id={unitNames[i].id}
           path="/lessons"
           reRender={this.componentWillMount}
+          isTeacher={isTeacher}
         />
       );
     }
@@ -224,7 +225,7 @@ class Units extends Component {
                   </button>
                 ) : null}
 
-                {this.create(unitList)}
+                {this.create(unitList, isTeacher)}
                 <Modal
                   className="newUnitModal"
                   isOpen={modalIsOpen}
@@ -303,7 +304,7 @@ class Units extends Component {
           >
             + Add New Unit
           </button>
-          {this.create(unitList)}
+          {this.create(unitList, isTeacher)}
           <Modal
             className="newUnitModal Expand"
             isOpen={modalIsOpen}
