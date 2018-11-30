@@ -8,6 +8,11 @@ import Item from './AddClassBox/Item';
 
 const enterKey = 13;
 
+function validateEmail(email) {
+  const re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 class AddClassModal extends Component {
   constructor() {
     super();
@@ -89,7 +94,7 @@ class AddClassModal extends Component {
 
   closeModal() {
     const { handleChangeState } = this.props;
-    this.setState({ modalIsOpen: false });
+    this.setState({ modalIsOpen: false, items: [] });
     handleChangeState(); // changes the state in parent component
   }
 
@@ -135,7 +140,6 @@ class AddClassModal extends Component {
   checkSubmit(e) {
     const { currEmailItem, items } = this.state;
     let same = true;
-    let valid = false;
 
     for (let i = 0; i < items.length; i += 1) {
       if (currEmailItem === items[i]) {
@@ -143,13 +147,8 @@ class AddClassModal extends Component {
       }
     }
 
-    for (let j = 0; j < currEmailItem.length; j += 1) {
-      if (currEmailItem.substring(j, j + 1) === '@') {
-        valid = true;
-      }
-    }
-
     if (e && e.charCode === enterKey) {
+      const valid = validateEmail(currEmailItem);
       if (valid && same) {
         this.addItem();
       } else if (!valid) {

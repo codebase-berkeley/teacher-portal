@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import './ClassBox.css';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -6,8 +7,14 @@ import AddClassModal from '../AddClassModal';
 
 const enterKey = 13;
 
+function validateEmail(email) {
+  const re = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 class ClassBox extends Component {
   static propTypes = {
+    reRender: PropTypes.func.isRequired,
     color: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     teacher: PropTypes.string.isRequired,
@@ -26,6 +33,10 @@ class ClassBox extends Component {
       showModal: false
     };
 
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.deleteClass = this.deleteClass.bind(this);
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -119,6 +130,19 @@ class ClassBox extends Component {
     this.setState({ modalIsOpen: false });
   }
 
+  deleteClass() {
+    const { title, reRender } = this.props;
+    fetch(`/api/deleteClass/${encodeURIComponent(title)}`, {
+      method: 'delete'
+    }).then(response => {
+      if (response.ok) {
+        reRender();
+        return response.json();
+      }
+      throw new Error('Request Failed');
+    });
+  }
+
   handleItem(event) {
     this.setState({
       currEmailItem: event.target.value
@@ -161,7 +185,6 @@ class ClassBox extends Component {
   checkSubmit(e) {
     const { currEmailItem, items } = this.state;
     let same = true;
-    let valid = false;
 
     for (let i = 0; i < items.length; i += 1) {
       if (currEmailItem === items[i]) {
@@ -169,13 +192,8 @@ class ClassBox extends Component {
       }
     }
 
-    for (let j = 0; j < currEmailItem.length; j += 1) {
-      if (currEmailItem.substring(j, j + 1) === '@') {
-        valid = true;
-      }
-    }
-
     if (e && e.charCode === enterKey) {
+      const valid = validateEmail(currEmailItem);
       if (valid && same) {
         this.addItem();
       } else if (!valid) {
@@ -214,12 +232,48 @@ class ClassBox extends Component {
 
   render() {
     const { color, title, teacher, id } = this.props;
-    const { showModal } = this.state;
-
+    const { showModal, modalIsOpen } = this.state;
     const route = `/units/${id}`;
 
     return (
-      <div className="classbox-container">
+      <div className="class-container">
+        <div className="confirmation">
+          <Modal
+            className="confirm-pop-up"
+            isOpen={modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            contentLabel="Example Modal"
+          >
+            <h1 className="confirm-message">
+              Are you sure you want to delete this class?
+            </h1>
+            <h5 className="sub-message">
+              Deleting this class will delete all information associated with
+              it.
+            </h5>
+            <div className="button-wrapper">
+              <button
+                type="submit"
+                className="cancel"
+                onClick={this.closeModal}
+                close
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="cancel marginFix"
+                onClick={this.deleteClass}
+              >
+                Delete
+              </button>
+            </div>
+          </Modal>
+        </div>
+        <button className="class-exit" type="button" onClick={this.openModal}>
+          &#10005;
+        </button>
         <button
           type="button"
           className="add-new-students"

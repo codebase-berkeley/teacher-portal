@@ -1,10 +1,21 @@
-/* eslint-disable no-await-in-loop */
-
 const Router = require('express-promise-router');
-
+const AWS = require('aws-sdk');
+const bluebird = require('bluebird');
 const db = require('../db/index');
 
 const router = new Router();
+
+/** Configure key for AWS */
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+/** configure AWS to work with promises */
+AWS.config.setPromisesDependency(bluebird);
+
+/** Create S3 instance */
+const s3 = new AWS.S3();
 
 async function getUsers(req, res) {
   try {
@@ -21,6 +32,27 @@ async function getUsers(req, res) {
     console.log(error.stack);
     return null;
   }
+}
+
+async function setEmails(classID, emails) {
+  const promises = [];
+
+  for (let i = 0; i < emails.length; i += 1) {
+    promises.push(
+      db.query('SELECT * FROM users WHERE email = $1;', [emails[i]])
+    );
+  }
+
+  let j = 0;
+
+  await Promise.all(promises).then(async values => {
+    if (values[0].rowCount === 0) {
+      db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
+        emails[j]
+      ]);
+      j += 1;
+    }
+  });
 }
 
 router.get('/users', async (req, res) => {
@@ -65,20 +97,58 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [userID, className]
       );
+      console.log(result.rows);
       classID = result.rows[0].id;
+
+      setEmails(classID, emails);
+
+      for (let i = 0; i < emails.length; i += 1) {
+        db.query(
+          'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
+          [emails[i], classID, yearName]
+        );
+      }
+      res.send(className);
     }
 
-    for (let i = 0; i < emails.length; i += 1) {
-      await db.query(
-        'INSERT INTO users (email, is_teacher) values ($1, FALSE);',
-        [emails[i]]
-      );
-      db.query(
-        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1), $2, $3 );',
-        [emails[i], classID, yearName]
-      );
-    }
     res.send('success!');
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteClass/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const query = await db.query('DELETE FROM classes WHERE class_name = $1;', [
+      className
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteUnit/:unitName', async (req, res) => {
+  try {
+    const { unitName } = req.params;
+    const query = await db.query('DELETE FROM units WHERE unit_name = $1;', [
+      unitName
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteLesson/:lessonName', async (req, res) => {
+  try {
+    const { lessonName } = req.params;
+    const query = await db.query(
+      'DELETE FROM lessons WHERE lesson_name = $1;',
+      [lessonName]
+    );
+    res.send(query.rows);
   } catch (error) {
     console.log(error.stack);
   }
@@ -204,24 +274,33 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   const { name, unitID } = req.body;
-  const lessonPath = `./static/${sampleFile.name}`;
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
   const query = await db.query(
-    "INSERT INTO lessons (lesson_name, reflection_text, unit_id, filepath) VALUES ($1, '', $2, $3) RETURNING id;",
-    [name, unitID, lessonPath]
+    "INSERT INTO lessons (lesson_name, reflection_text, unit_id) VALUES ($1, '', $2) RETURNING id;",
+    [name, unitID]
   );
 
   const lessonID = query.rows[0].id;
 
-  sampleFile.mv(lessonPath, err => {
+  const params = {
+    ACL: 'public-read',
+    Bucket: process.env.S3_BUCKET,
+    Body: sampleFile.data,
+    ContentType: 'application/pdf',
+    Key: `${lessonID}.pdf`
+  };
+
+  s3.upload(params, (err, data) => {
     if (err) {
-      return res.status(500).send(err);
+      console.log('Error in callback');
+      console.log(err);
     }
-    res.send({ id: lessonID });
-    return null;
+    console.log('Success!');
+    console.log(data);
   });
-  return null;
+
+  res.send({ id: lessonID });
 });
 
 router.post('/survey/:unitID', async (req, res) => {
