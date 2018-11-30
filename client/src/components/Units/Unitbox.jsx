@@ -9,7 +9,6 @@ class Unitbox extends Component {
     reRender: PropTypes.func.isRequired,
     unitName: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
-    buttonType: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired
   };
 
@@ -50,44 +49,52 @@ class Unitbox extends Component {
   }
 
   render() {
-    const { unitName, path, buttonType, id } = this.props;
+    const { unitName, path, id } = this.props;
     const { modalIsOpen } = this.state;
     const route = `${path}/${id}`;
 
     return (
       <div className="bars">
-        <div className="confirmation">
-          <Modal
-            className="confirm-pop-up"
-            isOpen={modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            contentLabel="Example Modal"
-          >
-            <div className="confirm-message">YOU FUCKING SURE???</div>
-            <div className="button-wrapper">
-              <button
-                type="submit"
-                className="cancel"
-                onClick={this.closeModal}
-                close
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="cancel marginFix"
-                onClick={this.deleteClass}
-              >
-                Delete
-              </button>
-            </div>
-          </Modal>
+        <div className="box">
+          <div className="confirmation">
+            <Modal
+              className="confirm-pop-up"
+              isOpen={modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              contentLabel="Example Modal"
+            >
+              <h1 className="confirm-message">
+                Are you sure you want to delete this unit?
+              </h1>
+              <h5 className="sub-message">
+                Deleting this unit will delete all information associated with
+                it.
+              </h5>
+              <div className="button-wrapper">
+                <button
+                  type="submit"
+                  className="cancel"
+                  onClick={this.closeModal}
+                  close
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="cancel marginFix"
+                  onClick={this.deleteClass}
+                >
+                  Delete
+                </button>
+              </div>
+            </Modal>
+          </div>
         </div>
-        <button className="exit" type="button" onClick={this.openModal}>
+        <button className="unit-exit" type="button" onClick={this.openModal}>
           &#10005;
         </button>
-        <NavLink to={route} className={buttonType}>
+        <NavLink to={route} className="unitbox">
           <div>{unitName}</div>
         </NavLink>
       </div>

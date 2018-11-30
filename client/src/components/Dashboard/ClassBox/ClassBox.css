@@ -45,7 +45,7 @@
   position: absolute;
 }
 
-.exit {
+.class-exit {
   z-index: 1;
   display: inline-block;
   position: absolute;
@@ -68,7 +68,7 @@
   padding: 40px;
   background-color: white;
   width: 400px;
-  height: 200px;
+  height: 225px;
   text-align: left;
   border-top: 45px solid #009fb7;
 }
@@ -81,13 +81,18 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 26px;
   text-align: center;
-  padding-bottom: 10%;
+  padding-bottom: 3%;
+}
+
+.sub-message {
+  text-align: center;
+  text-decoration: none;
 }
 
 .cancel {
   display: inline-block;
   position: relative;
-  margin-top: 19%;
+  margin-top: 5%;
   font-family: 'Open Sans', sans-serif;
   border-radius: 4px;
   border-style: solid;

@@ -64,7 +64,13 @@ class ClassBox extends Component {
             onRequestClose={this.closeModal}
             contentLabel="Example Modal"
           >
-            <div className="confirm-message">YOU FUCKING SURE???</div>
+            <h1 className="confirm-message">
+              Are you sure you want to delete this class?
+            </h1>
+            <h5 className="sub-message">
+              Deleting this class will delete all information associated with
+              it.
+            </h5>
             <div className="button-wrapper">
               <button
                 type="submit"
@@ -84,7 +90,7 @@ class ClassBox extends Component {
             </div>
           </Modal>
         </div>
-        <button className="exit" type="button" onClick={this.openModal}>
+        <button className="class-exit" type="button" onClick={this.openModal}>
           &#10005;
         </button>
         <NavLink className="classbox" to={route}>
