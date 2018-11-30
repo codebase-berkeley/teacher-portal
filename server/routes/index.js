@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Router = require('express-promise-router');
 const AWS = require('aws-sdk');
 const bluebird = require('bluebird');
@@ -27,7 +28,6 @@ async function getUsers(req, res) {
       'SELECT id, is_teacher FROM users WHERE users.token = $1',
       [req.session.passport.user.token]
     );
-
     return query.rows[0];
   } catch (error) {
     console.log(error.stack);
@@ -68,12 +68,12 @@ router.get('/users', async (req, res) => {
 router.get('/classes', async (req, res) => {
   try {
     const userInfo = await getUsers(req, res);
-    const { id, isTeacher } = userInfo;
+    const { id, is_teacher } = userInfo;
     const query = await db.query(
       'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
       [id]
     );
-    res.send({ query: query.rows, isTeacher });
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }

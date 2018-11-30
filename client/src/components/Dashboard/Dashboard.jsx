@@ -6,7 +6,7 @@ import './Dashboard.css';
 
 const topBar = 'top-bar';
 
-function displayClassBoxes(classList) {
+function displayClassBoxes(classList, isTeacher) {
   const boxArray = [];
   for (let i = 0; i < classList.length; i += 1) {
     const str = `${classList[i].color} ${topBar}`;
@@ -17,6 +17,7 @@ function displayClassBoxes(classList) {
         key={classList[i].classid}
         teacher={`${classList[i].first_name} ${classList[i].last_name}`}
         color={str}
+        isTeacher={isTeacher}
       />
     );
   }
@@ -37,38 +38,31 @@ class Dashboard extends Component {
     const classRoute = await fetch('/api/classes', { redirect: 'follow' });
     if (classRoute.ok) {
       const classesJSON = await classRoute.json();
+      console.log(classesJSON);
       this.setState({
         classList: classesJSON.query,
-        isTeacher: classesJSON.isTeacher
+        isTeacher: classesJSON.is_teacher
       });
     }
-    const { isTeacher } = this.state;
-    console.log(isTeacher);
     return classRoute;
   }
 
   render() {
-    const { classList } = this.state;
-    if (this.isTeacher) {
-      return (
-        <div className="dashboard-container">
-          <Logout />
-          <p className="my-classes">My Classes</p>
-          <div className="boxes-container">
-            <AddClassBox
-              reRender={this.componentWillMount}
-              classList={classList}
-            />
-            {displayClassBoxes(classList)}
-          </div>
-        </div>
-      );
-    }
+    const { classList, isTeacher } = this.state;
     return (
       <div className="dashboard-container">
         <Logout />
         <p className="my-classes">My Classes</p>
-        <div className="boxes-container">{displayClassBoxes(classList)}</div>
+        <div className="boxes-container">
+          {isTeacher ? (
+            <AddClassBox
+              reRender={this.componentWillMount}
+              classList={classList}
+            />
+          ) : null}
+
+          {displayClassBoxes(classList, isTeacher)}
+        </div>
       </div>
     );
   }
