@@ -9,7 +9,8 @@ class Unitbox extends Component {
     reRender: PropTypes.func.isRequired,
     unitName: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    isTeacher: PropTypes.bool.isRequired
   };
 
   constructor() {
@@ -49,7 +50,7 @@ class Unitbox extends Component {
   }
 
   render() {
-    const { unitName, path, id } = this.props;
+    const { unitName, path, id, isTeacher } = this.props;
     const { modalIsOpen } = this.state;
     const route = `${path}/${id}`;
 
@@ -91,9 +92,12 @@ class Unitbox extends Component {
             </Modal>
           </div>
         </div>
-        <button className="unit-exit" type="button" onClick={this.openModal}>
-          &#10005;
-        </button>
+        {isTeacher ? (
+          <button className="unit-exit" type="button" onClick={this.openModal}>
+            &#10005;
+          </button>
+        ) : null}
+
         <NavLink to={route} className="unitbox">
           <div>{unitName}</div>
         </NavLink>

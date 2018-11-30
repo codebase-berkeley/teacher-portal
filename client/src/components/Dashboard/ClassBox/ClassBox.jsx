@@ -231,7 +231,7 @@ class ClassBox extends Component {
   }
 
   render() {
-    const { color, title, teacher, id } = this.props;
+    const { color, title, teacher, id, isTeacher } = this.props;
     const { showModal, modalIsOpen } = this.state;
     const route = `/units/${id}`;
 
@@ -271,27 +271,36 @@ class ClassBox extends Component {
             </div>
           </Modal>
         </div>
-        <button className="class-exit" type="button" onClick={this.openModal}>
-          &#10005;
-        </button>
-        <button
-          type="button"
-          className="add-new-students"
-          onClick={this.handleShowModal}
-        >
-          + Add New Students
-        </button>
+
+        {isTeacher ? (
+          <button
+            type="button"
+            className="add-new-students"
+            onClick={this.handleShowModal}
+          >
+            + Add New Students
+          </button>
+        ) : null}
+
+        {isTeacher ? (
+          <button className="class-exit" type="button" onClick={this.openModal}>
+            &#10005;
+          </button>
+        ) : null}
+
         <NavLink className="classbox" to={route}>
           <div className={color} />
           <p className="title-p">{title}</p>
           <p className="teacher-p">{teacher}</p>
         </NavLink>
-        <AddClassModal
-          showModal={showModal}
-          reRender={this.componentWillMount}
-          className={title}
-          handleChangeState={this.handleChangeState}
-        />
+        {isTeacher ? (
+          <AddClassModal
+            showModal={showModal}
+            reRender={this.componentWillMount}
+            className={title}
+            handleChangeState={this.handleChangeState}
+          />
+        ) : null}
       </div>
     );
   }
@@ -299,7 +308,8 @@ class ClassBox extends Component {
 
 ClassBox.propTypes = {
   reRender: PropTypes.func.isRequired,
-  classList: PropTypes.arrayOf(PropTypes.string).isRequired
+  classList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isTeacher: PropTypes.bool.isRequired
 };
 
 export default ClassBox;

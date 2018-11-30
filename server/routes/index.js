@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Router = require('express-promise-router');
 const AWS = require('aws-sdk');
 const bluebird = require('bluebird');
@@ -24,10 +25,10 @@ async function getUsers(req, res) {
       return 0;
     }
     const query = await db.query(
-      'SELECT id FROM users WHERE users.token = $1',
+      'SELECT id, is_teacher FROM users WHERE users.token = $1',
       [req.session.passport.user.token]
     );
-    return query.rows[0].id;
+    return query.rows[0];
   } catch (error) {
     console.log(error.stack);
     return null;
@@ -66,12 +67,13 @@ router.get('/users', async (req, res) => {
 
 router.get('/classes', async (req, res) => {
   try {
-    const userID = await getUsers(req, res);
+    const userInfo = await getUsers(req, res);
+    const { id, is_teacher } = userInfo;
     const query = await db.query(
       'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
-      [userID]
+      [id]
     );
-    res.send(query.rows);
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -80,7 +82,7 @@ router.get('/classes', async (req, res) => {
 router.post('/classes', async (req, res) => {
   try {
     const { className, emails, yearName } = req.body;
-    const userID = await getUsers(req, res);
+    const { id } = await getUsers(req, res);
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
       [className]
@@ -95,7 +97,7 @@ router.post('/classes', async (req, res) => {
       // insert into table classes; make a new class row
       const result = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-        [userID, className]
+        [id, className]
       );
       classID = result.rows[0].id;
 
@@ -165,12 +167,13 @@ router.put('/update/:lessonID', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
-    await getUsers(req, res);
+    const userInfo = await getUsers(req, res);
+    const { is_teacher } = userInfo;
     const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
     ]);
-    res.send(query.rows);
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -183,7 +186,7 @@ router.get('/lessons/:unitID', async (req, res) => {
       'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
       [unitID]
     );
-    res.send(query.rows);
+    res.send({ query: query.rows });
   } catch (error) {
     console.log(error.stack);
   }
