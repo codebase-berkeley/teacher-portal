@@ -26,6 +26,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/google/teacherStatus/:isTeacher', (req, res, next) => {
   const { isTeacher } = req.params;
+  req.session.isTeacher = isTeacher;
   passport.authenticate('google', {
     scope: ['profile', 'email'],
     state: isTeacher

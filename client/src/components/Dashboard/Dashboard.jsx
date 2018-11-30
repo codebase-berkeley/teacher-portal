@@ -27,7 +27,8 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      classList: []
+      classList: [],
+      isTeacher: false
     };
     this.componentWillMount = this.componentWillMount.bind(this);
   }
@@ -36,24 +37,38 @@ class Dashboard extends Component {
     const classRoute = await fetch('/api/classes', { redirect: 'follow' });
     if (classRoute.ok) {
       const classesJSON = await classRoute.json();
-      this.setState({ classList: classesJSON });
+      this.setState({
+        classList: classesJSON.query,
+        isTeacher: classesJSON.isTeacher
+      });
     }
+    const { isTeacher } = this.state;
+    console.log(isTeacher);
     return classRoute;
   }
 
   render() {
     const { classList } = this.state;
+    if (this.isTeacher) {
+      return (
+        <div className="dashboard-container">
+          <Logout />
+          <p className="my-classes">My Classes</p>
+          <div className="boxes-container">
+            <AddClassBox
+              reRender={this.componentWillMount}
+              classList={classList}
+            />
+            {displayClassBoxes(classList)}
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="dashboard-container">
         <Logout />
         <p className="my-classes">My Classes</p>
-        <div className="boxes-container">
-          <AddClassBox
-            reRender={this.componentWillMount}
-            classList={classList}
-          />
-          {displayClassBoxes(classList)}
-        </div>
+        <div className="boxes-container">{displayClassBoxes(classList)}</div>
       </div>
     );
   }
