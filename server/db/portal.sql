@@ -27,7 +27,7 @@ CREATE TABLE classes
 CREATE TABLE students_classes
 (
   studentID SERIAL REFERENCES users (id),
-  classID SERIAL REFERENCES classes (id),
+  classID SERIAL REFERENCES classes (id) ON DELETE CASCADE,
   yearName VARCHAR,
   PRIMARY KEY (studentID, classID)
 );
