@@ -15,6 +15,7 @@ module.exports = passport => {
         clientID: process.env.CLIENTID,
         clientSecret: process.env.CLIENTSECRET,
         callbackURL: '/auth/google/callback',
+        enableProof: false,
         passReqToCallback: true
       },
       async (req, token, refreshToken, profile, done) => {

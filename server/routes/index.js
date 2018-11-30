@@ -225,6 +225,7 @@ router.post('/upload', async (req, res) => {
     ACL: 'public-read',
     Bucket: process.env.S3_BUCKET,
     Body: sampleFile.data,
+    ContentType: 'application/pdf',
     Key: `${lessonID}.pdf`
   };
 
