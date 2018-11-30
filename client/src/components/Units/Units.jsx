@@ -35,7 +35,6 @@ class Units extends Component {
     this.saveUnitName = this.saveUnitName.bind(this);
     this.handleQuestionInput = this.handleQuestionInput.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
-
   }
 
   async componentWillMount() {
