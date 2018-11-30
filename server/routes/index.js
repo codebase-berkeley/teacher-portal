@@ -97,7 +97,6 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [userID, className]
       );
-      console.log(result.rows);
       classID = result.rows[0].id;
 
       setEmails(classID, emails);
@@ -214,12 +213,10 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       `SELECT * FROM questions where unit_id=${unitID}`
     );
     const NUMQS = questionquery.rows.length;
-    console.log(NUMQS);
     const yearsquery = await db.query(
       `SELECT DISTINCT yr FROM responses WHERE unit=${unitID};`
     );
     const years = yearsquery.rows.map(e => e.yr);
-    console.log(years);
 
     const offsetQuery = await db.query(
       `SELECT question FROM responses WHERE unit=${unitID} ORDER BY question`
@@ -235,21 +232,13 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         }
       });
 
-      console.log(rowsYear);
-
       const rawQuestions = [];
 
       for (let i = 0; i < NUMQS; i += 1) {
         rawQuestions.push([]);
       }
-
-      console.log(offset);
-      console.log(rawQuestions);
-
       rowsYear.forEach(row => {
         const i = row.question - offset;
-        console.log(i);
-        console.log(rawQuestions[i]);
         rawQuestions[i].push(row.response);
       });
 
@@ -262,15 +251,12 @@ router.get('/studentSummary/:unitID', async (req, res) => {
         ]);
       }
 
-      console.log(averagedQ);
-
       data.push({
         year: yr,
         num: NUMQS,
         questions: averagedQ
       });
     });
-    console.log(data);
     res.send(data);
   } catch (error) {
     console.log(error.stack);
