@@ -93,7 +93,7 @@ router.post('/classes', async (req, res) => {
 
     for (let i = 0; i < emails.length; i += 1) {
       db.query(
-        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1), $2, $3 );',
+        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
         [emails[i], classID, yearName]
       );
     }
