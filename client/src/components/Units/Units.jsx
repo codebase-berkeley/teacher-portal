@@ -18,8 +18,11 @@ class Units extends Component {
       questions: [],
       unitList: [],
       unitModalType: true,
-      unitName: ''
+      unitName: '',
+      unitID: 0,
+      questionInputs: {}
     };
+    this.inputText = React.createRef();
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -30,6 +33,7 @@ class Units extends Component {
     this.generateInputBox = this.generateInputBox.bind(this);
     this.addNewQuestion = this.addNewQuestion.bind(this);
     this.saveUnitName = this.saveUnitName.bind(this);
+    this.handleQuestionInput = this.handleQuestionInput.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
   }
 
@@ -46,6 +50,14 @@ class Units extends Component {
         unitList: unitsJSON
       });
     }
+  }
+
+  handleQuestionInput(questionID, input) {
+    const { questionInputs } = this.state;
+    questionInputs[questionID] = input;
+    this.setState({
+      questionInputs
+    });
   }
 
   generateInputBox(questions) {
@@ -67,18 +79,18 @@ class Units extends Component {
   closeModal() {
     this.setState({
       modalIsOpen: false,
-      unitModalType: true
+      unitModalType: true,
+      questions: [],
+      questionInputs: {}
     });
   }
 
   addNewQuestion() {
     const { questions } = this.state;
+    const questionID = questions.length + 1;
     this.setState({
       questions: questions.concat(
-        <InputBox
-          keynumber={questions.length + 1}
-          input={document.getElementById('question_name')}
-        />
+        <InputBox id={questionID} handler={this.handleQuestionInput} />
       )
     });
   }
@@ -86,24 +98,23 @@ class Units extends Component {
   saveUnitName() {
     const { unitName } = this.state;
     this.setState({
-      unitName: unitName + document.getElementById('unit_name').value
+      unitName: unitName + this.inputText.current.value
     });
+    if (this.inputText.current.value === '') {
+      alert('Please enter a unit name.');
+    }
   }
 
-  sendData() {
+  async sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    const { unitList, unitName } = this.state;
-    if (unitName === '') {
-      alert('Please enter a unit name.');
-      return;
-    }
-    fetch('/api/units', {
+    const { unitList, unitName, questionInputs, questions } = this.state;
+    await fetch('/api/units', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ unitName, classID })
+      body: JSON.stringify({ classID, unitName })
     })
       .then(
         response => {
@@ -117,6 +128,7 @@ class Units extends Component {
       .then(jsonResponse => {
         const { id } = jsonResponse;
         this.setState({
+          unitID: id,
           unitList: unitList.concat({
             classID,
             id,
@@ -124,6 +136,26 @@ class Units extends Component {
           })
         });
       });
+    const { unitID: idForUnit } = this.state;
+    for (let i = 1; i < questions.length + 1; i += 1) {
+      const questionInput = questionInputs[i];
+      fetch('/api/questions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idForUnit, questionInput })
+      }).then(
+        response => {
+          if (response.ok) {
+            return;
+          }
+          throw new Error('Request failed!');
+        },
+        networkError => console.log(networkError.message)
+      );
+    }
+    this.setState({ questions: [], questionInputs: {} });
   }
 
   unitChangeModal() {
@@ -203,7 +235,7 @@ class Units extends Component {
                   </label>
                   <input
                     className="inputText"
-                    id="unit_name"
+                    ref={this.inputText}
                     type="text"
                     onKeyUp={e => {
                       if (e.keyCode === 13 && e.shiftKey === false) {

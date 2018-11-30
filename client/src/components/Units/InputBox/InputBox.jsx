@@ -4,20 +4,31 @@ import PropTypes from 'prop-types';
 
 class InputBox extends Component {
   static propTypes = {
-    keynumber: PropTypes.string.isRequired,
-    input: PropTypes.string.isRequired
+    id: PropTypes.number.isRequired,
+    input: PropTypes.string.isRequired,
+    handler: PropTypes.func.isRequired
   };
 
-  render() {
-    const { keynumber, input } = this.props;
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleChange(event) {
+    const { handler, id } = this.props;
+    handler(id, event.target.value);
+  }
+
+  render() {
+    const { id, input } = this.props;
     return (
       <div className="question">
-        <label htmlFor="QuestionOne">{`Question ${keynumber}`}</label>
+        <label htmlFor="QuestionOne">{`Question ${id}`}</label>
         <input
           type="text"
+          id="inputText"
           className="inputText"
-          placeholder={input}
+          onChange={this.handleChange}
           onKeyUp={e => {
             if (e.keyCode === 13 && e.shiftKey === false) {
               e.preventDefault();
