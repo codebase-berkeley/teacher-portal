@@ -201,17 +201,9 @@ router.get('/questions/:unitID', async (req, res) => {
   res.send(questions);
 });
 
-// // abstracts function to upload a file returning a promise
-// const uploadFile = (buffer, name, type) => {
-//   return s3.upload(params).promise();
-// };
-
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
-  console.log(sampleFile);
   const { name, unitID } = req.body;
-  // const { name } = req.body;
-  // const lessonPath = `./static/${sampleFile.name}`;
 
   // the RETURNING id is used for dynamically rendering the lesson box after uploading
   const query = await db.query(
