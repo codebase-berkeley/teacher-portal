@@ -52,7 +52,6 @@ CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
   unit_id SERIAL REFERENCES units(id),
-  yr INTEGER,
   input VARCHAR
 );
 
@@ -106,14 +105,14 @@ VALUES
 -- dummy data for questions 
 
 INSERT INTO questions
-  (id, unit_id, yr, input)
+  (id, unit_id, input)
 VALUES
-  (9, 3, 2018, 'How interesting was this unit?'),
-  (10, 2, 2018, 'Would you recommend to a friend?'),
-  (11, 2, 2018, 'Did you learn anything?'),
-  (12, 3, 2018, 'What is the purpose of life?'),
-  (13, 1, 2018, 'Why is Parth such a fucking snake?'),
-  (14, 2, 2018, 'lol');
+  (9, 3, 'How interesting was this unit?'),
+  (10, 2, 'Would you recommend to a friend?'),
+  (11, 2, 'Did you learn anything?'),
+  (12, 3, 'What is the purpose of life?'),
+  (13, 1, 'Why is Parth such a fucking snake?'),
+  (14, 2, 'lol');
 
 -- -- dummy data for responses
 

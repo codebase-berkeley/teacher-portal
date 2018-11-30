@@ -107,7 +107,6 @@ class Units extends Component {
   sendData() {
     const { match } = this.props;
     const { classID } = match.params;
-    const year = 2018;
     const { unitList, unitName, questionInputs, questions } = this.state;
     fetch('/api/units', {
       method: 'POST',
@@ -144,7 +143,7 @@ class Units extends Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ idForUnit, year, questionInput })
+        body: JSON.stringify({ idForUnit, questionInput })
       }).then(
         response => {
           if (response.ok) {

@@ -264,10 +264,9 @@ router.post('/units', async (req, res) => {
 
 router.post('/questions', async (req, res) => {
   try {
-    const { idForUnit, year, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, yr, input) VALUES($1 ,$2, $3)', [
+    const { idForUnit, questionInput } = req.body;
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
       idForUnit,
-      year,
       questionInput
     ]);
   } catch (error) {
