@@ -104,47 +104,47 @@ VALUES
 
 -- dummy data for questions 
 
-INSERT INTO questions
-  (id, unit_id, input)
-VALUES
-  (9, 3, 'How interesting was this unit?'),
-  (10, 2, 'Would you recommend to a friend?'),
-  (11, 2, 'Did you learn anything?'),
-  (12, 3, 'What is the purpose of life?'),
-  (13, 1, 'Why is Parth such a fucking snake?'),
-  (14, 2, 'lol');
+-- INSERT INTO questions
+--   (id, unit_id, input)
+-- VALUES
+--   (9, 3, 'How interesting was this unit?'),
+--   (10, 2, 'Would you recommend to a friend?'),
+--   (11, 2, 'Did you learn anything?'),
+--   (12, 3, 'What is the purpose of life?'),
+--   (13, 1, 'Why is Parth such a fucking snake?'),
+--   (14, 2, 'lol');
 
--- -- dummy data for responses
+-- -- -- dummy data for responses
 
-INSERT INTO responses
-  (question, unit, response, yr)
-VALUES
-  (1, 1, 2, 2016),
-  (1, 1, 4, 2016),
-  (1, 1, 5, 2016),
-  (2, 1, 2.5, 2016),
-  (2, 1, 3.5, 2016),
-  (2, 1, 4.5, 2016),
-  (3, 1, 2.5, 2016),
-  (3, 1, 3.5, 2016),
-  (3, 1, 4.5, 2016),
-  (4, 1, 5.0, 2016),
-  (4, 1, 2.5, 2016),
-  (4, 1, 3.5, 2016),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (4, 1, 2.0, 2017),
-  (4, 1, 1.5, 2017),
-  (4, 1, 3.5, 2017);
+-- INSERT INTO responses
+--   (question, unit, response, yr)
+-- VALUES
+--   (1, 1, 2, 2016),
+--   (1, 1, 4, 2016),
+--   (1, 1, 5, 2016),
+--   (2, 1, 2.5, 2016),
+--   (2, 1, 3.5, 2016),
+--   (2, 1, 4.5, 2016),
+--   (3, 1, 2.5, 2016),
+--   (3, 1, 3.5, 2016),
+--   (3, 1, 4.5, 2016),
+--   (4, 1, 5.0, 2016),
+--   (4, 1, 2.5, 2016),
+--   (4, 1, 3.5, 2016),
+--   (1, 1, 4.5, 2017),
+--   (1, 1, 4.5, 2017),
+--   (1, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (2, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (3, 1, 4.5, 2017),
+--   (4, 1, 2.0, 2017),
+--   (4, 1, 1.5, 2017),
+--   (4, 1, 3.5, 2017);
 
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
