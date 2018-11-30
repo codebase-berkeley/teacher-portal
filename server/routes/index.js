@@ -97,7 +97,6 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [userID, className]
       );
-      console.log(result.rows);
       classID = result.rows[0].id;
 
       setEmails(classID, emails);
@@ -219,6 +218,12 @@ router.get('/studentSummary/:unitID', async (req, res) => {
     );
     const years = yearsquery.rows.map(e => e.yr);
 
+    const offsetQuery = await db.query(
+      `SELECT question FROM responses WHERE unit=${unitID} ORDER BY question`
+    );
+
+    const offset = offsetQuery.rows[0].question;
+
     years.forEach(yr => {
       const rowsYear = [];
       rows.forEach(row => {
@@ -232,9 +237,8 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       for (let i = 0; i < NUMQS; i += 1) {
         rawQuestions.push([]);
       }
-
       rowsYear.forEach(row => {
-        const i = row.question - 1;
+        const i = row.question - offset;
         rawQuestions[i].push(row.response);
       });
 
@@ -271,6 +275,19 @@ router.get('/questions/:unitID', async (req, res) => {
   res.send(questions);
 });
 
+router.post('/questions', async (req, res) => {
+  try {
+    const { idForUnit, questionInput } = req.body;
+    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
+      idForUnit,
+      questionInput
+    ]);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  res.send('Update successful');
+});
+
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   const { name, unitID } = req.body;
@@ -303,27 +320,24 @@ router.post('/upload', async (req, res) => {
   res.send({ id: lessonID });
 });
 
-router.post('/survey/:unitID', async (req, res) => {
-  /** TODO: make this dynamically update based on year */
-  const year = 2018;
-  const { unitID } = req.params;
-  const { rating0, rating1, rating2, rating3 } = req.body;
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
-    [unitID, rating0, year]
+router.post('/survey', async (req, res) => {
+  const { input, unitID, studentID } = req.body;
+  const ratings = JSON.parse(input);
+  const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
+    unitID
+  ]);
+  const classID = classQuery.rows[0].classid;
+  const yearQuery = await db.query(
+    'SELECT yearName FROM students_classes WHERE studentID=$1 AND classID=$2;',
+    [studentID, classID]
   );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
-    [unitID, rating1, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
-    [unitID, rating2, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
-    [unitID, rating3, year]
-  );
+  const year = yearQuery.rows[0].yearname;
+  Object.keys(ratings).forEach(q => {
+    db.query(
+      'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
+      [q, unitID, ratings[q], year]
+    );
+  });
   res.send('Update successful');
 });
 
