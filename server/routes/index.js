@@ -118,6 +118,43 @@ router.post('/classes', async (req, res) => {
   }
 });
 
+router.delete('/deleteClass/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const query = await db.query('DELETE FROM classes WHERE class_name = $1;', [
+      className
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteUnit/:unitName', async (req, res) => {
+  try {
+    const { unitName } = req.params;
+    const query = await db.query('DELETE FROM units WHERE unit_name = $1;', [
+      unitName
+    ]);
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
+router.delete('/deleteLesson/:lessonName', async (req, res) => {
+  try {
+    const { lessonName } = req.params;
+    const query = await db.query(
+      'DELETE FROM lessons WHERE lesson_name = $1;',
+      [lessonName]
+    );
+    res.send(query.rows);
+  } catch (error) {
+    console.log(error.stack);
+  }
+});
+
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;
@@ -304,6 +341,29 @@ router.post('/units', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
+});
+
+router.post('/questions', async (req, res) => {
+  try {
+    const { idForUnit, questionInput } = req.body;
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
+      idForUnit,
+      questionInput
+    ]);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  res.send('Update successful');
+});
+
+router.put('/update/:lessonID', async (req, res) => {
+  const { lessonID } = req.params;
+  const { notes } = req.body;
+  db.query('UPDATE lessons SET reflection_text = $1 WHERE id = $2;', [
+    notes.toString(),
+    lessonID
+  ]);
+  res.send('Update successful');
 });
 
 module.exports = router;

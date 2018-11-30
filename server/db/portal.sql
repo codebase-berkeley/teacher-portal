@@ -27,7 +27,7 @@ CREATE TABLE classes
 CREATE TABLE students_classes
 (
   studentID SERIAL REFERENCES users (id),
-  classID SERIAL REFERENCES classes (id),
+  classID SERIAL REFERENCES classes (id) ON DELETE CASCADE,
   yearName VARCHAR,
   PRIMARY KEY (studentID, classID)
 );
@@ -35,7 +35,7 @@ CREATE TABLE students_classes
 CREATE TABLE units
 (
   id SERIAL PRIMARY KEY,
-  classid SERIAL REFERENCES classes(id),
+  classid SERIAL REFERENCES classes(id) ON DELETE CASCADE,
   unit_name VARCHAR
 );
 
@@ -44,22 +44,22 @@ CREATE TABLE lessons
   id SERIAL PRIMARY KEY,
   lesson_name VARCHAR,
   reflection_text TEXT,
-  unit_id SERIAL REFERENCES units(id),
+  unit_id SERIAL REFERENCES units(id) ON DELETE CASCADE,
   filepath VARCHAR
 );
 
 CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
-  unit_id SERIAL REFERENCES units(id),
-  text VARCHAR
+  unit_id SERIAL REFERENCES units(id) ON DELETE CASCADE,
+  input VARCHAR
 );
 
 CREATE TABLE responses
 (
   id SERIAL PRIMARY KEY,
-  question SERIAL REFERENCES questions(id),
-  unit SERIAL REFERENCES units(id),
+  question SERIAL REFERENCES questions(id) ON DELETE CASCADE,
+  unit SERIAL REFERENCES units(id) ON DELETE CASCADE,
   response FLOAT,
   yr VARCHAR
 );
@@ -101,51 +101,6 @@ VALUES
   ('Linear Algebra', 'three', 1, './static/yeeeeee.pdf'),
   ('Integrals', 'four', 1, './static/yoighht.pdf'),
   ('Differential Equations', 'five', 1, './static/lesson.pdf');
-
--- dummy data for questions 
-
-INSERT INTO questions
-  (id, unit_id, text)
-VALUES
-  (1, 1, 'How interesting was this unit?'),
-  (2, 1, 'Would you recommend to a friend?'),
-  (3, 1, 'Did you learn anything?'),
-  (4, 1, 'What is the purpose of life?'),
-  (5, 1, 'Why is Parth such a fucking snake?'),
-  (6, 1, 'lol');
-
--- dummy data for responses
-
-INSERT INTO responses
-  (question, unit, response, yr)
-VALUES
-  (1, 1, 2, 2016),
-  (1, 1, 4, 2016),
-  (1, 1, 5, 2016),
-  (2, 1, 2.5, 2016),
-  (2, 1, 3.5, 2016),
-  (2, 1, 4.5, 2016),
-  (3, 1, 2.5, 2016),
-  (3, 1, 3.5, 2016),
-  (3, 1, 4.5, 2016),
-  (4, 1, 5.0, 2016),
-  (4, 1, 2.5, 2016),
-  (4, 1, 3.5, 2016),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (1, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (2, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (3, 1, 4.5, 2017),
-  (4, 1, 2.0, 2017),
-  (4, 1, 1.5, 2017),
-  (4, 1, 3.5, 2017);
-
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 
