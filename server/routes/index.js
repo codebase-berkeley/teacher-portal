@@ -6,6 +6,7 @@ const db = require('../db/index');
 
 const router = new Router();
 
+/* the teacher/student who's USING the application */
 async function getUsers(req, res) {
   try {
     if (Object.keys(req.session).length === 0) {
@@ -69,6 +70,7 @@ router.post('/classes', async (req, res) => {
     }
 
     for (let i = 0; i < emails.length; i += 1) {
+      // TODO: check if user already exists
       await db.query(
         'INSERT INTO users (email, is_teacher) values ($1, FALSE);',
         [emails[i]]

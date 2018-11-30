@@ -81,6 +81,7 @@ class ClassBox extends Component {
   }
 
   submitInfo() {
+    console.log('classbox submit info');
     const { className, items, currYearItem } = this.state;
     const { reRender } = this.props;
     fetch('/api/classes', {

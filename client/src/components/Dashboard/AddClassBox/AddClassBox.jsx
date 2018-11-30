@@ -72,6 +72,7 @@ class AddClassBox extends Component {
   }
 
   submitInfo() {
+    console.log('addclassbox submitinfo');
     const { className, items, currYearItem } = this.state;
     const { reRender } = this.props;
 
