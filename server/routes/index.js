@@ -271,6 +271,19 @@ router.get('/questions/:unitID', async (req, res) => {
   res.send(questions);
 });
 
+router.post('/questions', async (req, res) => {
+  try {
+    const { idForUnit, questionInput } = req.body;
+    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
+      idForUnit,
+      questionInput
+    ]);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  res.send('Update successful');
+});
+
 router.post('/upload', async (req, res) => {
   const { sampleFile } = req.files;
   const { name, unitID } = req.body;
@@ -304,13 +317,8 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/survey', async (req, res) => {
-  const { r0, r1, r2, r3, uID, sID } = req.body;
-  const rating0 = parseInt(r0, 10);
-  const rating1 = parseInt(r1, 10);
-  const rating2 = parseInt(r2, 10);
-  const rating3 = parseInt(r3, 10);
-  const unitID = parseInt(uID, 10);
-  const studentID = parseInt(sID, 10);
+  const { input, unitID, studentID } = req.body;
+  const ratings = JSON.parse(input);
   const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
     unitID
   ]);
@@ -320,22 +328,12 @@ router.post('/survey', async (req, res) => {
     [studentID, classID]
   );
   const year = yearQuery.rows[0].yearname;
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
-    [unitID, rating0, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
-    [unitID, rating1, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
-    [unitID, rating2, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
-    [unitID, rating3, year]
-  );
+  ratings.forEach((r, i) => {
+    db.query(
+      'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
+      [i, unitID, r, year]
+    );
+  });
   res.send('Update successful');
 });
 
