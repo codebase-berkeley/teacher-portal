@@ -97,13 +97,16 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [userID, className]
       );
-      setEmails(classID.rows[0].id, emails);
+      console.log(result.rows);
+      classID = result.rows[0].id;
+
+      setEmails(classID, emails);
 
       for (let i = 0; i < emails.length; i += 1) {
         db.query(
-        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
-        [emails[i], classID, yearName]
-      );
+          'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
+          [emails[i], classID, yearName]
+        );
       }
       res.send(className);
     }
