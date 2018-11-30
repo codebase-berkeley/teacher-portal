@@ -12,7 +12,9 @@ CREATE TABLE users
   email VARCHAR(254),
   first_name VARCHAR,
   last_name VARCHAR,
-  is_teacher BOOLEAN
+  is_teacher BOOLEAN,
+  token VARCHAR,
+  google_id VARCHAR
 );
 
 CREATE TABLE classes
@@ -26,6 +28,7 @@ CREATE TABLE students_classes
 (
   studentID SERIAL REFERENCES users (id),
   classID SERIAL REFERENCES classes (id),
+  yearName VARCHAR,
   PRIMARY KEY (studentID, classID)
 );
 
@@ -59,7 +62,7 @@ CREATE TABLE responses
   question SERIAL REFERENCES questions(id),
   unit SERIAL REFERENCES units(id),
   response FLOAT,
-  yr INTEGER
+  yr VARCHAR
 );
 
 -- dummy data for users

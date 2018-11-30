@@ -33,11 +33,12 @@ class Dashboard extends Component {
   }
 
   async componentWillMount() {
-    const classes = await fetch('/api/classes');
-    const classesJSON = await classes.json();
-    this.setState({
-      classList: classesJSON
-    });
+    const classRoute = await fetch('/api/classes', { redirect: 'follow' });
+    if (classRoute.ok) {
+      const classesJSON = await classRoute.json();
+      this.setState({ classList: classesJSON });
+    }
+    return classRoute;
   }
 
   render() {

@@ -1,3 +1,19 @@
+.classbox-container {
+  position: relative;
+}
+
+.add-new-students {
+  position: absolute;
+  top: 200px;
+  left: 135px;
+  background: none;
+  border: 1px solid #bababa;
+  background-color: white;
+  padding: 7px;
+  color: #767676;
+  cursor: pointer;
+}
+
 .classbox {
   width: 265px;
   height: 229px;
