@@ -272,14 +272,14 @@ class ClassBox extends Component {
           </Modal>
         </div>
         <button className="class-exit" type="button" onClick={this.openModal}>
-          &#10005;
+          &#10006;
         </button>
         <button
           type="button"
           className="add-new-students"
           onClick={this.handleShowModal}
         >
-          + Add New Students
+          +&nbsp;&nbsp;Add New Students
         </button>
         <NavLink className="classbox" to={route}>
           <div className={color} />

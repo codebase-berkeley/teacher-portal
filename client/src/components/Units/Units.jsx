@@ -214,7 +214,7 @@ class Units extends Component {
                 unitName="+ Add New Unit"
                 buttonType="add"
               >
-                + Add New Unit
+                +&nbsp;&nbsp;Add New Unit
               </button>
               {this.create(unitList)}
               <Modal
@@ -292,7 +292,7 @@ class Units extends Component {
             unitName="+ Add New Unit"
             buttonType="add"
           >
-            + Add New Unit
+            +&nbsp;&nbsp;Add New Unit
           </button>
           {this.create(unitList)}
           <Modal

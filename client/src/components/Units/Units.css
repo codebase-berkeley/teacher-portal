@@ -7,7 +7,6 @@
   margin-left: 80px;
 }
 .Unit-boxes {
-  margin-left: 40px;
   text-align: left;
 }
 
@@ -48,6 +47,9 @@
   border-radius: 2px;
   box-shadow: none;
   border: 0;
+}
+.addButton:hover {
+  background-color: #fdca21dc;
 }
 .addButton:active {
   text-decoration: none;
@@ -101,6 +103,9 @@
   padding: 10px;
   box-shadow: none;
   border: 0;
+}
+.cancelButton:hover {
+  background-color: #fdca21dc;
 }
 
 .inputText {

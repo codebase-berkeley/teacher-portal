@@ -22,7 +22,7 @@ class InputBox extends Component {
   render() {
     const { id, input } = this.props;
     return (
-      <div className="question">
+      <div className="unitQuestions">
         <label htmlFor="QuestionOne">{`Question ${id}`}</label>
         <input
           type="text"

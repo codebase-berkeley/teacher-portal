@@ -92,7 +92,7 @@ class Unitbox extends Component {
           </div>
         </div>
         <button className="unit-exit" type="button" onClick={this.openModal}>
-          &#10005;
+          &#10006;
         </button>
         <NavLink to={route} className="unitbox">
           <div>{unitName}</div>
