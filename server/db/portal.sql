@@ -106,11 +106,11 @@ INSERT INTO questions
   (id, unit_id, yr, input)
 VALUES
   (9, 3, 2018, 'How interesting was this unit?'),
-  (23, 100, 2018, 'Would you recommend to a friend?'),
-  (33, 100, 2018, 'Did you learn anything?'),
-  (43, 100, 2018, 'What is the purpose of life?'),
-  (53, 100, 2018, 'Why is Parth such a fucking snake?'),
-  (63, 100, 2018, 'lol');
+  (10, 2, 2018, 'Would you recommend to a friend?'),
+  (11, 2, 2018, 'Did you learn anything?'),
+  (12, 3, 2018, 'What is the purpose of life?'),
+  (13, 1, 2018, 'Why is Parth such a fucking snake?'),
+  (14, 2, 2018, 'lol');
 
 -- -- dummy data for responses
 

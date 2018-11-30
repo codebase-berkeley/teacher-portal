@@ -22,6 +22,7 @@ class Units extends Component {
       unitID: 0,
       questionInputs: {}
     };
+    this.inputText = React.createRef();
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -91,9 +92,9 @@ class Units extends Component {
   saveUnitName() {
     const { unitName } = this.state;
     this.setState({
-      unitName: unitName + document.getElementById('unit_name').value
+      unitName: unitName + this.inputText.current.value
     });
-    if (document.getElementById('unit_name').value === '') {
+    if (this.inputText.current.value === '') {
       alert('Please enter a unit name.');
     }
   }
@@ -228,7 +229,7 @@ class Units extends Component {
                 </label>
                 <input
                   className="inputText"
-                  id="unit_name"
+                  ref={this.inputText}
                   type="text"
                   onKeyUp={e => {
                     if (e.keyCode === 13 && e.shiftKey === false) {
