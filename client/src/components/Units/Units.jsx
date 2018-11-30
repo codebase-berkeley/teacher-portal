@@ -104,11 +104,11 @@ class Units extends Component {
     }
   }
 
-  sendData() {
+  async sendData() {
     const { match } = this.props;
     const { classID } = match.params;
     const { unitList, unitName, questionInputs, questions } = this.state;
-    fetch('/api/units', {
+    await fetch('/api/units', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
