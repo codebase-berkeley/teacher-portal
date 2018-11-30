@@ -303,11 +303,23 @@ router.post('/upload', async (req, res) => {
   res.send({ id: lessonID });
 });
 
-router.post('/survey/:unitID', async (req, res) => {
-  /** TODO: make this dynamically update based on year */
-  const year = 2018;
-  const { unitID } = req.params;
-  const { rating0, rating1, rating2, rating3 } = req.body;
+router.post('/survey', async (req, res) => {
+  const { r0, r1, r2, r3, uID, sID } = req.body;
+  const rating0 = parseInt(r0, 10);
+  const rating1 = parseInt(r1, 10);
+  const rating2 = parseInt(r2, 10);
+  const rating3 = parseInt(r3, 10);
+  const unitID = parseInt(uID, 10);
+  const studentID = parseInt(sID, 10);
+  const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
+    unitID
+  ]);
+  const classID = classQuery.rows[0].classid;
+  const yearQuery = await db.query(
+    'SELECT yearName FROM students_classes WHERE studentID=$1 AND classID=$2;',
+    [studentID, classID]
+  );
+  const year = yearQuery.rows[0].yearname;
   db.query(
     'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
     [unitID, rating0, year]
