@@ -41,7 +41,7 @@ class Lessons extends Component {
         throw new Error('Request Failed');
       })
       .then(lessons => {
-        this.setState({ lessons });
+        this.setState({ lessons: lessons.query });
       });
   }
 

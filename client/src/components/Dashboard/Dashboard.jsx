@@ -38,7 +38,6 @@ class Dashboard extends Component {
     const classRoute = await fetch('/api/classes', { redirect: 'follow' });
     if (classRoute.ok) {
       const classesJSON = await classRoute.json();
-      console.log(classesJSON);
       this.setState({
         classList: classesJSON.query,
         isTeacher: classesJSON.is_teacher

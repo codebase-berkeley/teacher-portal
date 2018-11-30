@@ -18,7 +18,8 @@ class Units extends Component {
       questions: [],
       unitList: [],
       unitModalType: true,
-      unitName: ''
+      unitName: '',
+      isTeacher: false
     };
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -42,7 +43,8 @@ class Units extends Component {
     if (units.ok) {
       const unitsJSON = await units.json();
       this.setState({
-        unitList: unitsJSON
+        unitList: unitsJSON.query,
+        isTeacher: unitsJSON.is_teacher
       });
     }
   }
@@ -158,7 +160,8 @@ class Units extends Component {
       modalIsOpen,
       unitModalType,
       questions,
-      unitName
+      unitName,
+      isTeacher
     } = this.state;
     if (unitModalType) {
       return (
@@ -173,15 +176,18 @@ class Units extends Component {
           </button>
           <h2 className="Unit-header">My Units</h2>
           <div>
-            <button
-              className="addButton"
-              type="submit"
-              onClick={this.openModal}
-              unitName="+ Add New Unit"
-              buttonType="add"
-            >
-              + Add New Unit
-            </button>
+            {isTeacher ? (
+              <button
+                className="addButton"
+                type="submit"
+                onClick={this.openModal}
+                unitName="+ Add New Unit"
+                buttonType="add"
+              >
+                + Add New Unit
+              </button>
+            ) : null}
+
             {this.create(unitList)}
             <Modal
               className="newUnitModal"

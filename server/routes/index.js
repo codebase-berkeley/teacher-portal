@@ -131,12 +131,12 @@ router.put('/update/:lessonID', async (req, res) => {
 router.get('/units/:classID', async (req, res) => {
   try {
     const userInfo = await getUsers(req, res);
-    const { isTeacher } = userInfo;
+    const { is_teacher } = userInfo;
     const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
     ]);
-    res.send(query.rows);
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -144,14 +144,12 @@ router.get('/units/:classID', async (req, res) => {
 
 router.get('/lessons/:unitID', async (req, res) => {
   try {
-    const userInfo = await getUsers(req, res);
-    const { isTeacher } = userInfo;
     const { unitID } = req.params;
     const query = await db.query(
       'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
       [unitID]
     );
-    res.send(query.rows);
+    res.send({ query: query.rows });
   } catch (error) {
     console.log(error.stack);
   }
