@@ -323,6 +323,7 @@ class AddClassBox extends Component {
                     } else if (items.length > 0) {
                       this.studentsChangeModal();
                       this.submitInfo();
+                      this.setState({ currYearItem: '' });
                     } else {
                       alert(
                         'Please add student emails in order to create a class.'
