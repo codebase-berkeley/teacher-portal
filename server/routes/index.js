@@ -70,7 +70,16 @@ router.get('/classes', async (req, res) => {
     const userInfo = await getUsers(req, res);
     const { id, is_teacher } = userInfo;
     let query;
-    if (is_teacher) {
+    const checkEmail = await db.query(
+      'SELECT email FROM users WHERE users.token = $1',
+      [req.session.passport.user.token]
+    ); //  this query will help check if a user is both a student and a teacher. this will set that user to a student
+    const check = await db.query(
+      'SELECT is_teacher FROM users WHERE email = $1',
+      [checkEmail]
+    );
+    const checkCount = check.rowCount;
+    if (is_teacher && checkCount === 1) {
       query = await db.query(
         'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
         [id]
@@ -108,18 +117,19 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [id, className]
       );
+
       classID = result.rows[0].id;
-
-      setEmails(classID, emails);
-
-      for (let i = 0; i < emails.length; i += 1) {
-        db.query(
-          'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
-          [emails[i], classID, yearName]
-        );
-      }
-      res.send(className);
     }
+
+    setEmails(classID, emails);
+
+    for (let i = 0; i < emails.length; i += 1) {
+      db.query(
+        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
+        [emails[i], classID, yearName]
+      );
+    }
+    res.send(className);
 
     res.send('success!');
   } catch (error) {
@@ -277,9 +287,9 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.get('/questions/:unitID', async (req, res) => {
   const { unitID } = req.params;
-  const query = await db.query(
-    `SELECT text FROM questions where unit_id=${unitID}`
-  );
+  const query = await db.query('SELECT input FROM questions WHERE unit_id=$1', [
+    unitID
+  ]);
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
@@ -290,7 +300,7 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/questions', async (req, res) => {
   try {
     const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
       idForUnit,
       questionInput
     ]);
