@@ -69,10 +69,19 @@ router.get('/classes', async (req, res) => {
   try {
     const userInfo = await getUsers(req, res);
     const { id, is_teacher } = userInfo;
-    const query = await db.query(
-      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
-      [id]
-    );
+    let query;
+    if (is_teacher) {
+      query = await db.query(
+        'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
+        [id]
+      );
+    } else {
+      query = await db.query(
+        'SELECT c.id, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.studentid = c.id and u.id = s.studentid;',
+        [id]
+      );
+    }
+
     res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
