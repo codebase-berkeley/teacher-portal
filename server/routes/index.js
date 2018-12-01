@@ -45,7 +45,6 @@ async function setEmails(classID, emails) {
   }
 
   let j = 0;
-  console.log('hello');
   await Promise.all(promises).then(async values => {
     if (values[0].rowCount === 0) {
       db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
@@ -189,8 +188,6 @@ router.get('/units/:classID', async (req, res) => {
     const userInfo = await getUsers(req, res);
     const { is_teacher } = userInfo;
     const { classID } = req.params;
-    console.log(is_teacher);
-    console.log(classID);
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
     ]);
