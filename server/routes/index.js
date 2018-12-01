@@ -45,7 +45,6 @@ async function setEmails(classID, emails) {
   }
 
   let j = 0;
-
   await Promise.all(promises).then(async values => {
     if (values[0].rowCount === 0) {
       db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
@@ -70,14 +69,23 @@ router.get('/classes', async (req, res) => {
     const userInfo = await getUsers(req, res);
     const { id, is_teacher } = userInfo;
     let query;
-    if (is_teacher) {
+    const checkEmail = await db.query(
+      'SELECT email FROM users WHERE users.token = $1',
+      [req.session.passport.user.token]
+    ); //  this query will help check if a user is both a student and a teacher. this will set that user to a student
+    const check = await db.query(
+      'SELECT is_teacher FROM users WHERE email = $1',
+      [checkEmail.rows[0].email]
+    );
+    const checkCount = check.rowCount;
+    if (is_teacher && checkCount === 1) {
       query = await db.query(
         'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
         [id]
       );
     } else {
       query = await db.query(
-        'SELECT c.id, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.studentid = c.id and u.id = s.studentid;',
+        'SELECT s.classid, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.classid = c.id and u.id = $1;',
         [id]
       );
     }
