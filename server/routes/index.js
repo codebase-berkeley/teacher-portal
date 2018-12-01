@@ -79,7 +79,6 @@ router.get('/classes', async (req, res) => {
       [checkEmail.rows[0].email]
     );
     const checkCount = check.rowCount;
-    console.log(checkCount);
     if (is_teacher && checkCount === 1) {
       query = await db.query(
         'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
@@ -90,7 +89,6 @@ router.get('/classes', async (req, res) => {
         'SELECT s.classid, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.classid = c.id and u.id = $1;',
         [id]
       );
-      console.log(query.rows);
     }
 
     res.send({ query: query.rows, is_teacher });
