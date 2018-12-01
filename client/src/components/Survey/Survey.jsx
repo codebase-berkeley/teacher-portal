@@ -4,7 +4,7 @@ import './Survey.css';
 import Star from './Star/Star';
 
 /** TOOD: hard-coded for now, someone fix this later */
-// const studentID = 9;
+const studentID = 9;
 
 class Survey extends Component {
   static propTypes = {
@@ -41,10 +41,10 @@ class Survey extends Component {
   displayQuestions() {
     const { questions } = this.state;
     const qlist = [];
-    questions.forEach((q, index) => {
+    questions.forEach(q => {
       qlist.push(
         <div className="star-container">
-          <Star number={index} question={q} />
+          <Star number={q.id} question={q.text} />
         </div>
       );
     });
@@ -54,7 +54,7 @@ class Survey extends Component {
   render() {
     const { match } = this.props;
     const { unitID } = match.params;
-    const route = `/api/survey/${unitID}`;
+    const route = `/api/survey`;
     return (
       <section className="Survey">
         <div className="back-container">
@@ -68,6 +68,8 @@ class Survey extends Component {
         </div>
         <form method="POST" action={route} className="Questions">
           {this.displayQuestions()}
+          <input type="hidden" name="unitID" value={unitID} />
+          <input type="hidden" name="studentID" value={studentID} />
           <button className="submit-button" type="submit">
             Submit
           </button>

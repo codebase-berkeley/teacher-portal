@@ -35,7 +35,7 @@ export default class Histogram extends Component {
           rows.push(
             <tr>
               <td>{i + 1}</td>
-              <td>{e}</td>
+              <td>{e.text}</td>
             </tr>
           );
         });

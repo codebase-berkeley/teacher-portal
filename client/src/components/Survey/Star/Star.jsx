@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class Star extends React.Component {
   render() {
     const { question, number } = this.props;
-    const name = `rating${number}`;
     return (
       <div className="question">
         <h1 className="question-text">{question}</h1>
@@ -16,7 +15,7 @@ class Star extends React.Component {
               className="form-radio"
               type="radio"
               id="rating-5"
-              name={name}
+              name={number}
               value="5"
             />
             <label className="rating" htmlFor="rating-5">
@@ -28,7 +27,7 @@ class Star extends React.Component {
               className="form-radio"
               type="radio"
               id="rating-4"
-              name={name}
+              name={number}
               value="4"
             />
             <label className="rating" htmlFor="rating-4">
@@ -40,7 +39,7 @@ class Star extends React.Component {
               className="form-radio"
               type="radio"
               id="rating-3"
-              name={name}
+              name={number}
               value="3"
             />
             <label className="rating" htmlFor="rating-3">
@@ -52,7 +51,7 @@ class Star extends React.Component {
               className="form-radio"
               type="radio"
               id="rating-2"
-              name={name}
+              name={number}
               value="2"
             />
             <label className="rating" htmlFor="rating-2">
@@ -64,7 +63,7 @@ class Star extends React.Component {
               className="form-radio"
               type="radio"
               id="rating-1"
-              name={name}
+              name={number}
               value="1"
             />
             <label className="rating" htmlFor="rating-1">

@@ -286,14 +286,10 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.get('/questions/:unitID', async (req, res) => {
   const { unitID } = req.params;
-  const query = await db.query('SELECT input FROM questions WHERE unit_id=$1', [
-    unitID
-  ]);
-  const questions = [];
-  query.rows.forEach(e => {
-    questions.push(e.text);
-  });
-  res.send(questions);
+  const query = await db.query(
+    `SELECT * FROM questions where unit_id=${unitID}`
+  );
+  res.send(query.rows);
 });
 
 router.post('/questions', async (req, res) => {
@@ -342,8 +338,15 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/survey', async (req, res) => {
-  const { input, unitID, studentID } = req.body;
-  const ratings = JSON.parse(input);
+  const ratings = {};
+  const { unitID, studentID } = req.body;
+  Object.keys(req.body).forEach(key => {
+    // eslint-disable-next-line no-restricted-globals
+    if (!isNaN(parseInt(key, 10))) {
+      ratings[parseInt(key, 10)] = req.body[key];
+    }
+  });
+  console.log(req.body);
   const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
     unitID
   ]);
@@ -353,7 +356,9 @@ router.post('/survey', async (req, res) => {
     [studentID, classID]
   );
   const year = yearQuery.rows[0].yearname;
+  console.log(ratings);
   Object.keys(ratings).forEach(q => {
+    console.log(q);
     db.query(
       'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
       [q, unitID, ratings[q], year]
