@@ -36,6 +36,7 @@ async function getUsers(req, res) {
 }
 
 async function setEmails(classID, emails) {
+  console.log('set email');
   const promises = [];
 
   for (let i = 0; i < emails.length; i += 1) {
@@ -48,6 +49,7 @@ async function setEmails(classID, emails) {
 
   await Promise.all(promises).then(async values => {
     if (values[0].rowCount === 0) {
+      console.log('WHY ISNT THIS WORKING');
       db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
         emails[j]
       ]);
@@ -80,6 +82,7 @@ router.get('/classes', async (req, res) => {
 });
 
 router.post('/classes', async (req, res) => {
+  console.log('post');
   try {
     const { className, emails, yearName } = req.body;
     const { id } = await getUsers(req, res);
@@ -99,18 +102,20 @@ router.post('/classes', async (req, res) => {
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
         [id, className]
       );
+
       classID = result.rows[0].id;
-
-      setEmails(classID, emails);
-
-      for (let i = 0; i < emails.length; i += 1) {
-        db.query(
-          'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
-          [emails[i], classID, yearName]
-        );
-      }
-      res.send(className);
     }
+
+    setEmails(classID, emails);
+
+    for (let i = 0; i < emails.length; i += 1) {
+      console.log(emails[i]);
+      db.query(
+        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
+        [emails[i], classID, yearName]
+      );
+    }
+    res.send(className);
 
     res.send('success!');
   } catch (error) {
