@@ -64,44 +64,6 @@ CREATE TABLE responses
   yr VARCHAR
 );
 
--- dummy data for users
-
-INSERT INTO users
-  (email, first_name, last_name, is_teacher)
-VALUES
-  ('parth.shah@berkeley.edu', 'Parth', 'Shah', TRUE),
-  ('young.guo@gmail.com', 'Young', 'Guo', FALSE
-);
-
--- dummy data for classes
-
-INSERT INTO classes
-  (teacherID, class_name)
-VALUES
-  (1, 'English 102'),
-  (2, 'English 202'),
-  (1, 'English 302');
-
--- dummy data for units
-
-INSERT INTO units
-  (classid, unit_name)
-VALUES
-  (1, 'House on Mango Street'),
-  (2, 'Macbeth'),
-  (1, 'Jane Eyre');
-
--- dummy data for lessons 
-
-INSERT INTO lessons
-  (lesson_name, reflection_text, unit_id, filepath)
-VALUES
-  ('Volumes of Rotating Solids', 'one', 1, './static/lesson.pdf'),
-  ('Related Rates', 'two', 1, './static/pdf-sample.pdf'),
-  ('Linear Algebra', 'three', 1, './static/yeeeeee.pdf'),
-  ('Integrals', 'four', 1, './static/yoighht.pdf'),
-  ('Differential Equations', 'five', 1, './static/lesson.pdf');
-
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO root;
