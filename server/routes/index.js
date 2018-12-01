@@ -45,7 +45,7 @@ async function setEmails(classID, emails) {
   }
 
   let j = 0;
-
+  console.log('hello');
   await Promise.all(promises).then(async values => {
     if (values[0].rowCount === 0) {
       db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
@@ -76,7 +76,7 @@ router.get('/classes', async (req, res) => {
     ); //  this query will help check if a user is both a student and a teacher. this will set that user to a student
     const check = await db.query(
       'SELECT is_teacher FROM users WHERE email = $1',
-      [checkEmail]
+      [checkEmail.rows[0].email]
     );
     const checkCount = check.rowCount;
     if (is_teacher && checkCount === 1) {
