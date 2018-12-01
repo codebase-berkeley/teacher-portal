@@ -281,7 +281,7 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/questions', async (req, res) => {
   try {
     const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
       idForUnit,
       questionInput
     ]);
