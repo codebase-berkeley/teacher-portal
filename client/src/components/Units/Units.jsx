@@ -83,7 +83,8 @@ class Units extends Component {
       modalIsOpen: false,
       unitModalType: true,
       questions: [],
-      questionInputs: {}
+      questionInputs: {},
+      unitName: ''
     });
   }
 
