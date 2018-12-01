@@ -278,9 +278,9 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.get('/questions/:unitID', async (req, res) => {
   const { unitID } = req.params;
-  const query = await db.query(
-    `SELECT text FROM questions where unit_id=${unitID}`
-  );
+  const query = await db.query('SELECT input FROM questions WHERE unit_id=$1', [
+    unitID
+  ]);
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
@@ -291,7 +291,7 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/questions', async (req, res) => {
   try {
     const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
       idForUnit,
       questionInput
     ]);
