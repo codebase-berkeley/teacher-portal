@@ -76,7 +76,6 @@ router.get('/classes', async (req, res) => {
         [id]
       );
     } else {
-      console.log('get student');
       query = await db.query(
         'SELECT c.id, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.studentid = c.id and u.id = s.studentid;',
         [id]
