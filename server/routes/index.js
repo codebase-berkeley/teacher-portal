@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const Router = require('express-promise-router');
 const AWS = require('aws-sdk');
 const bluebird = require('bluebird');
@@ -24,10 +25,10 @@ async function getUsers(req, res) {
       return 0;
     }
     const query = await db.query(
-      'SELECT id FROM users WHERE users.token = $1',
+      'SELECT id, is_teacher FROM users WHERE users.token = $1',
       [req.session.passport.user.token]
     );
-    return query.rows[0].id;
+    return query.rows[0];
   } catch (error) {
     console.log(error.stack);
     return null;
@@ -44,7 +45,6 @@ async function setEmails(classID, emails) {
   }
 
   let j = 0;
-
   await Promise.all(promises).then(async values => {
     if (values[0].rowCount === 0) {
       db.query('INSERT INTO users (email, is_teacher) values ($1, FALSE);', [
@@ -66,12 +66,31 @@ router.get('/users', async (req, res) => {
 
 router.get('/classes', async (req, res) => {
   try {
-    const userID = await getUsers(req, res);
-    const query = await db.query(
-      'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
-      [userID]
+    const userInfo = await getUsers(req, res);
+    const { id, is_teacher } = userInfo;
+    let query;
+    const checkEmail = await db.query(
+      'SELECT email FROM users WHERE users.token = $1',
+      [req.session.passport.user.token]
+    ); //  this query will help check if a user is both a student and a teacher. this will set that user to a student
+    const check = await db.query(
+      'SELECT is_teacher FROM users WHERE email = $1',
+      [checkEmail.rows[0].email]
     );
-    res.send(query.rows);
+    const checkCount = check.rowCount;
+    if (is_teacher && checkCount === 1) {
+      query = await db.query(
+        'SELECT classes.id AS classID, classes.class_name, users.* FROM classes, users WHERE classes.teacherID = $1 and users.id = $1;',
+        [id]
+      );
+    } else {
+      query = await db.query(
+        'SELECT s.classid, c.class_name, s.studentid, u.* FROM classes as c, students_classes as s, users as u WHERE s.studentid = $1 and s.classid = c.id and u.id = $1;',
+        [id]
+      );
+    }
+
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -80,7 +99,7 @@ router.get('/classes', async (req, res) => {
 router.post('/classes', async (req, res) => {
   try {
     const { className, emails, yearName } = req.body;
-    const userID = await getUsers(req, res);
+    const { id } = await getUsers(req, res);
     const check = await db.query(
       'SELECT * FROM classes where class_name = $1;',
       [className]
@@ -95,21 +114,21 @@ router.post('/classes', async (req, res) => {
       // insert into table classes; make a new class row
       const result = await db.query(
         'INSERT INTO classes (teacherID, class_name) VALUES ($1, $2) returning id;',
-        [userID, className]
+        [id, className]
       );
-      console.log(result.rows);
+
       classID = result.rows[0].id;
-
-      setEmails(classID, emails);
-
-      for (let i = 0; i < emails.length; i += 1) {
-        db.query(
-          'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
-          [emails[i], classID, yearName]
-        );
-      }
-      res.send(className);
     }
+
+    setEmails(classID, emails);
+
+    for (let i = 0; i < emails.length; i += 1) {
+      db.query(
+        'INSERT INTO students_classes (studentID, classID, yearName) values ( (SELECT u.id FROM users as u WHERE u.email = $1 LIMIT 1), $2, $3 );',
+        [emails[i], classID, yearName]
+      );
+    }
+    res.send(className);
 
     res.send('success!');
   } catch (error) {
@@ -166,12 +185,13 @@ router.put('/update/:lessonID', async (req, res) => {
 
 router.get('/units/:classID', async (req, res) => {
   try {
-    await getUsers(req, res);
+    const userInfo = await getUsers(req, res);
+    const { is_teacher } = userInfo;
     const { classID } = req.params;
     const query = await db.query('SELECT * FROM units WHERE classid = $1;', [
       classID
     ]);
-    res.send(query.rows);
+    res.send({ query: query.rows, is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -184,7 +204,7 @@ router.get('/lessons/:unitID', async (req, res) => {
       'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
       [unitID]
     );
-    res.send(query.rows);
+    res.send({ query: query.rows });
   } catch (error) {
     console.log(error.stack);
   }
@@ -219,6 +239,12 @@ router.get('/studentSummary/:unitID', async (req, res) => {
     );
     const years = yearsquery.rows.map(e => e.yr);
 
+    const offsetQuery = await db.query(
+      `SELECT question FROM responses WHERE unit=${unitID} ORDER BY question`
+    );
+
+    const offset = offsetQuery.rows[0].question;
+
     years.forEach(yr => {
       const rowsYear = [];
       rows.forEach(row => {
@@ -232,9 +258,8 @@ router.get('/studentSummary/:unitID', async (req, res) => {
       for (let i = 0; i < NUMQS; i += 1) {
         rawQuestions.push([]);
       }
-
       rowsYear.forEach(row => {
-        const i = row.question - 1;
+        const i = row.question - offset;
         rawQuestions[i].push(row.response);
       });
 
@@ -261,14 +286,27 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.get('/questions/:unitID', async (req, res) => {
   const { unitID } = req.params;
-  const query = await db.query(
-    `SELECT text FROM questions where unit_id=${unitID}`
-  );
+  const query = await db.query('SELECT input FROM questions WHERE unit_id=$1', [
+    unitID
+  ]);
   const questions = [];
   query.rows.forEach(e => {
     questions.push(e.text);
   });
   res.send(questions);
+});
+
+router.post('/questions', async (req, res) => {
+  try {
+    const { idForUnit, questionInput } = req.body;
+    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
+      idForUnit,
+      questionInput
+    ]);
+  } catch (error) {
+    console.log(error.stack);
+  }
+  res.send('Update successful');
 });
 
 router.post('/upload', async (req, res) => {
@@ -303,27 +341,24 @@ router.post('/upload', async (req, res) => {
   res.send({ id: lessonID });
 });
 
-router.post('/survey/:unitID', async (req, res) => {
-  /** TODO: make this dynamically update based on year */
-  const year = 2018;
-  const { unitID } = req.params;
-  const { rating0, rating1, rating2, rating3 } = req.body;
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (1, $1, $2, $3);',
-    [unitID, rating0, year]
+router.post('/survey', async (req, res) => {
+  const { input, unitID, studentID } = req.body;
+  const ratings = JSON.parse(input);
+  const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
+    unitID
+  ]);
+  const classID = classQuery.rows[0].classid;
+  const yearQuery = await db.query(
+    'SELECT yearName FROM students_classes WHERE studentID=$1 AND classID=$2;',
+    [studentID, classID]
   );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (2, $1, $2, $3);',
-    [unitID, rating1, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (3, $1, $2, $3);',
-    [unitID, rating2, year]
-  );
-  db.query(
-    'INSERT INTO responses (question, unit, response, yr) VALUES (4, $1, $2, $3);',
-    [unitID, rating3, year]
-  );
+  const year = yearQuery.rows[0].yearname;
+  Object.keys(ratings).forEach(q => {
+    db.query(
+      'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
+      [q, unitID, ratings[q], year]
+    );
+  });
   res.send('Update successful');
 });
 

@@ -19,6 +19,7 @@ class Units extends Component {
       unitList: [],
       unitModalType: true,
       unitName: '',
+      isTeacher: false,
       unitID: 0,
       questionInputs: {}
     };
@@ -47,7 +48,8 @@ class Units extends Component {
     if (units.ok) {
       const unitsJSON = await units.json();
       this.setState({
-        unitList: unitsJSON
+        unitList: unitsJSON.query,
+        isTeacher: unitsJSON.is_teacher
       });
     }
   }
@@ -81,7 +83,8 @@ class Units extends Component {
       modalIsOpen: false,
       unitModalType: true,
       questions: [],
-      questionInputs: {}
+      questionInputs: {},
+      unitName: ''
     });
   }
 
@@ -164,7 +167,7 @@ class Units extends Component {
     }));
   }
 
-  create(unitNames) {
+  create(unitNames, isTeacher) {
     this.unitBoxes = [];
     for (let i = 0; i < unitNames.length; i += 1) {
       this.unitBoxes.push(
@@ -174,6 +177,7 @@ class Units extends Component {
           id={unitNames[i].id}
           path="/lessons"
           reRender={this.componentWillMount}
+          isTeacher={isTeacher}
         />
       );
     }
@@ -191,7 +195,8 @@ class Units extends Component {
       modalIsOpen,
       unitModalType,
       questions,
-      unitName
+      unitName,
+      isTeacher
     } = this.state;
     if (unitModalType) {
       return (
@@ -247,27 +252,73 @@ class Units extends Component {
                   />
                 </form>
                 <div className="buttonwrapper">
+              {' '}
+              <div>
+                {isTeacher ? (
                   <button
-                    type="button"
-                    className="cancelButton"
-                    onClick={this.closeModal}
-                    close
+                    className="addButton"
+                    type="submit"
+                    onClick={this.openModal}
+                    unitName="+ Add New Unit"
+                    buttonType="add"
                   >
-                    Cancel
+                    + Add New Unit
                   </button>
-                  <button
-                    type="button"
-                    id="next"
-                    className="cancelButton"
-                    onClick={() => {
-                      this.saveUnitName(unitName);
-                      this.unitChangeModal();
+                ) : null}
+
+                {this.create(unitList, isTeacher)}
+                <Modal
+                  className="newUnitModal"
+                  isOpen={modalIsOpen}
+                  onAfterOpen={this.afterOpenModal}
+                  onRequestClose={this.closeModal}
+                  contentLabel="Example Modal"
+                >
+                  <div className="modalTitle">Add New Unit</div>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
                     }}
                   >
-                    Next
-                  </button>
-                </div>
-              </Modal>
+                    <label htmlFor="unitname" id="unitname">
+                      Unit Name
+                    </label>
+                    <input
+                      className="inputText"
+                      ref={this.inputText}
+                      type="text"
+                      onKeyUp={e => {
+                        if (e.keyCode === 13 && e.shiftKey === false) {
+                          e.preventDefault();
+                          this.saveUnitName(unitName);
+                          this.unitChangeModal();
+                        }
+                      }}
+                    />
+                  </form>
+                  <div className="buttonwrapper">
+                    <button
+                      type="button"
+                      className="cancelButton"
+                      onClick={this.closeModal}
+                      close
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      id="next"
+                      className="cancelButton"
+                      onClick={() => {
+                        this.saveUnitName(unitName);
+                        this.unitChangeModal();
+                      }}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </Modal>
+              </div>
             </div>
           </div>
         </div>
@@ -294,7 +345,7 @@ class Units extends Component {
           >
             +&nbsp;&nbsp;Add New Unit
           </button>
-          {this.create(unitList)}
+          {this.create(unitList, isTeacher)}
           <Modal
             className="newUnitModal Expand"
             isOpen={modalIsOpen}
