@@ -89,7 +89,7 @@ class LessonBox extends Component {
           </Modal>
         </div>
         <button className="lesson-exit" type="button" onClick={this.openModal}>
-          &#10005;
+          &#10006;
         </button>
         <NavLink className="lessonbox" to={link}>
           <div className={color} />
