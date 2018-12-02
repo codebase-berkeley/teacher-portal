@@ -52,7 +52,7 @@ CREATE TABLE questions
 (
   id SERIAL PRIMARY KEY,
   unit_id SERIAL REFERENCES units(id) ON DELETE CASCADE,
-  input VARCHAR
+  text VARCHAR
 );
 
 CREATE TABLE responses

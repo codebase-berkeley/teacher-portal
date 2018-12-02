@@ -175,7 +175,7 @@ class Units extends Component {
           unitName={unitNames[i].unit_name}
           key={unitNames[i].id}
           id={unitNames[i].id}
-          path="/lessons"
+          path={isTeacher ? '/lessons' : '/survey'}
           reRender={this.componentWillMount}
           isTeacher={isTeacher}
         />

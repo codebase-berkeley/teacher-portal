@@ -204,7 +204,9 @@ router.get('/lessons/:unitID', async (req, res) => {
       'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
       [unitID]
     );
-    res.send({ query: query.rows });
+    const userInfo = await getUsers(req, res);
+    const { is_teacher } = userInfo;
+    res.send({ query: query.rows, teacher: is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -286,20 +288,16 @@ router.get('/studentSummary/:unitID', async (req, res) => {
 
 router.get('/questions/:unitID', async (req, res) => {
   const { unitID } = req.params;
-  const query = await db.query('SELECT input FROM questions WHERE unit_id=$1', [
-    unitID
-  ]);
-  const questions = [];
-  query.rows.forEach(e => {
-    questions.push(e.text);
-  });
-  res.send(questions);
+  const query = await db.query(
+    `SELECT * FROM questions where unit_id=${unitID}`
+  );
+  res.send(query.rows);
 });
 
 router.post('/questions', async (req, res) => {
   try {
     const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
+    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
       idForUnit,
       questionInput
     ]);
@@ -342,8 +340,16 @@ router.post('/upload', async (req, res) => {
 });
 
 router.post('/survey', async (req, res) => {
-  const { input, unitID, studentID } = req.body;
-  const ratings = JSON.parse(input);
+  const ratings = {};
+  const { unitID } = req.body;
+  const userInfo = await getUsers(req, res);
+  const studentID = userInfo.id;
+  Object.keys(req.body).forEach(key => {
+    if (!Number.isNaN(parseInt(key, 10))) {
+      ratings[parseInt(key, 10)] = req.body[key];
+    }
+  });
+  console.log(req.body);
   const classQuery = await db.query('SELECT classid FROM units WHERE id=$1;', [
     unitID
   ]);
@@ -353,13 +359,15 @@ router.post('/survey', async (req, res) => {
     [studentID, classID]
   );
   const year = yearQuery.rows[0].yearname;
+  console.log(ratings);
   Object.keys(ratings).forEach(q => {
+    console.log(q);
     db.query(
       'INSERT INTO responses (question, unit, response, yr) VALUES ($1, $2, $3, $4);',
       [q, unitID, ratings[q], year]
     );
   });
-  res.send('Update successful');
+  res.redirect('/');
 });
 
 router.post('/units', async (req, res) => {
@@ -374,19 +382,6 @@ router.post('/units', async (req, res) => {
   } catch (error) {
     console.log(error.stack);
   }
-});
-
-router.post('/questions', async (req, res) => {
-  try {
-    const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
-      idForUnit,
-      questionInput
-    ]);
-  } catch (error) {
-    console.log(error.stack);
-  }
-  res.send('Update successful');
 });
 
 router.put('/update/:lessonID', async (req, res) => {
