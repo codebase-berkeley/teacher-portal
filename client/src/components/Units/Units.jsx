@@ -212,15 +212,17 @@ class Units extends Component {
           <div className="Unit-body">
             <h2 className="Unit-header">My Units</h2>
             <div className="Unit-boxes">
-              <button
-                className="addButton"
-                type="submit"
-                onClick={this.openModal}
-                unitName="+ Add New Unit"
-                buttonType="add"
-              >
-                +&nbsp;&nbsp;Add New Unit
-              </button>
+              {isTeacher ? (
+                <button
+                  className="addButton"
+                  type="submit"
+                  onClick={this.openModal}
+                  unitName="+ Add New Unit"
+                  buttonType="add"
+                >
+                  +&nbsp;&nbsp;Add New Unit
+                </button>
+              ) : null}
 
               {this.create(unitList, isTeacher)}
               <Modal
