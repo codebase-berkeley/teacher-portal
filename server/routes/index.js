@@ -384,19 +384,6 @@ router.post('/units', async (req, res) => {
   }
 });
 
-router.post('/questions', async (req, res) => {
-  try {
-    const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
-      idForUnit,
-      questionInput
-    ]);
-  } catch (error) {
-    console.log(error.stack);
-  }
-  res.send('Update successful');
-});
-
 router.put('/update/:lessonID', async (req, res) => {
   const { lessonID } = req.params;
   const { notes } = req.body;
