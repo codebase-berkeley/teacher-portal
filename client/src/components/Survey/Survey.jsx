@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import './Survey.css';
 import Star from './Star/Star';
 
-/** TOOD: hard-coded for now, someone fix this later */
-const studentID = 9;
-
 class Survey extends Component {
   static propTypes = {
     match: PropTypes.string.isRequired,
@@ -69,7 +66,6 @@ class Survey extends Component {
         <form method="POST" action={route} className="Questions">
           {this.displayQuestions()}
           <input type="hidden" name="unitID" value={unitID} />
-          <input type="hidden" name="studentID" value={studentID} />
           <button className="submit-button" type="submit">
             Submit
           </button>

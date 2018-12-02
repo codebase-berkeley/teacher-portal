@@ -204,7 +204,9 @@ router.get('/lessons/:unitID', async (req, res) => {
       'SELECT * FROM lessons WHERE unit_id = $1 ORDER BY id;',
       [unitID]
     );
-    res.send({ query: query.rows });
+    const userInfo = await getUsers(req, res);
+    const { is_teacher } = userInfo;
+    res.send({ query: query.rows, teacher: is_teacher });
   } catch (error) {
     console.log(error.stack);
   }
@@ -295,7 +297,7 @@ router.get('/questions/:unitID', async (req, res) => {
 router.post('/questions', async (req, res) => {
   try {
     const { idForUnit, questionInput } = req.body;
-    db.query('INSERT INTO questions(unit_id, input) VALUES($1 ,$2)', [
+    db.query('INSERT INTO questions(unit_id, text) VALUES($1 ,$2)', [
       idForUnit,
       questionInput
     ]);
@@ -339,10 +341,11 @@ router.post('/upload', async (req, res) => {
 
 router.post('/survey', async (req, res) => {
   const ratings = {};
-  const { unitID, studentID } = req.body;
+  const { unitID } = req.body;
+  const userInfo = await getUsers(req, res);
+  const studentID = userInfo.id;
   Object.keys(req.body).forEach(key => {
-    // eslint-disable-next-line no-restricted-globals
-    if (!isNaN(parseInt(key, 10))) {
+    if (!Number.isNaN(parseInt(key, 10))) {
       ratings[parseInt(key, 10)] = req.body[key];
     }
   });
@@ -364,7 +367,7 @@ router.post('/survey', async (req, res) => {
       [q, unitID, ratings[q], year]
     );
   });
-  res.send('Update successful');
+  res.redirect('/');
 });
 
 router.post('/units', async (req, res) => {
