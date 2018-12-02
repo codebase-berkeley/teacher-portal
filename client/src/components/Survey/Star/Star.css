@@ -53,8 +53,9 @@
   background-color: #f7f7f7;
 }
 .form-radio:checked {
-  background-color: #f1f1f1;
+  background-color: #fed766;
 }
+
 .rating {
   font: 300 16px/1.7 'Open Sans', sans-serif;
   color: #666;
