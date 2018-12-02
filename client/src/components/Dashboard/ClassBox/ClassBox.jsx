@@ -272,7 +272,6 @@ class ClassBox extends Component {
           </Modal>
         </div>
 
-
         {isTeacher ? (
           <button
             type="button"

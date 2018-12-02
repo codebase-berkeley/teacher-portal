@@ -98,7 +98,6 @@ class Unitbox extends Component {
           </button>
         ) : null}
 
-
         <NavLink to={route} className="unitbox">
           <div>{unitName}</div>
         </NavLink>
