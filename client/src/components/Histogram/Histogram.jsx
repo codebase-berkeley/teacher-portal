@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
 import Chart from 'chart.js';
+import Logout from '../Logout/Logout';
 import './Histogram.css';
 
 ReactChartkick.addAdapter(Chart);
@@ -86,6 +87,7 @@ export default class Histogram extends Component {
     const { columnCharts } = this.state;
     return (
       <div className="histogram">
+        <Logout />
         <button type="button" className="Return" onClick={this.handleGoBack}>
           &#8592; Return to Lessons
         </button>
