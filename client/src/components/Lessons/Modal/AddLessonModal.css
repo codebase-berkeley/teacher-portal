@@ -61,17 +61,19 @@
 }
 
 .m_button {
+  font-family: 'Open Sans', sans-serif;
   background-color: #f9d778;
-  width: 120px;
-  height: 50px;
+  width: 80px;
+  height: 45px;
   border: none;
   border-radius: 5px;
   text-align: center;
-  vertical-align: middle;
-  line-height: 50px;
-  font-size: 18px;
-  margin: 0 20px;
+  font-size: 16px;
+  margin: 0 40px;
   cursor: pointer;
+}
+.m_button:hover {
+  background-color: #fdca21dc;
 }
 
 .active_drag {

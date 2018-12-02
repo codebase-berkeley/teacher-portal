@@ -278,13 +278,13 @@ class ClassBox extends Component {
             className="add-new-students"
             onClick={this.handleShowModal}
           >
-            + Add New Students
+            +&nbsp;&nbsp;Add New Students
           </button>
         ) : null}
 
         {isTeacher ? (
           <button className="class-exit" type="button" onClick={this.openModal}>
-            &#10005;
+            &#10006;
           </button>
         ) : null}
 

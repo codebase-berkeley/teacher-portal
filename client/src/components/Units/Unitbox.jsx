@@ -94,7 +94,7 @@ class Unitbox extends Component {
         </div>
         {isTeacher ? (
           <button className="unit-exit" type="button" onClick={this.openModal}>
-            &#10005;
+            &#10006;
           </button>
         ) : null}
 
