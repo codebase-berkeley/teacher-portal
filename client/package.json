@@ -22,14 +22,17 @@
     "react-dropzone": "^7.0.1",
     "react-modal": "^3.6.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "snyk": "^1.189.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "npm run lint",
     "eject": "react-app-rewired eject",
-    "lint": "eslint --ext .jsx --ext .js . && stylelint \"**/*.css\""
+    "lint": "eslint --ext .jsx --ext .js . && stylelint \"**/*.css\"",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "prettier": "^1.14.3",
@@ -45,5 +48,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
